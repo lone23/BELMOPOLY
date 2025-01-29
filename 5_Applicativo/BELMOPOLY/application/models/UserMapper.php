@@ -61,4 +61,12 @@ class UserMapper
 
     }
 
+
+    public function registraUtente($email,$username, $password){
+
+        
+
+
+    }
+
 }

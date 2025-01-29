@@ -1,6 +1,6 @@
 <br>
 <div>
-    Copyright alanking
+    Copyright BELMOPOLY
 </div>
 
 </body>
