@@ -11,3 +11,4 @@ define('HOST', "localhost");
 define('USER', "root");
 define('PASSWORD', "");
 define('DATABASE',"BELMOPOLY");
+define('PORT','3306');

@@ -37,9 +37,9 @@ class Application
 
         }else {
 
-            require './application/controller/home.php';
-            $home = new home();
-            $home->index();
+            require './application/controller/autenticazione.php';
+            $login = new Autenticazione();
+            $login->login();
         }
     }
 
