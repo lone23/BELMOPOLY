@@ -1,0 +1,67 @@
+:root{
+    --backgound-color:#10002B;
+    --text-color:#E0AAFF;
+    --cell-color:#31005A;
+    --cell-hover-color:#45007F;
+}
+
+@font-face {
+    font-family: basic;
+    src: url(Basic.otf);
+}
+
+body{
+    font-family: basic;
+    background-color: var(--backgound-color);
+}
+
+.board{
+    border-collapse: collapse;
+    color: var(--text-color);
+    user-select: none;
+}
+
+tr, td{
+    width: 2vw ;
+    height: 2vw; 
+    background-color: var(--cell-color);
+
+}
+
+p{
+    margin: 0;
+    font-size: 0.9vw;
+}
+
+td{
+    text-align: center;
+    outline:solid var(--text-color) 0.15vw;
+}
+
+td:hover{
+    background-color: var(--cell-hover-color);
+}
+
+.schema{
+
+}
+
+
+.left{
+    transform: rotate(90deg);
+}
+.right{
+    transform: rotate(-90deg);
+}
+.top{
+    transform: rotate(180deg);
+}
+
+.brown{
+    background-color: rgb(153, 87, 0);
+    
+}
+.cyan{
+    background-color: rgb(0, 166, 196);
+}
+  
