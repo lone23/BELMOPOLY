@@ -1,0 +1,11 @@
+{
+    "autoload": {
+        "psr-4": {
+            "libs\\": "application/libs/",
+            "models\\": "application/models/"
+        },
+        "classmap": [
+            "application/libs/",
+            "application/models/"]
+    }
+}

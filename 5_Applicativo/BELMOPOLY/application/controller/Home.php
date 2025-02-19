@@ -1,17 +1,18 @@
 <?php
-
 class home
 {
 
     public function controlloLogin(){
+        require_once '.\application\controller\autenticazione.php';
+
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         if(!isset($_SESSION["isAuthenticated"])){
 
             $autenticazione = new autenticazione();
-
             $autenticazione->login();
+
             return false;
         }else{
             return true;
@@ -21,7 +22,6 @@ class home
 
     public function index(){
 
-    require_once './application/controller/autenticazione.php';
 
         if($this->controlloLogin()) {
             require './application/views/templates/header.php';

@@ -1,5 +1,4 @@
 <?php
-
 class MappaturaErrori
 {
 
@@ -9,7 +8,7 @@ class MappaturaErrori
 
     }
 
-    public function ErrorPagen404()
+    public function ErrorPage404()
     {
         require 'application/views/error/404.php';
     }

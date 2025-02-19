@@ -1,5 +1,6 @@
 <?php
 
+
 class autenticazione
 {
 
@@ -24,8 +25,6 @@ class autenticazione
 
         $_SESSION["ControlloLogin"] = "";
 
-        require_once './application/models/AutenticazioneUtenti.php';
-
         $email = $_POST['email'];
         $password = $_POST['password'];
 
@@ -36,11 +35,11 @@ class autenticazione
             $this->login();
         }else{
 
-            $AutenticazioneUtenti = new AutenticazioneUtenti();
+            $AutenticazioneUtenti = new \models\AutenticazioneUtenti();
 
             if($AutenticazioneUtenti->verificaLogin($email,$password)){
 
-                require_once './application/controller/home.php';
+                require_once './application/controller/Home.php';
                 $home = new Home();
                 $home->index();
             }else{
@@ -62,7 +61,6 @@ class autenticazione
 
     public function RegistraUtente()
     {
-        require 'application/models/AutenticazioneUtenti.php';
 
         $email = $_POST['email'];
         $username = $_POST['username'];
@@ -79,7 +77,7 @@ class autenticazione
 
             $this->registraUtenteView();
         }else{
-            $AutenticazioneUtenti = new AutenticazioneUtenti();
+            $AutenticazioneUtenti = new \models\AutenticazioneUtenti();
             if($AutenticazioneUtenti->registraUtente($email,$username,$password)){
                 $this->login();
             }else{

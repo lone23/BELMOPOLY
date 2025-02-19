@@ -1,6 +1,6 @@
 <?php
 
-
+namespace libs;
 class Database{
     
     private static $conn;
@@ -11,18 +11,16 @@ class Database{
             return self::$conn;
         } else {
             try{
-                self::$conn = new PDO('mysql: = '.HOST.'; dbname='.DATABASE.'; port='.PORT,
+                self::$conn = new \PDO('mysql: = '.HOST.'; dbname='.DATABASE.'; port='.PORT,
                     USER, PASSWORD);
-                self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                self::$conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             }
-            catch (PDOException $e){
+            catch (\PDOException $e){
                 require_once './application/controller/MappaturaErrori.php';
-
-                require_once './application/libs/logger.php';
 
                 Logger::log("ERROR -> Database errore di connessione: " . $e->getMessage());
 
-                $MappaturaErrori = new MappaturaErrori();
+                $MappaturaErrori = new \MappaturaErrori();
                 $MappaturaErrori->ConnectionErrorDatabase();
                 die();
 

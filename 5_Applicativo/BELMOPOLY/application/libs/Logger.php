@@ -1,5 +1,5 @@
 <?php
-
+namespace libs;
 class Logger
 {
     private static $logFile = './application/logs/log.txt';

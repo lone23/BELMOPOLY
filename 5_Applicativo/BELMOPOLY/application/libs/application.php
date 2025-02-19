@@ -1,5 +1,5 @@
 <?php
-
+namespace libs;
 class Application
 {
 
@@ -33,19 +33,14 @@ class Application
                 }
             }else{
                 require './application/controller/MappaturaErrori.php';
-                $MappaturaErrori = new MappaturaErrori();
-                $MappaturaErrori->ErrorPagen404();
+                $MappaturaErrori = new \MappaturaErrori();
+                $MappaturaErrori->ErrorPage404();
             }
 
         }else {
-
             require './application/controller/home.php';
-            $home = new Home();
+            $home = new \Home();
             $home->index();
-
-
-
-
         }
     }
 
