@@ -21,6 +21,8 @@ class home
 
     public function index(){
 
+    require_once './application/controller/autenticazione.php';
+
         if($this->controlloLogin()) {
             require './application/views/templates/header.php';
             require 'application/views/home/index.php';

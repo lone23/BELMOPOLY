@@ -3,6 +3,8 @@
 class autenticazione
 {
 
+
+
     public function logout(){
 
         if (session_status() == PHP_SESSION_NONE) {

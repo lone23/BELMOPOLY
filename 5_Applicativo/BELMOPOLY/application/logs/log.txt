@@ -4,3 +4,21 @@
 [2025-02-19 10:38:53] - INFO -> utente ciao@gmail.com autenticato con successo
 [2025-02-19 10:39:02] - INFO -> utente ciao@gmail.com autenticato con successo
 [2025-02-19 10:39:33] - INFO -> registrazione utente ciao2@gmail.com effettuata con successo
+[2025-02-19 11:18:54] - INFO -> utente ciao@gmail.com autenticato con successo
+[2025-02-19 11:34:38] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+[2025-02-19 11:34:56] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+[2025-02-19 11:34:57] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+[2025-02-19 11:35:07] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+[2025-02-19 11:35:17] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+[2025-02-19 11:35:25] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+[2025-02-19 12:30:37] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+[2025-02-19 12:30:52] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+[2025-02-19 12:30:56] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+[2025-02-19 12:30:57] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+[2025-02-19 12:31:12] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+[2025-02-19 12:31:14] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+[2025-02-19 12:31:30] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+[2025-02-19 12:31:44] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+[2025-02-19 12:31:47] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+[2025-02-19 12:32:28] - Tentativo di login fallito per email: sdsd
+[2025-02-19 12:33:01] - INFO -> utente ciao@gmail.com autenticato con successo

@@ -7,8 +7,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f8d7da;
-            color: #721c24;
+            background-color: rgb(49,0,90);
+            color: rgb(157,78,221);
             margin: 0;
             padding: 0;
             height: 100vh;
@@ -18,8 +18,8 @@
         }
         .error-container {
             text-align: center;
-            background-color: #f8d7da;
-            border: 1px solid #f5c6cb;
+            background-color: rgb(49,0,90);
+            border: 1px solid rgb(49,0,90);
             padding: 20px;
             border-radius: 8px;
             width: 90%;
@@ -32,9 +32,9 @@
             font-size: 18px;
         }
         .retry-button {
-            background-color: #f5c6cb;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            color: white;
+            background-color:rgb(157,78,221);
+            border: 1px solid rgb(49,0,90);
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
@@ -43,7 +43,8 @@
             margin-top: 20px;
         }
         .retry-button:hover {
-            background-color: #f1b0b7;
+            color: white;
+            background-color:rgb(157,78,221);
         }
     </style>
 </head>

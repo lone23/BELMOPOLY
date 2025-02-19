@@ -32,14 +32,20 @@ class Application
                     $this->url_controller->{$this->url_action}();
                 }
             }else{
-                $this->url_controller->index();
+                require './application/controller/MappaturaErrori.php';
+                $MappaturaErrori = new MappaturaErrori();
+                $MappaturaErrori->ErrorPagen404();
             }
 
         }else {
 
-            require './application/controller/autenticazione.php';
-            $login = new Autenticazione();
-            $login->login();
+            require './application/controller/home.php';
+            $home = new Home();
+            $home->index();
+
+
+
+
         }
     }
 
