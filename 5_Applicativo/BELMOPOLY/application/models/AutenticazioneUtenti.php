@@ -11,52 +11,42 @@ class AutenticazioneUtenti
         $this->conn = Database::getConnection();
     }
 
-    public function verificaLogin($email,$password){
-
+    public function verificaLogin($email, $password)
+    {
+        require_once './application/libs/logger.php';
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
 
+        try {
+            $sth = $this->conn->prepare('SELECT password FROM utenti WHERE email = :email');
+            $sth->bindValue(':email', $email);
+            $sth->execute();
 
+            $passwordHash = $sth->fetchColumn();
 
+            if ($passwordHash && password_verify($password, $passwordHash)) {
+                Logger::log("INFO -> utente ".$email." autenticato con successo");
 
-        $sth = $this->conn->prepare('SELECT password from utenti where email = :email');
-        $sth->bindValue(':email', $email);
-        $sth->execute();
-        while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
-            $passwordHash = $row["password"];
-        }
+                $_SESSION['email'] = $email;
+                $_SESSION["isAuthenticated"] = true;
+                return true;
+            } else {
+                $_SESSION["ControlloLogin"] = "Email o password errata";
+                Logger::log("Tentativo di login fallito per email: $email");
+                return false;
+            }
+        } catch (Exception $e) {
 
-        if(password_verify($password, $passwordHash)){
-
-                $sth = $this->conn->prepare('SELECT * from utenti where email = :email');
-                $sth->bindValue(':email', $email);
-                $sth->execute();
-
-                while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
-
-                    $_SESSION['email'] = $row['email'];
-                    $_SESSION["username"] = $row['username'];
-                    $_SESSION["isAuthenticated"] = true;
-                    $_SESSION["ControlloLogin"] = "";
-
-                    return true;
-
-
-
-                }
-        }else{
-            $_SESSION["ControlloLogin"] = "Password o email non corretta";
-
+            Logger::log("ERROR -> Errore verificaLogin: " . $e->getMessage());
             return false;
         }
-
     }
 
 
     public function registraUtente($email, $username, $password) {
+        require_once './application/libs/logger.php';
 
-        // Regex per email, username e password
         $regexEmail = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/';
         $regexPassword = '/^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/';
         $regexUsername = '/^[a-zA-Z0-9]{1,20}$/';
@@ -117,19 +107,29 @@ class AutenticazioneUtenti
             return false;
         }
 
+        try{
+            $password = password_hash($password, PASSWORD_BCRYPT);
 
-        $password = password_hash($password, PASSWORD_BCRYPT);
+
+            $sth = $this->conn->prepare("INSERT INTO utenti (email, username, password) VALUES (:email, :username, :password)");
+
+            $sth->bindValue(':email', $email);
+            $sth->bindValue(':username', $username);
+            $sth->bindValue(':password', $password);
+
+            $sth->execute();
+
+            Logger::log("INFO -> registrazione utente ".$email." effettuata con successo");
+            return true;
+        }catch(PDOException $e){
 
 
-        $sth = $this->conn->prepare("INSERT INTO utenti (email, username, password) VALUES (:email, :username, :password)");
+            Logger::log("ERROR -> Errore registrazione utente: ".$e->getMessage());
+            $_SESSION["ControlloRegister"] = "Registrazione utente non riuscita contatta un amministratore";
+            return false;
 
-        $sth->bindValue(':email', $email);
-        $sth->bindValue(':username', $username);
-        $sth->bindValue(':password', $password);
+        }
 
-        $sth->execute();
-
-        return true;
     }
 
 

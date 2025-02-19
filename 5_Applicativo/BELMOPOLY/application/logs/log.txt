@@ -1,0 +1,6 @@
+[2025-02-19 10:34:41] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+[2025-02-19 10:35:05] - INFO -> utente ciao@gmail.com autenticato con successo
+[2025-02-19 10:35:12] - INFO -> utente ciao@gmail.com autenticato con successo
+[2025-02-19 10:38:53] - INFO -> utente ciao@gmail.com autenticato con successo
+[2025-02-19 10:39:02] - INFO -> utente ciao@gmail.com autenticato con successo
+[2025-02-19 10:39:33] - INFO -> registrazione utente ciao2@gmail.com effettuata con successo

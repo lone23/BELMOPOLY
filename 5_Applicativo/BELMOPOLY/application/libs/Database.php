@@ -18,6 +18,10 @@ class Database{
             catch (PDOException $e){
                 require_once './application/controller/MappaturaErrori.php';
 
+                require_once './application/libs/logger.php';
+
+                Logger::log("ERROR -> Database errore di connessione: " . $e->getMessage());
+
                 $MappaturaErrori = new MappaturaErrori();
                 $MappaturaErrori->ConnectionErrorDatabase();
                 die();
