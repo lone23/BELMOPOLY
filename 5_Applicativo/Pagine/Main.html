@@ -7,23 +7,20 @@
     <title>Main Page</title>
 </head>
 <body>
-    <center>
-        <div class="belmopoly">Belmopoly</div>
+    <div class="container">
+        <img src="../Images/account.png" alt="account" class="account">
+        <img src="../Images/friends.png" alt="friends" class="friends">
+        <div class="belmopoly">BELMOPOLY</div>
+        <div onclick="startNewGame()" class="button">NEW GAME</div>
         <br>
-        <div onclick="startNewGame()" class="button-1">NEW GAME</div>
+        <div class="button">CONTINUE</div>
         <br>
-        <br>
-        <div class="button-1">CONTINUE</div>
-        <br>
-        <br>
-        <div class="button-1">CHARACTER</div>
-    </center>
-
+        <div class="button">CHARACTER</div>
     <script>
         function startNewGame() {
             window.location.href = "CreazioneRoom.html";
         }
     </script>
-
+    </div>
 </body>
 </html>
