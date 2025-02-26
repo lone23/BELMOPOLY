@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../Styles/index.css">
+    <script src="../JavaScript/index.js"></script>
     <title>Main Page</title>
 </head>
 <body>
@@ -11,16 +12,11 @@
         <img src="../Images/account.png" alt="account" class="account">
         <img src="../Images/friends.png" alt="friends" class="friends">
         <div class="belmopoly">BELMOPOLY</div>
-        <div onclick="startNewGame()" class="button">NEW GAME</div>
+        <div onclick="goToPage('CreazioneRoom')" class="button">NEW GAME</div>
         <br>
         <div class="button">CONTINUE</div>
         <br>
         <div class="button">CHARACTER</div>
-    <script>
-        function startNewGame() {
-            window.location.href = "CreazioneRoom.html";
-        }
-    </script>
     </div>
 </body>
 </html>
