@@ -2,38 +2,21 @@
 class home
 {
 
-    public function controlloLogin(){
-        require_once '.\application\controller\autenticazione.php';
-
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-        if(!isset($_SESSION["isAuthenticated"])){
-
-            $autenticazione = new autenticazione();
-            $autenticazione->login();
-
-            return false;
-        }else{
-            return true;
-        }
-    }
 
 
     public function index(){
+    require_once "./application/controller/autenticazione.php";
+    require_once "./application/controller/GestioneAccount.php";
+        $autenticazione = new autenticazione();
 
+        if($autenticazione->controlloLogin()) {
 
-        if($this->controlloLogin()) {
-            require './application/views/templates/header.php';
-            require 'application/views/home/index.php';
-            require './application/views/templates/footer.php';
+            $GesionteAccount = new GestioneAccount();
+            $GesionteAccount->mostraRichiesteAmicizia();
+
         }
     }
 
-    public function prova(){
-        require 'application/views/MainPage/index.php';
-
-    }
 
 
 

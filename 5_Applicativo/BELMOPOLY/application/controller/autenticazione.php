@@ -5,6 +5,22 @@ class autenticazione
 {
 
 
+    public function controlloLogin(){
+
+
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if(!isset($_SESSION["isAuthenticated"])){
+
+            $this->login();
+
+            return false;
+        }else{
+            return true;
+        }
+    }
+
 
     public function logout(){
 

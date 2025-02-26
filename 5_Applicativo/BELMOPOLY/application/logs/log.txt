@@ -30,3 +30,33 @@
 [2025-02-19 15:32:20] - INFO -> Utente ciao@gmail.com autenticato con successo
 [2025-02-19 15:32:31] - INFO -> Utente ciao@gmail.com autenticato con successo
 [2025-02-19 15:35:04] - INFO -> Utente ciao@gmail.com autenticato con successo
+[2025-02-26 08:59:50] - Tentativo di login fallito per email: utente1@gmail.com
+[2025-02-26 09:00:04] - Tentativo di login fallito per email: utente1@gmail.com
+[2025-02-26 09:01:27] - Tentativo di login fallito per email: utente1@gmail.com
+[2025-02-26 09:01:47] - Tentativo di login fallito per email: utente1@gmail.com
+[2025-02-26 09:01:55] - Tentativo di login fallito per email: utente1@gmail.com
+[2025-02-26 09:21:45] - INFO -> Utente ciao@gmail.com autenticato con successo
+[2025-02-26 09:23:10] - Tentativo di amicizia fallito per username non esistente: sadasdasd
+[2025-02-26 09:35:31] - Tentativo di amicizia fallito per username non esistente: sadasdasd
+[2025-02-26 13:30:47] - Tentativo di login fallito per email: ciao2@gmail.com
+[2025-02-26 13:31:16] - INFO -> Utente ciao2@gmail.com autenticato con successo
+[2025-02-26 13:33:20] - INFO -> registrazione utente ciao3@gmail.com effettuata con successo
+[2025-02-26 13:33:33] - INFO -> Utente ciao3@gmail.com autenticato con successo
+[2025-02-26 13:35:40] - INFO -> Richiesta di amicizia inviata correttamente da ciao3 a ciao2
+[2025-02-26 13:35:53] - INFO -> Utente ciao2@gmail.com autenticato con successo
+[2025-02-26 13:50:04] - INFO -> Utente ciao2@gmail.com autenticato con successo
+[2025-02-26 13:54:44] - INFO -> Utente ciao2@gmail.com autenticato con successo
+[2025-02-26 13:57:14] - INFO -> Richiesta di amicizia inviata correttamente da ciao2 a ciao
+[2025-02-26 13:57:21] - Tentativo di login fallito per email: ciao2@gmail.com
+[2025-02-26 13:57:29] - INFO -> Utente ciao@gmail.com autenticato con successo
+[2025-02-26 14:28:21] - WARN -> Tentativo di amicizia fallito: uno o entrambi gli username non esistono (ciao, sdsd)
+[2025-02-26 14:28:39] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+[2025-02-26 14:28:54] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+[2025-02-26 14:29:25] - WARN -> Tentativo di amicizia fallito: uno o entrambi gli username non esistono (ciao, sdsd)
+[2025-02-26 14:30:46] - INFO -> Richiesta di amicizia inviata correttamente da ciao a ciao2
+[2025-02-26 14:30:55] - Tentativo di login fallito per email: ciao2@gmail.com
+[2025-02-26 14:31:03] - INFO -> Utente ciao2@gmail.com autenticato con successo
+[2025-02-26 14:49:34] - INFO -> Rifiuto di amicizia inviata correttamente da ciao2 a ciao
+[2025-02-26 15:05:33] - INFO -> Rifiuto di amicizia inviata correttamente da ciao2 a ciao
+[2025-02-26 15:05:51] - INFO -> Richiesta di amicizia inviata correttamente da ciao2 a ciao2
+[2025-02-26 15:06:04] - INFO -> Amicizia accettata correttamente da ciao2 a ciao2

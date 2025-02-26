@@ -17,7 +17,7 @@ class AutenticazioneUtenti
         }
 
         try {
-            $sth = $this->conn->prepare('SELECT password, username FROM utenti WHERE email = :email');
+            $sth = $this->conn->prepare('SELECT password, username FROM utente WHERE email = :email');
             $sth->bindValue(':email', $email);
             $sth->execute();
 
@@ -118,7 +118,7 @@ class AutenticazioneUtenti
             $password = password_hash($password, PASSWORD_BCRYPT);
 
 
-            $sth = $this->conn->prepare("INSERT INTO utenti (email, username, password) VALUES (:email, :username, :password)");
+            $sth = $this->conn->prepare("INSERT INTO utente (email, username, password) VALUES (:email, :username, :password)");
 
             $sth->bindValue(':email', $email);
             $sth->bindValue(':username', $username);
@@ -145,7 +145,7 @@ class AutenticazioneUtenti
 
         $controllo = true;
 
-        $sth = $this->conn->prepare("SELECT username from utenti");
+        $sth = $this->conn->prepare("SELECT username from utente");
         $sth->execute();
         while ($row = $sth->fetch(\PDO::FETCH_ASSOC)) {
             if($row["username"] == $username){

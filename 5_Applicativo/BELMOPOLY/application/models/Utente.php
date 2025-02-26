@@ -1,6 +1,6 @@
 <?php
 namespace models;
-class Utenti
+class Utente
 {
     private $username;
     private $password;
@@ -9,13 +9,6 @@ class Utenti
     private $data_creazione;
 
 
-    public function __construct($username, $password, $email, $data_creazione)
-    {
-        $this->username = $username;
-        $this->password = $password;
-        $this->email = $email;
-        $this->data_creazione = $data_creazione;
-    }
 
     /**
      * @return mixed
