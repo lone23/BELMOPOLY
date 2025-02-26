@@ -1,0 +1,99 @@
+:root{
+    --backgound-color:white;
+    --border-color: #202d40;
+    --text-color:#202d40;
+    --cell-color:#aaa4a7;
+    --cell-hover-color:#999495;
+}
+
+@font-face {
+    font-family: basic;
+    src: url(Basic.otf);
+}
+
+body{
+    font-family: basic;
+    background-color: var(--backgound-color);
+}
+
+.board{
+    border-collapse: collapse;
+    color: var(--text-color);
+    user-select: none;
+}
+
+tr, td{
+    width: 2vw ;
+    height: 2vw; 
+    background-color: var(--cell-color);
+
+}
+
+p{
+    margin: 0;
+    font-size: 0.62vw;
+}
+
+td{
+    text-align: center;
+    outline:solid var(--text-color) 0.15vw;
+}
+
+td:hover{
+    background-color: var(--cell-hover-color);
+}
+
+.schema{
+ visibility: hidden;
+}
+
+
+.left{
+    transform: rotate(90deg);
+}
+.right{
+    transform: rotate(-90deg);
+}
+.top{
+    transform: rotate(180deg);
+}
+
+.brown{
+    background-color: rgb(153, 87, 0);
+    
+}
+.cyan{
+    background-color: rgb(0, 166, 196);
+}
+
+.magenta{
+    background-color: magenta;
+}
+
+.orange{
+    background-color: orange;
+}
+
+.red{
+    background-color: red;
+}
+
+.yellow{
+    background-color: yellow;
+}
+
+.green{
+    background-color: green;
+}
+
+.blue{
+    background-color: blue;
+}
+
+.gray{
+    background-color: #333;
+    color: rgb(204, 200, 200);
+}
+
+
+  
