@@ -24,7 +24,6 @@ class GestioneUtenti
 
         if (!isset($ids[$usernameUtente]) || !isset($ids[$UsernameAmico])) {
             \libs\Logger::log("WARN -> Tentativo di amicizia fallito: uno o entrambi gli username non esistono ({$usernameUtente}, {$UsernameAmico})");
-            $_SESSION['ControlloAmico'] = "Username non esistente";
         }
 
 
@@ -86,7 +85,6 @@ class GestioneUtenti
             \libs\Logger::log("INFO -> Amicizia accettata correttamente da {$usernameUtente} a {$usernameAmico}");
         }catch (\PDOException $e){
             \libs\Logger::log("WARN -> Tentativo di accettare l'amicizia fallito: {$e->getMessage()}");
-            $_SESSION["ControlloAmico"] = "Username non valido";
         }
     }
 
@@ -107,7 +105,6 @@ class GestioneUtenti
             \libs\Logger::log("INFO -> Rifiuto di amicizia inviata correttamente da {$usernameUtente} a {$usernameAmico}");
         }catch (\PDOException $e){
             \libs\Logger::log("WARN -> Tentativo di rifiuto amicizia fallito: {$e->getMessage()}");
-            $_SESSION["ControlloAmico"] = "Username non valido";
         }
 
     }
