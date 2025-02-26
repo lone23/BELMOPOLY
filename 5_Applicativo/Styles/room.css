@@ -1,0 +1,8 @@
+.players {
+	height: 36vw;
+	display:block;
+	background-color: var(--cell-color);
+	border-left: 0.3vw solid var(--border-color);
+	border-right: 0.3vw solid var(--border-color);
+    width: 40vw;
+}

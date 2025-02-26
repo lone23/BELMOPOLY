@@ -1,20 +1,31 @@
 
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<?php echo URL?>application/views/login/style.css">
+    <link rel="stylesheet" href="<?php echo URL?>application/views/login/styleLogin.css">
+    <title>Login</title>
 </head>
+<body>
+<div class="container">
+    <div class="main">
+        <div class="buttons">
+            <div class="selector selected">LOGIN</div>
+            <div class="selector" onclick="<?php echo URL; ?>autenticazione/RegistraUtenteView">SIGN UP</div>
+        </div>
+        <div class="fields">
+                <input type="text" placeholder="E-MAIL">
+                <br>
+                <input type="text" placeholder="PASSWORD">
+                <br>
+                <input type="text" style="visibility: hidden;">
+                <br>
+                <div type="submit" value="Seleziona" class="button">LOGIN</div>
+        </div>
+    </div>
 
-<form method="POST" action="<?php echo URL?>autenticazione/verificaLogin">
-    Email:    <input type="text" name="email" required><br>
-    Password: <input type="text" name="password" required><br>
-
-    <p><?php
-        if(Isset($_SESSION["ControlloLogin"])){
-            echo $_SESSION["ControlloLogin"];
-        }
-        ?></p>
-
-    <input type="submit" value="Seleziona">
-</form>
-<a href="<?php echo URL; ?>autenticazione/RegistraUtenteView">registrati</a>
-
+</div>
+</body>
+</html>

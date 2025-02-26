@@ -10,16 +10,20 @@ class GestioneAccount
 
         if($autenticazione->controlloLogin()) {
 
+            $regexUsername = '/^[a-zA-Z0-9]{1,20}$/';
             $usernameAmico = $_POST['username'];
 
-            $GesioneUtenti = new \models\GestioneUtenti();
+            if(preg_match($regexUsername, $usernameAmico)){
+                $GesioneUtenti = new \models\GestioneUtenti();
 
-            if(!$GesioneUtenti->AggiungiAmico($_SESSION['username'], $usernameAmico)){
+                $GesioneUtenti->AggiungiAmico($_SESSION['username'], $usernameAmico)
 
-                $_SESSION['ControlloAmico'] = "Username non trovato";
+
+                $home = new home();
+                $home->index();
+            }else{
+                $_SESSION["VerificaAmico"] = "Username non valido";
             }
-            $home = new home();
-            $home->index();
 
         }
     }
@@ -49,14 +53,19 @@ class GestioneAccount
         $autenticazione = new autenticazione();
 
         if($autenticazione->controlloLogin()) {
-
+            $regexUsername = '/^[a-zA-Z0-9]{1,20}$/';
             $usernameAmico = $_POST['username'];
+            if(preg_match($regexUsername, $usernameAmico)) {
 
-            $GesioneUtenti = new \models\GestioneUtenti();
+                $GesioneUtenti = new \models\GestioneUtenti();
 
-            $GesioneUtenti->accettaRichiestaAmicizia($_SESSION['username'], $usernameAmico);
+                $GesioneUtenti->accettaRichiestaAmicizia($_SESSION['username'], $usernameAmico);
 
-            $this->mostraRichiesteAmicizia();
+                $this->mostraRichiesteAmicizia();
+
+            }else{
+                $_SESSION["VerificaAmico"] = "Username non valido";
+            }
 
         }
     }
@@ -73,7 +82,7 @@ class GestioneAccount
             $amici = $GesioneUtenti->MostraAmicizia($_SESSION['username']);
 
             require './application/views/templates/header.php';
-            require 'application/views/home/index.php';
+            require 'application/views/Amici/index.php';
             require './application/views/templates/footer.php';
 
         }
@@ -93,6 +102,8 @@ class GestioneAccount
 
                 $GesioneUtenti->rifiutaRichiestaAmicizia($_SESSION['username'], $usernameAmico);
                 $this->mostraRichiesteAmicizia();
+            }else{
+                $_SESSION["VerificaAmico"] = "Username non valido";
             }
 
         }
