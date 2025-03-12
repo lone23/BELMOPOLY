@@ -18,7 +18,7 @@ class GestioneUtenti
         $sth->execute();
 
         $ids = [];
-        while ($row = $sth->fetch(\PDO::FETCH_ASSOC)) {
+        while ($row = $sth->fetch( \PDO::FETCH_ASSOC)) {
             $ids[$row['username']] = $row['id'];
         }
 

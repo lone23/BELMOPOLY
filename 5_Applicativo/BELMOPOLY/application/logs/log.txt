@@ -60,3 +60,7 @@
 [2025-02-26 15:05:33] - INFO -> Rifiuto di amicizia inviata correttamente da ciao2 a ciao
 [2025-02-26 15:05:51] - INFO -> Richiesta di amicizia inviata correttamente da ciao2 a ciao2
 [2025-02-26 15:06:04] - INFO -> Amicizia accettata correttamente da ciao2 a ciao2
+[2025-03-12 10:47:17] - Tentativo di login fallito per email: sdsd
+[2025-03-12 10:48:27] - Tentativo di login fallito per email: sdsd
+[2025-03-12 10:48:30] - Tentativo di login fallito per email: ssdsd
+[2025-03-12 10:49:22] - INFO -> Utente ciao@gmail.com autenticato con successo

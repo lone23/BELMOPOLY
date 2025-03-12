@@ -1,12 +1,12 @@
 <?php
 
-class board
+
+class Board
 {
-    public function index(){
 
+    public function index()
+    {
         require_once './application/views/tabellone/index.php';
-
     }
-
 
 }

@@ -24,7 +24,7 @@ body{
 
 tr, td{
     width: 2vw ;
-    height: 2vw; 
+    height: 2vw;
     background-color: var(--cell-color);
 
 }
@@ -60,7 +60,7 @@ td:hover{
 
 .brown{
     background-color: rgb(153, 87, 0);
-    
+
 }
 .cyan{
     background-color: rgb(0, 166, 196);
@@ -95,5 +95,3 @@ td:hover{
     color: rgb(204, 200, 200);
 }
 
-
-  

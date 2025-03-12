@@ -39,6 +39,7 @@ class autenticazione
 
     public function verificaLogin(){
 
+
         $_SESSION["ControlloLogin"] = "";
 
         $email = $_POST['email'];

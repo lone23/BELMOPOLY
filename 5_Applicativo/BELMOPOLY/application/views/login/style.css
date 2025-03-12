@@ -1,87 +1,80 @@
-:root{
-  --border-color: #202d40;
-  --background: #02151c;
-  --cell-color: #de99b6;
-  --cell-hover: #eca2b1;
-}
 
-
-body{
-  margin-top: 1vw;
-  background-color: var(--background);
-  text-align: center;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-image: url("bg2.png");
-  background-size: 100%;
-  background-position: center 0vw;
-  background-repeat: no-repeat;
-}
-
-.account{
-  padding: 1vw;
-  width: 7vw; 
-  height: auto;
-  float: left;
-}
-
-.friends{
-  padding: 1vw;
-  width: 7vw; 
-  height: auto;
-  float: right;
-}
-
-.belmopoly {
-  color: var(--border-color);
-  font-family: basic;
-  font-weight: bold;
-  font-size: 8vw;
-  text-align: center;
-}
-
-.container {
-  position: relative;
+.main{
   display: inline-block;
-  text-align: center;
-  width: 95vw;
-  height: 44vw;
-  border-radius: 2vw;
+  width: 55vw;
+  margin-top: 4vw;
+  height: 40vw;
+  border-radius: 2vw 2vw 0vw 0vw;
+}
 
+.buttons{
+  display: inline-flex;
+  padding: 0px;
+  margin: 0px;
+  width: 55vw;
+  height: 5vw;
+}
 
-  box-shadow: inset 0 3px 6px rgba(0,0,0,0.16), 0 4px 6px rgba(0,0,0,0.45);
-
-  }
-
-@font-face {
-  font-family: basic;
-  src: url(Basic.ttf);
+.button{
+  width: 15vw;
+  font-size: 2vw;
+  margin-top: 2.5vw;
 }
 
 
-.button:hover{
-  background-color: var(--cell-hover);
-}
-.button {
-  cursor: pointer;
-  display:inline-block; /*per centrare il contenuto dentro al padre*/
-  text-align: center;
-  
+
+.fields {
+  height: 42vw;
+  display:block;
   background-color: var(--cell-color);
-  width: 45vw;
+  border-left: 0.3vw solid var(--border-color);
+  border-right: 0.3vw solid var(--border-color);
+
+}
+
+.selector {
+  cursor: pointer;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+
+  background-color: var(--cell-unselected);
+  width: 100vw;
+
 
   padding: 1vw;
-  margin: 1.5vw;
+  margin: 0vw;
 
   color: var(--border-color);
   font-family: basic;
-  font-size: 3vw;
+  font-size: 2vw;
 
   border: 0.3vw solid var(--border-color);
+  border-radius: 2vw 2vw 0vw 0vw;
+
+}
+
+input[type=text] {
+  height: 4vw;
+  font-family: basic;
+  text-align: center;
+  width: 35vw;
   border-radius: 2vw;
-  box-shadow: inset 0 3px 6px rgba(0,0,0,0.16), 0 4px 6px rgba(0,0,0,0.45);
+  border: 0.3vw solid var(--border-color);
+  background-color: var(--cell-unselected);
+  margin-top: 2.5vw;
+  font-size: 2vw;
+  color: var(--border-color);
+  box-shadow: inset 0 1vw 2vw rgba(0,0,0,0.06), 0 0vw 2vw rgba(0,0,0,0.25);
+}
+
+::placeholder{
+  color: var(--border-color);
+  font-size: 2vw;
+}
+
+.selected{
+  background-color: var(--cell-color);
+  border: 0.3vw solid var(--border-color);
+  border-bottom: none;
 }

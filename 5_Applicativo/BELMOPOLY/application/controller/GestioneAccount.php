@@ -16,7 +16,7 @@ class GestioneAccount
             if(preg_match($regexUsername, $usernameAmico)){
                 $GesioneUtenti = new \models\GestioneUtenti();
 
-                $GesioneUtenti->AggiungiAmico($_SESSION['username'], $usernameAmico)
+                $GesioneUtenti->AggiungiAmico($_SESSION['username'], $usernameAmico);
 
 
                 $home = new home();
