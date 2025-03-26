@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lancio dei dadi</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+      margin: 0;
+    }
+
+    .container {
+      display: flex;
+      gap: 50px;
+      justify-content: center;
+    }
+
+    .die {
+      width: 100px;
+      height: 100px;
+      font-size: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #ffcc00;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        <div id="die1" class="die">1</div>
+        <div id="die2" class="die">1</div>
+    </div>
+    <br>
+    <center>
+     <button id="rollButton">Lancia i dadi!</button>
+    </center>
+  <script>
+    const die1 = document.getElementById('die1');
+    const die2 = document.getElementById('die2');
+    const rollButton = document.getElementById('rollButton');
+
+    function rollDice() {
+      let count = 0;
+      const maxCount = 25;  // Numero di rotazioni
+
+      // Funzione per simulare lo scorrimento dei numeri
+      const interval = setInterval(() => {
+        die1.textContent = getRandomNumber();
+        die2.textContent = getRandomNumber();
+        count++;
+
+        // Fermarsi dopo un certo numero di rotazioni
+        if (count >= maxCount) {
+          clearInterval(interval);
+          // Impostare il numero finale per ogni dado
+          die1.textContent = getRandomNumber();
+          die2.textContent = getRandomNumber();
+        }
+      }, 50);  // Ogni 100ms i numeri cambiano
+    }
+
+    // Funzione per ottenere un numero casuale tra 1 e 6
+    function getRandomNumber() {
+      return Math.floor(Math.random() * 6) + 1;
+    }
+
+    rollButton.addEventListener('click', rollDice);
+  </script>
+</body>
+</html>
