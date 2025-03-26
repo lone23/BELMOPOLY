@@ -12,6 +12,7 @@
 }
 
 body{
+    border-collapse: collapse;
     font-family: basic;
     background-color: var(--backgound-color);
 }

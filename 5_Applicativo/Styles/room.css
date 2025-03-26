@@ -6,7 +6,8 @@
 
 .players {
 	height: 40vw;
-	display: inline-block;
+	display: flex;
+    flex-direction: column;
 	background-color: var(--cell-color);
 	border: 0.3vw solid var(--border-color);
     width: 45vw;
@@ -26,6 +27,16 @@
 	display: flex;
     flex-direction: column;
 }
+
+.line {
+	margin-bottom: 2vw;
+	margin-left: 5vw;
+	margin-top: 4vw;
+	display: flex; 
+    justify-content: space-between;
+	width: 35vw;
+}
+
 .button {
 	width: 35vw;
 	padding: 0vw;
@@ -33,10 +44,20 @@
 }
 
 .invite {
+	background-color: var(--cell-color);
+	width: 8vw;
+	font-size: 1.5vw;
+	padding: 1vw;
 	border: 0.3vw solid var(--border-color);
+	border-radius: 2vw;
+}
+
+.icon {
+	width: 10vw;
 }
 
 .user {
+	background-color: var(--cell-hover);
 	display: flex; /* Enables flexbox */
     justify-content: space-between;
 	color: var(--border-color);
@@ -44,6 +65,6 @@
   	font-size: 2vw;
 	border: 0.3vw solid var(--border-color);
 	border-radius: 2vw;
-	padding: 1vw;
 	margin-top: 1vw;
+	padding: 0.8vw;
 }
