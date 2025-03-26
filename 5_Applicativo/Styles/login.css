@@ -57,6 +57,7 @@
 input[type=text], input[type=password] {
 	height: 4vw;
 	font-family: basic;
+	font-weight: bold;
 	text-align: center;
 	width: 35vw;
 	border-radius: 2vw;
