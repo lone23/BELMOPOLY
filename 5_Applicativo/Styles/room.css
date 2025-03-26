@@ -1,8 +1,49 @@
+.content {
+	margin-top: 5vw;
+	display: flex; /* Enables flexbox */
+    justify-content: space-between;
+}
+
 .players {
-	height: 36vw;
-	display:block;
+	height: 40vw;
+	display: inline-block;
 	background-color: var(--cell-color);
-	border-left: 0.3vw solid var(--border-color);
-	border-right: 0.3vw solid var(--border-color);
-    width: 40vw;
+	border: 0.3vw solid var(--border-color);
+    width: 45vw;
+	border-radius: 2vw;
+}
+.list {
+	height: 34vw;
+	display: inline-block;
+	background-color: var(--cell-color);
+	border: 0.3vw solid var(--border-color);
+    width: 35vw;
+	border-radius: 2vw;
+	margin-right: 5vw;
+	overflow: auto;
+}
+.right {
+	display: flex;
+    flex-direction: column;
+}
+.button {
+	width: 35vw;
+	padding: 0vw;
+	margin: 1vw 0vw;
+}
+
+.invite {
+	border: 0.3vw solid var(--border-color);
+}
+
+.user {
+	display: flex; /* Enables flexbox */
+    justify-content: space-between;
+	color: var(--border-color);
+	font-family: basic;
+  	font-size: 2vw;
+	border: 0.3vw solid var(--border-color);
+	border-radius: 2vw;
+	padding: 1vw;
+	margin-top: 1vw;
 }

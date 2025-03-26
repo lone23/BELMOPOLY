@@ -169,8 +169,7 @@
             <td colspan="2" class="brown"><p>60$</p></td>
             <td colspan="3" rowspan="3" id="go-cell" style="position: relative;">
                 <p style="transform: rotate(-45deg); font-size: 2vw;">GO!</p>
-                <div id="pedina" style="position: absolute; margin:1vw; transform: translate(-50%, -50%); width: 1.5vw; height: 1.5vw; background-color: red; border-radius: 50%;
-
+                <div id="pedina"></div>
             </td>
 
             <td class="schema"></td>
@@ -189,7 +188,9 @@
         </tr>
     </div>
 </table>
-<button onclick="tiraDadi()">Tira i dadi</button>
+<button id="dadi" onclick="tiraDadi()">Tira i dadi</button>
+<h1 id="risultato">0</h1>
+<h1 id="evento">sei sulla casella GO!</h1>
 <script>
     // Array delle celle del tabellone
     const celle = [
@@ -201,23 +202,43 @@
 
     let posizionePedina = 0; // Posizione iniziale della pedina (GO!)
 
+    let passi;
+    let intervalAnim;
+
     function tiraDadi() {
+        document.getElementById("dadi").disabled = true;
         const risultatoDadi = Math.floor(Math.random() * 6) + 1; // Simula un tiro di dadi (1-6)
-        muoviPedina(risultatoDadi);
+        console.log(risultatoDadi, posizionePedina);
+        document.getElementById("risultato").innerHTML = risultatoDadi;
+        passi = risultatoDadi;
+        intervalAnim = setInterval(muoviPedina, 500);
     }
 
-    function muoviPedina(passi) {
+    function muoviPedina() {
+
         // Rimuovi la pedina dalla cella corrente
         const cellaCorrente = document.getElementById(celle[posizionePedina]);
         cellaCorrente.querySelector("#pedina").remove();
 
         // Calcola la nuova posizione
-        posizionePedina = (posizionePedina + passi) % celle.length;
+        if (passi > 0){
+            posizionePedina = (posizionePedina + 1) % celle.length;
+            passi --;
+        } else {
+            let cella = document.getElementById(celle[posizionePedina]);
+            let testo = cella.querySelector("p").textContent;
+            clearInterval(intervalAnim);
+            document.getElementById("dadi").disabled = false;
+            document.getElementById("evento").innerHTML = "SEI SULLA CASELLA " + testo;
+
+        }
+
 
         // Aggiungi la pedina alla nuova cella
         const nuovaCella = document.getElementById(celle[posizionePedina]);
-        nuovaCella.innerHTML += '<div id="pedina" style="position: absolute; margin:1vw; transform: translate(-50%, -50%); width: 1.5vw; height: 1.5vw; background-color: red; border-radius: 50%;"></div>';
+        nuovaCella.innerHTML += '<div id="pedina"></div>';
     }
+
 </script>
 </body>
 </html>
