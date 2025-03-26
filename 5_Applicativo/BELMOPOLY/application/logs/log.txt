@@ -117,3 +117,14 @@
 [2025-03-26 13:01:46] - INFO -> Amicizia accettata correttamente da admin a admin
 [2025-03-26 13:01:50] - INFO -> Amicizia tra admin e admin eliminata correttamente
 [2025-03-26 13:03:51] - WARNING -> Nessuna amicizia trovata tra admin e admin
+[2025-03-26 13:49:05] - INFO -> registrazione utente mark.iljins@icloud.com effettuata con successo
+[2025-03-26 13:49:10] - INFO -> Utente mark.iljins@icloud.com autenticato con successo
+[2025-03-26 13:49:16] - INFO -> Richiesta di amicizia inviata correttamente da Jombo a dfdf
+[2025-03-26 13:50:23] - INFO -> Utente alex.gilardi@samtrevano.ch autenticato con successo
+[2025-03-26 13:50:58] - INFO -> Amicizia accettata correttamente da dfdf a Jombo
+[2025-03-26 14:14:53] - INFO -> Utente mark.iljins@icloud.com autenticato con successo
+[2025-03-26 14:16:34] - INFO -> Utente alex.gilardi@samtrevano.ch autenticato con successo
+[2025-03-26 14:18:12] - Tentativo di login fallito per email: alex.gilardi@samtrevano.ch
+[2025-03-26 14:18:16] - Tentativo di login fallito per email: alex.gilardi@samtrevano.ch
+[2025-03-26 14:18:32] - INFO -> registrazione utente alex.gilardi@samtrevano.ch effettuata con successo
+[2025-03-26 14:56:54] - INFO -> Utente alex.gilardi@samtrevano.ch autenticato con successo
