@@ -17,7 +17,6 @@ body{
 }
 
 .board{
-    border-collapse: collapse;
     color: var(--text-color);
     user-select: none;
 }
@@ -26,7 +25,6 @@ tr, td{
     width: 2vw ;
     height: 2vw;
     background-color: var(--cell-color);
-
 }
 
 p{
@@ -37,6 +35,18 @@ p{
 td{
     text-align: center;
     outline:solid var(--text-color) 0.15vw;
+    position: relative;
+}
+
+#pedina {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1.5vw;
+    height: 1.5vw;
+    background-color: rgba(255,0,0,0.7);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
 }
 
 td:hover{
