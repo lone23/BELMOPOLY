@@ -34,7 +34,6 @@ class autenticazione
 
     public function login(){
         require 'application/views/login/index.php';
-        require  './application/views/templates/footer.php';
     }
 
     public function verificaLogin(){
@@ -71,7 +70,6 @@ class autenticazione
     public function RegistraUtenteView()
     {
         require 'application/views/register/index.php';
-        require  './application/views/templates/footer.php';
 
     }
 

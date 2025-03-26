@@ -64,3 +64,56 @@
 [2025-03-12 10:48:27] - Tentativo di login fallito per email: sdsd
 [2025-03-12 10:48:30] - Tentativo di login fallito per email: ssdsd
 [2025-03-12 10:49:22] - INFO -> Utente ciao@gmail.com autenticato con successo
+[2025-03-26 08:52:06] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [1049] Unknown database 'belmopoly'
+[2025-03-26 09:25:45] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [1049] Unknown database 'belmopoly'
+[2025-03-26 09:37:52] - INFO -> registrazione utente admin@gmail.com effettuata con successo
+[2025-03-26 09:38:07] - INFO -> Utente admin@gmail.com autenticato con successo
+[2025-03-26 09:38:07] - ERROR -> Tentativo di mostrare le richieste di amicizia fallito: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'belmopoly.amico' doesn't exist
+[2025-03-26 09:39:44] - INFO -> Utente admin@gmail.com autenticato con successo
+[2025-03-26 09:39:44] - ERROR -> Tentativo di mostrare le richieste di amicizia fallito: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'a.mandante' in 'on clause'
+[2025-03-26 09:41:31] - INFO -> Utente admin@gmail.com autenticato con successo
+[2025-03-26 09:42:45] - INFO -> registrazione utente alan@gmail.com effettuata con successo
+[2025-03-26 09:42:54] - INFO -> Utente alan@gmail.com autenticato con successo
+[2025-03-26 09:42:58] - INFO -> Richiesta di amicizia inviata correttamente da alan a admin
+[2025-03-26 09:43:07] - INFO -> Utente admin@gmail.com autenticato con successo
+[2025-03-26 09:43:13] - INFO -> Amicizia accettata correttamente da admin a alan
+[2025-03-26 09:43:54] - INFO -> Rifiuto di amicizia inviata correttamente da admin a alan
+[2025-03-26 10:18:34] - INFO -> Richiesta di amicizia inviata correttamente da admin a admin
+[2025-03-26 10:18:47] - INFO -> Utente admin@gmail.com autenticato con successo
+[2025-03-26 10:19:05] - INFO -> Utente alan@gmail.com autenticato con successo
+[2025-03-26 10:19:26] - INFO -> Utente admin@gmail.com autenticato con successo
+[2025-03-26 10:21:01] - INFO -> Amicizia accettata correttamente da admin a admin
+[2025-03-26 10:28:13] - INFO -> Utente alan@gmail.com autenticato con successo
+[2025-03-26 10:28:19] - INFO -> Richiesta di amicizia inviata correttamente da alan a admin
+[2025-03-26 10:28:33] - INFO -> Utente admin@gmail.com autenticato con successo
+[2025-03-26 10:28:38] - INFO -> Amicizia accettata correttamente da admin a alan
+[2025-03-26 10:29:23] - INFO -> Amicizia accettata correttamente da admin a alan
+[2025-03-26 10:32:51] - INFO -> Utente alan@gmail.com autenticato con successo
+[2025-03-26 10:34:06] - INFO -> Utente admin@gmail.com autenticato con successo
+[2025-03-26 10:44:16] - INFO -> Utente alan@gmail.com autenticato con successo
+[2025-03-26 10:45:35] - INFO -> Utente admin@gmail.com autenticato con successo
+[2025-03-26 10:47:46] - WARN -> Tentativo di amicizia fallito: uno o entrambi gli username non esistono (admin, sdsd)
+[2025-03-26 10:56:52] - INFO -> Utente alan@gmail.com autenticato con successo
+[2025-03-26 10:58:12] - INFO -> Amicizia tra  e admin eliminata correttamente
+[2025-03-26 10:58:28] - INFO -> Amicizia tra  e admin eliminata correttamente
+[2025-03-26 10:58:38] - INFO -> Amicizia tra  e admin eliminata correttamente
+[2025-03-26 11:06:47] - INFO -> Amicizia tra  e admin eliminata correttamente
+[2025-03-26 11:08:02] - INFO -> Amicizia tra  e admin eliminata correttamente
+[2025-03-26 11:12:26] - WARNING -> Nessuna amicizia trovata tra  e admin
+[2025-03-26 11:14:50] - WARNING -> Uno o più utenti non esistono: , admin
+[2025-03-26 11:17:03] - WARNING -> Uno o più utenti non esistono: , admin
+[2025-03-26 11:17:34] - WARNING -> Nessuna amicizia trovata tra  e admin
+[2025-03-26 11:17:38] - WARNING -> Nessuna amicizia trovata tra  e admin
+[2025-03-26 11:17:47] - WARNING -> Nessuna amicizia trovata tra  e admin
+[2025-03-26 11:28:13] - INFO -> Amicizia tra alan e admin eliminata correttamente
+[2025-03-26 11:28:16] - WARNING -> Nessuna amicizia trovata tra alan e admin
+[2025-03-26 12:42:45] - Tentativo di login fallito per email: cxcxc
+[2025-03-26 12:52:00] - INFO -> Utente admin@gmail.com autenticato con successo
+[2025-03-26 12:52:45] - INFO -> Utente admin@gmail.com autenticato con successo
+[2025-03-26 12:53:25] - INFO -> Utente admin@gmail.com autenticato con successo
+[2025-03-26 13:01:16] - INFO -> Utente admin@gmail.com autenticato con successo
+[2025-03-26 13:01:26] - INFO -> Richiesta di amicizia inviata correttamente da admin a admin
+[2025-03-26 13:01:41] - INFO -> Utente admin@gmail.com autenticato con successo
+[2025-03-26 13:01:46] - INFO -> Amicizia accettata correttamente da admin a admin
+[2025-03-26 13:01:50] - INFO -> Amicizia tra admin e admin eliminata correttamente
+[2025-03-26 13:03:51] - WARNING -> Nessuna amicizia trovata tra admin e admin

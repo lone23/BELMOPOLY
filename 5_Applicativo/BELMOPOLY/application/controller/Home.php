@@ -11,8 +11,11 @@ class home
 
         if($autenticazione->controlloLogin()) {
 
-            $GesionteAccount = new GestioneAccount();
-            $GesionteAccount->mostraRichiesteAmicizia();
+            //$GesionteAccount = new GestioneAccount();
+            //$GesionteAccount->mostraRichiesteAmicizia();
+
+            require_once "./application/views/home/index.php";
+
 
         }
     }

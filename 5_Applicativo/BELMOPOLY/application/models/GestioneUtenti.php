@@ -29,14 +29,17 @@ class GestioneUtenti
 
         $idUtente = $ids[$usernameUtente];
         $idAmico = $ids[$UsernameAmico];
+        try{
+            $sth = $this->conn->prepare('INSERT INTO amico (mandante, ricevente,richiesta) VALUES (:mandante, :ricevente,:richiesta)');
+            $sth->bindValue(':mandante', $idUtente);
+            $sth->bindValue(':ricevente', $idAmico);
+            $sth->bindValue(':richiesta', false);
+            $sth->execute();
+            \libs\Logger::log("INFO -> Richiesta di amicizia inviata correttamente da {$usernameUtente} a {$UsernameAmico}");
+        }catch (\PDOException $e){
+            \libs\Logger::log("WARNING -> Richiesta di amicizia fallita da {$usernameUtente} a {$UsernameAmico} ->"+$e->getMessage());
+        }
 
-        $sth = $this->conn->prepare('INSERT INTO amico (mandante, ricevente,richiesta) VALUES (:mandante, :ricevente,:richiesta)');
-        $sth->bindValue(':mandante', $idUtente);
-        $sth->bindValue(':ricevente', $idAmico);
-        $sth->bindValue(':richiesta', false);
-        $sth->execute();
-
-        \libs\Logger::log("INFO -> Richiesta di amicizia inviata correttamente da {$usernameUtente} a {$UsernameAmico}");
 
     }
 
@@ -97,7 +100,7 @@ class GestioneUtenti
                              JOIN utente u2 ON u2.id = a.ricevente
                              WHERE u1.username = :usernameAmico
                              AND u2.username = :usernameUtente
-                             AND a.richiesta = FALSE');
+                             AND a.richiesta = TRUE');
 
             $sth->bindValue(':usernameUtente', $usernameUtente);
             $sth->bindValue(':usernameAmico', $usernameAmico);
@@ -114,11 +117,13 @@ class GestioneUtenti
         $amici = array();
 
         try{
-            $sth = $this->conn->prepare('SELECT u1.username 
-                             FROM amico a
-                             JOIN utente u1 ON u1.id = a.mandante
-                             JOIN utente u2 ON u2.id = a.ricevente
-                             WHERE u2.username = :username;');
+            $sth = $this->conn->prepare('SELECT u.username 
+                                                FROM amico a
+                                                JOIN utente u ON (u.id = a.mandante OR u.id = a.ricevente)
+                                                WHERE (a.mandante = (SELECT id FROM utente WHERE username = :username) 
+                                                   OR a.ricevente = (SELECT id FROM utente WHERE username = :username))
+                                                AND u.username != :username;
+                                                ');
 
             $sth->bindValue(':username', $username);
             $sth->execute();
@@ -135,6 +140,38 @@ class GestioneUtenti
 
         return $amici;
 
+    }
+
+
+    public function eliminaAmicizia($usernameUtente, $usernameAmico)
+    {
+        try {
+
+            $sth = $this->conn->prepare('
+            DELETE a FROM amico a
+            JOIN utente u1 ON a.mandante = u1.id
+            JOIN utente u2 ON a.ricevente = u2.id
+            WHERE (u1.username = :user1 AND u2.username = :user2)
+               OR (u1.username = :user2 AND u2.username = :user1)
+        ');
+
+            $sth->execute([
+                ':user1' => $usernameUtente,
+                ':user2' => $usernameAmico
+            ]);
+
+            // Verifica se è stata effettivamente eliminata qualche riga
+            if($sth->rowCount() > 0) {
+                \libs\Logger::log("INFO -> Amicizia tra {$usernameUtente} e {$usernameAmico} eliminata correttamente");
+                return true;
+            } else {
+                \libs\Logger::log("WARNING -> Nessuna amicizia trovata tra {$usernameUtente} e {$usernameAmico}");
+                return false;
+            }
+
+        } catch (\PDOException $e) {
+            \libs\Logger::log("ERROR -> Eliminazione amicizia fallita: {$e->getMessage()}");
+        }
     }
 
 

@@ -40,7 +40,7 @@ class GestioneAccount
             $amici = $GesioneUtenti->MostraRichiesteAmicizia($_SESSION['username']);
 
             require './application/views/templates/header.php';
-            require 'application/views/home/index.php';
+            require 'application/views/amicihome/index.php';
             require './application/views/templates/footer.php';
 
         }
@@ -108,6 +108,29 @@ class GestioneAccount
 
         }
 
+    }
+
+    public function elliminaAmicizia()
+    {
+        require_once "./application/controller/autenticazione.php";
+        require_once "./application/controller/home.php";
+
+        $autenticazione = new autenticazione();
+
+        if($autenticazione->controlloLogin()) { // Aggiunto controllo login
+            $regexUsername = '/^[a-zA-Z0-9]{1,20}$/';
+            $usernameAmico = $_POST['username'];
+
+            if(preg_match($regexUsername, $usernameAmico)) { // Aggiunta validazione
+                $GesioneUtenti = new \models\GestioneUtenti();
+                $GesioneUtenti->eliminaAmicizia($_SESSION['username'], $usernameAmico);
+            } else {
+                $_SESSION["VerificaAmico"] = "Username non valido";
+            }
+        }
+
+        $home = new home();
+        $home->index();
     }
 
 }
