@@ -207,12 +207,20 @@
 
     function tiraDadi() {
         document.getElementById("dadi").disabled = true;
-        const risultatoDadi = Math.floor(Math.random() * 6) + 1; // Simula un tiro di dadi (1-6)
-        console.log(risultatoDadi, posizionePedina);
-        document.getElementById("risultato").innerHTML = risultatoDadi;
-        passi = risultatoDadi;
-        intervalAnim = setInterval(muoviPedina, 500);
+
+        fetch('<?php echo URL; ?>Board/generaNumeroDati', {
+            method: 'GET'
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                document.getElementById("risultato").innerHTML = data.dado1 + " - " + data.dado2;
+                passi = data.dado1 + data.dado2;
+                intervalAnim = setInterval(muoviPedina, 500);
+            })
+            .catch(error => console.error('Errore nel recupero dei dati:', error));
     }
+
 
     function muoviPedina() {
 
