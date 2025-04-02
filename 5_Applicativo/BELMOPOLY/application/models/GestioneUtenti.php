@@ -37,7 +37,7 @@ class GestioneUtenti
             $sth->execute();
             \libs\Logger::log("INFO -> Richiesta di amicizia inviata correttamente da {$usernameUtente} a {$UsernameAmico}");
         }catch (\PDOException $e){
-            \libs\Logger::log("WARNING -> Richiesta di amicizia fallita da {$usernameUtente} a {$UsernameAmico} ->"+$e->getMessage());
+            \libs\Logger::log("WARNING -> Richiesta di amicizia fallita da {$usernameUtente} a {$UsernameAmico} ->".$e->getMessage());
         }
 
 

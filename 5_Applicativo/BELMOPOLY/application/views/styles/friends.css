@@ -1,0 +1,157 @@
+
+.main{
+	background-color: var(--cell-color);
+	display: inline-block;
+	width: 55vw;
+	margin-top: 5vw;
+	height: 46vw;
+	border-radius: 2vw 2vw 0vw 0vw;
+}
+
+.buttons{
+	display: flex;
+	padding: 0vw;
+	margin: 0vw;
+	height: 10%;
+	background-color: var(--border-color);
+}
+
+.tools {
+	display: flex;
+    justify-content: center; 
+    align-items: center;
+	padding: 0vw 1vw 0vw 1vw;
+	margin: 0vw;
+	height: 20%;
+	border-radius: 2vw 2vw 0vw 0vw;
+	border: 0.3vw solid var(--border-color);
+	border-bottom: none;
+}
+
+.search-bar {
+	font-family: basic;
+	font-weight: bold;
+	text-align: center;
+	width: 100%;
+	margin: 0vw 1vw 0vw 1vw;
+	height: 5vw;
+	border-radius: 2vw;
+	border: 0.3vw solid var(--border-color);
+	background-color: var(--cell-unselected);
+	font-size: 2vw;
+	color: var(--border-color);
+}
+
+.button{
+	width: 15vw;
+	font-size: 2vw;
+}
+
+p{
+	color: var(--border-color);
+	font-family: basic;
+	font-size: 2vw;
+}
+
+.fields {
+	height: 70%;
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+	background-color: var(--cell-color);
+	border-left: 0.3vw solid var(--border-color);
+	border-right: 0.3vw solid var(--border-color);
+	overflow: auto;
+}
+
+.user {
+	margin-top: 2vw;
+	color: var(--border-color);
+	font-family: basic;
+	font-size: 2vw;
+	display: flex;
+    align-items:center;
+    justify-content:space-between; 
+	border-radius: 2vw;
+	background-color: var(--cell-user);
+	width: 98%;
+	border: 0.3vw solid var(--border-color);
+	height: 7vw;
+}
+
+.name {
+	margin-left: 3vw;
+}
+
+.request {
+	margin: 3vw;
+	background-color: var(--cell-color);
+	width: 15vw;
+	font-size: 2vw;
+	padding: 1vw;
+	border: 0.3vw solid var(--border-color);
+	border-radius: 2vw;
+}
+
+.options {
+	display: flex;
+    align-items:center;
+    justify-content:space-between; 
+}
+
+.option {
+	margin: 3vw 3vw 3vw 0vw;
+	background-color: var(--cell-color);
+	width: 12vw;
+	font-size: 2vw;
+	padding: 1vw;
+	border: 0.3vw solid var(--border-color);
+	border-radius: 2vw;
+}
+
+.option:hover {
+	background-color: var(--cell-hover);
+}
+
+.request:hover {
+	background-color: var(--cell-hover);
+}
+
+.selector {
+	cursor: pointer; 
+	display: flex;
+    align-items: center; 
+    justify-content: center;
+	
+	background-color: var(--cell-unselected);
+	width: 100vw;
+	
+  
+	padding: 1vw;
+	margin: 0vw;
+	
+	color: var(--border-color);
+	font-family: basic;
+	font-size: 2vw;
+  
+	border: 0.3vw solid var(--border-color);
+	border-radius: 0vw 0vw 2vw 2vw;
+	
+}
+
+
+
+input[type=text]:focus, input[type=password]:focus {
+	outline: 0.3vw solid var(--cell-hover);
+}
+
+::placeholder{
+	color: var(--border-color);
+	font-size: 2vw;
+}
+
+.selected{
+	background-color: var(--cell-color);
+	border: 0.3vw solid var(--border-color);
+	border-top: none;
+}

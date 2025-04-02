@@ -24,7 +24,7 @@
         <div class="right">
             <div class="list">
                 <?php foreach ($amici as $utente) : ?>
-                    <div class="user"> <?php echo $utente->getUsername(); ?> <div class="invite" onclick="window.location.href='<?php echo URL; ?>home/invitaRoom'">INVITE</div></div>
+                    <div class="user"> <?php echo $utente->getUsername(); ?> <div class="invite" onclick="window.location.href='<?php echo URL; ?>home/invitaRoom/<?php echo $utente->getUsername(); ?>'">INVITE</div></div>
                 <?php endforeach; ?>
             </div>
             <div class="button" onclick="window.location.href='<?php echo URL; ?>Board/index'">START</div>
