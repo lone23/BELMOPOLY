@@ -12464,3 +12464,5 @@
 [2025-04-02 13:51:41] - WARN -> Tentativo di elliminare la room effettuato con successo room: 10
 [2025-04-02 13:51:41] - INFO -> Tentativo di creare la room effettuato con successo room: 11
 [2025-04-02 13:51:42] - WARN -> Tentativo di elliminare la room effettuato con successo room: 11
+[2025-04-02 14:31:59] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [2002] Impossibile stabilire la connessione. Rifiuto persistente del computer di destinazione
+[2025-04-02 14:32:00] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [2002] Impossibile stabilire la connessione. Rifiuto persistente del computer di destinazione
