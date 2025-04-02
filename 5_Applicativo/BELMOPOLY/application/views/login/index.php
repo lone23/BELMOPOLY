@@ -18,11 +18,8 @@
         <div class="fields">
             <form method="POST" action="<?php echo URL; ?>autenticazione/verificaLogin">
                 <input type="text" placeholder="E-MAIL" name="email" required>
-                <br>
                 <input type="password" placeholder="PASSWORD" name="password" required>
-                <br>
                 <input type="text" style="visibility: hidden;">
-                <br>
                 <!-- Campo nascosto rimosso se non è necessario -->
                 <input type="submit" value="LOGIN" class="button">
                 <p><?php

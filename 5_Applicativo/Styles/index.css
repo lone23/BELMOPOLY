@@ -62,8 +62,10 @@ img {
 .container {
   font-weight: bold;
   position: relative;
-  display: inline-block;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
   width: 95vw;
   height: 50vw;
   border-radius: 2vw;
@@ -84,11 +86,13 @@ img {
 
 .button {
   cursor: pointer;
-  display:inline-block; /*per centrare il contenuto dentro al padre*/
-  text-align: center;
+	display: flex;
+  justify-content: center; 
+  align-items: center;
   
   background-color: var(--cell-color);
   width: 45vw;
+  height: 5vw;
 
   padding: 1vw;
   margin-top: 2vw;

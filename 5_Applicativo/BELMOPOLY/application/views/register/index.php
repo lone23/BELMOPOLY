@@ -17,11 +17,8 @@
              <div class="fields">
                 <form method="POST" action="<?php echo URL; ?>autenticazione/RegistraUtente">
                     <input type="text" placeholder="USERNAME" name="username" required>
-                    <br>
                     <input type="text" placeholder="EMAIL" name="email" required>
-                    <br>
                     <input type="password" placeholder="PASSWORD" name="password" required>
-                    <br>
                     <input type="submit" value="REGISTER" class="button">
                     <p><?php
                         if(Isset($_SESSION["ControlloRegister"])){
