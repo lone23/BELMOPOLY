@@ -4,7 +4,7 @@ class GestioneAccount
 {
 
     public function aggiungiAmico(){
-        require_once "./application/controller/autenticazione.php";
+        require_once "./application/controller/Autenticazione.php";
         require_once "./application/controller/home.php";
         $autenticazione = new autenticazione();
 
@@ -29,7 +29,7 @@ class GestioneAccount
     }
 
     public function mostraRichiesteAmicizia(){
-        require_once "./application/controller/autenticazione.php";
+        require_once "./application/controller/Autenticazione.php";
 
         $autenticazione = new autenticazione();
 
@@ -48,7 +48,7 @@ class GestioneAccount
 
     public function accettaRichiestaAmicizia()
     {
-        require_once "./application/controller/autenticazione.php";
+        require_once "./application/controller/Autenticazione.php";
 
         $autenticazione = new autenticazione();
 
@@ -71,7 +71,7 @@ class GestioneAccount
     }
 
     public function mostraAmicizie(){
-        require_once "./application/controller/autenticazione.php";
+        require_once "./application/controller/Autenticazione.php";
 
         $autenticazione = new autenticazione();
 
@@ -82,7 +82,7 @@ class GestioneAccount
             $amici = $GesioneUtenti->MostraAmicizia($_SESSION['username']);
 
             require './application/views/templates/header.php';
-            require 'application/views/Amici/index.php';
+            require 'application/views/amici/index.php';
             require './application/views/templates/footer.php';
 
         }
@@ -90,7 +90,7 @@ class GestioneAccount
 
     public function rifiutaRichiestaAmicizia()
     {
-        require_once "./application/controller/autenticazione.php";
+        require_once "./application/controller/Autenticazione.php";
 
         $autenticazione = new autenticazione();
 
@@ -112,7 +112,7 @@ class GestioneAccount
 
     public function elliminaAmicizia()
     {
-        require_once "./application/controller/autenticazione.php";
+        require_once "./application/controller/Autenticazione.php";
         require_once "./application/controller/home.php";
 
         $autenticazione = new autenticazione();

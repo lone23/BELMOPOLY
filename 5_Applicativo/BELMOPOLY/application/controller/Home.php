@@ -5,7 +5,7 @@ class home
 
 
     public function index(){
-    require_once "./application/controller/autenticazione.php";
+    require_once "./application/controller/Autenticazione.php";
     require_once "./application/controller/GestioneAccount.php";
         $autenticazione = new autenticazione();
 
@@ -22,7 +22,7 @@ class home
 
 
 
-        require_once "./application/controller/autenticazione.php";
+        require_once "./application/controller/Autenticazione.php";
         $autenticazione = new autenticazione();
 
         if($autenticazione->controlloLogin()) {
@@ -45,7 +45,7 @@ class home
     public function creaRoomView()
     {
 
-        require_once "./application/controller/autenticazione.php";
+        require_once "./application/controller/Autenticazione.php";
         $autenticazione = new autenticazione();
 
         if($autenticazione->controlloLogin()) {
@@ -62,7 +62,7 @@ class home
 
     public function esciRoom(){
 
-        require_once "./application/controller/autenticazione.php";
+        require_once "./application/controller/Autenticazione.php";
         $autenticazione = new autenticazione();
 
         if($autenticazione->controlloLogin()) {
@@ -81,7 +81,7 @@ class home
     public function invitaRoom()
     {
 
-        require_once "./application/controller/autenticazione.php";
+        require_once "./application/controller/Autenticazione.php";
         $autenticazione = new autenticazione();
 
         if($autenticazione->controlloLogin()) {
