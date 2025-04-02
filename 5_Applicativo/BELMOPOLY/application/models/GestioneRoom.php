@@ -76,4 +76,10 @@ class GestioneRoom
     }
 
 
+    public function invitaAmicoRoom()
+    {
+
+    }
+
+
 }

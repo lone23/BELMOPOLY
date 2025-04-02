@@ -78,6 +78,24 @@ class home
 
     }
 
+    public function invitaRoom()
+    {
+
+        require_once "./application/controller/autenticazione.php";
+        $autenticazione = new autenticazione();
+
+        if($autenticazione->controlloLogin()) {
+
+            $creaRoom = new \models\GestioneRoom();
+
+            $creaRoom->elliminaRoom($_SESSION['username']);
+
+            $this->index();
+
+        }
+
+    }
+
 
 
 }

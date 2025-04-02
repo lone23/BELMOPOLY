@@ -12464,3 +12464,9 @@
 [2025-04-02 13:51:41] - WARN -> Tentativo di elliminare la room effettuato con successo room: 10
 [2025-04-02 13:51:41] - INFO -> Tentativo di creare la room effettuato con successo room: 11
 [2025-04-02 13:51:42] - WARN -> Tentativo di elliminare la room effettuato con successo room: 11
+[2025-04-02 14:17:03] - WARN -> Tentativo di elliminare la room effettuato con successo room: 
+[2025-04-02 14:17:04] - INFO -> Tentativo di creare la room effettuato con successo room: 12
+[2025-04-02 14:17:05] - WARN -> Tentativo di elliminare la room effettuato con successo room: 12
+[2025-04-02 14:17:09] - INFO -> Tentativo di creare la room effettuato con successo room: 13
+[2025-04-02 14:17:10] - WARN -> Tentativo di elliminare la room effettuato con successo room: 13
+[2025-04-02 14:17:11] - WARN -> Tentativo di elliminare la room effettuato con successo room: 
