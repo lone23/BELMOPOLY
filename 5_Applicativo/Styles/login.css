@@ -2,30 +2,37 @@
 .main{
 	display: inline-block;
 	width: 55vw;
-	margin-top: 4vw;
-	height: 40vw;
+	margin-top: 5vw;
+	height: 46vw;
 	border-radius: 2vw 2vw 0vw 0vw;
 }
 
 .buttons{
 	display: inline-flex;
-	padding: 0px;
-	margin: 0px;
+	padding: 0vw;
+	margin: 0vw;
 	width: 55vw;
-	height: 5vw;
+	height: 10%;
 }
 
 .button{
 	width: 15vw;
 	font-size: 2vw;
-	margin-top: 2.5vw;
+	transform: translate(0%, -25%);
 }
 
-
+p{
+	color: var(--border-color);
+	font-family: basic;
+	font-size: 2vw;
+}
 
 .fields {
-	height: 42vw;
-	display:block;
+	height: 90%;
+	display: flex;
+	flex-direction: column;
+    justify-content: center; /* Centra orizzontalmente */
+    align-items: center;
 	background-color: var(--cell-color);
 	border-left: 0.3vw solid var(--border-color);
 	border-right: 0.3vw solid var(--border-color);
@@ -34,9 +41,9 @@
 
 .selector {
 	cursor: pointer; 
-	display: table-cell;
-	vertical-align: middle;
-	text-align: center;
+	display: flex;
+    align-items: center; /* Centra il testo verticalmente */
+    justify-content: center;
 	
 	background-color: var(--cell-unselected);
 	width: 100vw;
@@ -59,7 +66,8 @@ input[type=text], input[type=password] {
 	font-family: basic;
 	font-weight: bold;
 	text-align: center;
-	width: 35vw;
+	transform: translate(0%, -25%);
+	width: 40vw;
 	border-radius: 2vw;
 	border: 0.3vw solid var(--border-color);
 	background-color: var(--cell-unselected);

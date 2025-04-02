@@ -3,6 +3,7 @@
   --background: #02151c;
   --cell-color: rgb(218, 105, 133);
   --cell-hover: rgb(238, 141, 160);
+  --cell-user: rgb(222, 153, 182);
   --cell-unselected: rgb(200, 90, 110);
 }
 
@@ -18,7 +19,6 @@ body{
   -ms-user-select: none;
   user-select: none;
   background-image: url("../Images/bg2.png");
-  animation: moveIt 20s alternate infinite;
   background-size: 120vw;
   background-repeat: no-repeat;
 }
@@ -31,7 +31,9 @@ body{
 }
 
 .account{
-  float: left;
+  left: 1vw;
+  top: 1vw;
+  position: absolute;
 }
 
 img {
@@ -43,7 +45,9 @@ img {
 
 
 .friends{
-  float: right;
+  right: 1vw;
+  top: 1vw;
+  position: absolute;
 }
 
 .belmopoly {
@@ -87,7 +91,7 @@ img {
   width: 45vw;
 
   padding: 1vw;
-  margin: 2vw;
+  margin-top: 2vw;
 
   color: var(--border-color);
   font-family: basic;
