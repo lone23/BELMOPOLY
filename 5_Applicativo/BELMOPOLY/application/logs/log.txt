@@ -133,3 +133,4 @@
 [2025-04-02 08:38:56] - ERROR -> Errore registrazione utente: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'alex.gilardi@samtrevano.ch' for key 'email'
 [2025-04-02 08:41:39] - ERROR -> Errore registrazione utente: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'alex.gilardi@samtrevano.ch' for key 'email'
 [2025-04-02 08:41:53] - INFO -> Utente mark.iljins@icloud.com autenticato con successo
+[2025-04-02 13:52:01] - INFO -> Utente alex.gilardi@samtrevano.ch autenticato con successo
