@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Monopoly Game</title>
     <link rel="stylesheet" href="<?php echo URL ?>application/views/tabellone/index.css">
+    <script src="<?php echo URL ?>application/views/tabellone/index.js"></script>
 </head>
-<body>
-<table class="board">
+<body class="container">
+<div class="board-and-players">
+<div class="board-container">
+<table class="board"">
     <div class="top-row">
         <tr class="schema">
             <td></td>
@@ -188,65 +191,33 @@
         </tr>
     </div>
 </table>
-<button id="dadi" onclick="tiraDadi()">Tira i dadi</button>
-<h1 id="risultato">0</h1>
-<h1 id="evento">sei sulla casella GO!</h1>
+</div>
+    <!-- Players Container -->
+    <div class="players-container">
+        <div class="player">
+            <p>Giocatore 1</p>
+        </div>
+        <div class="player">
+            <p>Giocatore 2</p>
+        </div>
+        <div class="player">
+            <p>Giocatore 3</p>
+        </div>
+        <div class="player">
+            <p>Giocatore 4</p>
+        </div>
+    </div>
+
+<div class="dadi-container">
+    <div id="rettangoloDado1" class="rettangoloDado" onclick="tiraDadi()">Tira</div>
+    <div id="rettangoloDado2" class="rettangoloDado" onclick="tiraDadi()">Dadi</div>
+</div>
+<h1 id="evento" style="color: white">sei sulla casella GO!</h1>
+</div>
+
+
 <script>
-    // Array delle celle del tabellone
-    const celle = [
-        "go-cell", "cell-1", "cell-2", "cell-3", "cell-4", "cell-5", "cell-6", "cell-7", "cell-8", "cell-9",
-        "cell-10", "cell-11", "cell-12", "cell-13", "cell-14", "cell-15", "cell-16", "cell-17", "cell-18", "cell-19",
-        "cell-20", "cell-21", "cell-22", "cell-23", "cell-24", "cell-25", "cell-26", "cell-27", "cell-28", "cell-29",
-        "cell-30", "cell-31", "cell-32", "cell-33", "cell-34", "cell-35", "cell-36", "cell-37", "cell-38", "cell-39"
-    ];
-
-    let posizionePedina = 0; // Posizione iniziale della pedina (GO!)
-
-    let passi;
-    let intervalAnim;
-
-    function tiraDadi() {
-        document.getElementById("dadi").disabled = true;
-
-        fetch('<?php echo URL; ?>Board/generaNumeroDati', {
-            method: 'GET'
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                document.getElementById("risultato").innerHTML = data.dado1 + " - " + data.dado2;
-                passi = data.dado1 + data.dado2;
-                intervalAnim = setInterval(muoviPedina, 500);
-            })
-            .catch(error => console.error('Errore nel recupero dei dati:', error));
-    }
-
-
-    function muoviPedina() {
-
-        // Rimuovi la pedina dalla cella corrente
-        const cellaCorrente = document.getElementById(celle[posizionePedina]);
-        cellaCorrente.querySelector("#pedina").remove();
-
-        // Calcola la nuova posizione
-        if (passi > 0){
-            posizionePedina = (posizionePedina + 1) % celle.length;
-            passi --;
-        } else {
-            let cella = document.getElementById(celle[posizionePedina]);
-            let testo = cella.querySelector("p").textContent;
-            clearInterval(intervalAnim);
-            document.getElementById("dadi").disabled = false;
-            document.getElementById("evento").innerHTML = "SEI SULLA CASELLA " + testo;
-
-        }
-
-
-        // Aggiungi la pedina alla nuova cella
-        const nuovaCella = document.getElementById(celle[posizionePedina]);
-        nuovaCella.innerHTML += '<div id="pedina"></div>';
-    }
-
+    const url = "<?php echo URL; ?>";
 </script>
 </body>
 </html>
