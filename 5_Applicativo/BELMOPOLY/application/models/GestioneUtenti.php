@@ -50,10 +50,11 @@ class GestioneUtenti
 
         try{
             $sth = $this->conn->prepare('SELECT u1.username 
-                             FROM amico a
-                             JOIN utente u1 ON u1.id = a.mandante
-                             JOIN utente u2 ON u2.id = a.ricevente
-                             WHERE u2.username = :username AND a.richiesta = false;');
+                                                FROM amico a
+                                                JOIN utente u1 ON u1.id = a.mandante
+                                                JOIN utente u2 ON u2.id = a.ricevente
+                                                WHERE u2.username = :username AND a.richiesta = 0;
+                                                ');
 
             $sth->bindValue(':username', $username);
             $sth->execute();
@@ -117,13 +118,11 @@ class GestioneUtenti
         $amici = array();
 
         try{
-            $sth = $this->conn->prepare('SELECT u.username 
+            $sth = $this->conn->prepare('SELECT u1.username 
                                                 FROM amico a
-                                                JOIN utente u ON (u.id = a.mandante OR u.id = a.ricevente)
-                                                WHERE (a.mandante = (SELECT id FROM utente WHERE username = :username) 
-                                                   OR a.ricevente = (SELECT id FROM utente WHERE username = :username))
-                                                AND u.username != :username;
-                                                ');
+                                                JOIN utente u1 ON u1.id = a.mandante
+                                                JOIN utente u2 ON u2.id = a.ricevente
+                                                WHERE u2.username = :username AND a.richiesta = 1;');
 
             $sth->bindValue(':username', $username);
             $sth->execute();

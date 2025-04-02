@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo URL?>application/views/login/style.css">
-    <link rel="stylesheet" href="<?php echo URL?>application/views/login/styleLogin.css">
+    <link rel="stylesheet" href="<?php echo URL?>application/views/styles/style.css">
+    <link rel="stylesheet" href="<?php echo URL?>application/views/styles/login.css">
     <title>Login</title>
 </head>
 <body>
@@ -19,7 +19,9 @@
             <form method="POST" action="<?php echo URL; ?>autenticazione/verificaLogin">
                 <input type="text" placeholder="E-MAIL" name="email" required>
                 <br>
-                <input type="text" placeholder="PASSWORD" name="password" required>
+                <input type="password" placeholder="PASSWORD" name="password" required>
+                <br>
+                <input type="text" style="visibility: hidden;">
                 <br>
                 <!-- Campo nascosto rimosso se non è necessario -->
                 <input type="submit" value="LOGIN" class="button">

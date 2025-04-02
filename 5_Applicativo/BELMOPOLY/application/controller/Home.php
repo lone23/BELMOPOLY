@@ -11,15 +11,72 @@ class home
 
         if($autenticazione->controlloLogin()) {
 
-            //$GesionteAccount = new GestioneAccount();
-            //$GesionteAccount->mostraRichiesteAmicizia();
-
             require_once "./application/views/home/index.php";
 
 
         }
     }
 
+    public function creaRoom()
+    {
+
+
+
+        require_once "./application/controller/autenticazione.php";
+        $autenticazione = new autenticazione();
+
+        if($autenticazione->controlloLogin()) {
+
+            $GesioneUtenti = new \models\GestioneUtenti();
+
+            $amici = $GesioneUtenti->MostraAmicizia($_SESSION['username']);
+
+            require_once "./application/views/creazioneRoom/index.php";
+
+            $creaRoom = new \models\GestioneRoom();
+
+            $creaRoom->creaRoom($_SESSION['username']);
+
+            $this->creaRoomView();
+
+        }
+    }
+
+    public function creaRoomView()
+    {
+
+        require_once "./application/controller/autenticazione.php";
+        $autenticazione = new autenticazione();
+
+        if($autenticazione->controlloLogin()) {
+
+            $GesioneUtenti = new \models\GestioneUtenti();
+
+            $amici = $GesioneUtenti->MostraAmicizia($_SESSION['username']);
+
+            require_once "./application/views/creazioneRoom/index.php";
+
+        }
+
+    }
+
+    public function esciRoom(){
+
+        require_once "./application/controller/autenticazione.php";
+        $autenticazione = new autenticazione();
+
+        if($autenticazione->controlloLogin()) {
+
+            $creaRoom = new \models\GestioneRoom();
+
+            $creaRoom->elliminaRoom($_SESSION['username']);
+
+            $this->index();
+
+        }
+
+
+    }
 
 
 

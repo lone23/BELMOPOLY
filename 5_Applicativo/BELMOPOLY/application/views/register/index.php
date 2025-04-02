@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo URL?>application/views/register/index.css">
-    <link rel="stylesheet" href="<?php echo URL?>application/views/register/login.css">
-    <script src="../JavaScript/index.js"></script>
+    <link rel="stylesheet" href="<?php echo URL?>application/views/styles/style.css">
+    <link rel="stylesheet" href="<?php echo URL?>application/views/styles/login.css">
     <title>Login</title>
 </head>
 <body>
@@ -21,7 +20,7 @@
                     <br>
                     <input type="text" placeholder="EMAIL" name="email" required>
                     <br>
-                    <input type="text" placeholder="PASSWORD" name="password" required>
+                    <input type="password" placeholder="PASSWORD" name="password" required>
                     <br>
                     <input type="submit" value="REGISTER" class="button">
                     <p><?php
