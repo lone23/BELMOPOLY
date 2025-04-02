@@ -63,7 +63,7 @@ p{
 	border-left: 0.3vw solid var(--border-color);
 	border-right: 0.3vw solid var(--border-color);
 	overflow: auto;
-	border-radius: 2vw 2vw 0vw 0vw;
+	
 }
 
 .user {
