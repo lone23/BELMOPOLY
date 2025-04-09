@@ -37,16 +37,13 @@ class home
 
             $creaRoom->creaRoom($_SESSION['username']);
 
-            header("Location: ". URL  ."home/creaRoomView");
-            exit();
-
+            $this->creaRoomView();
 
         }
     }
 
     public function creaRoomView()
     {
-
 
         require_once "./application/controller/autenticazione.php";
         $autenticazione = new autenticazione();
@@ -81,44 +78,23 @@ class home
 
     }
 
-    public function invitaRoom($username)
+    public function invitaRoom()
     {
 
         require_once "./application/controller/autenticazione.php";
         $autenticazione = new autenticazione();
 
-        if ($autenticazione->controlloLogin()) {
+        if($autenticazione->controlloLogin()) {
 
             $creaRoom = new \models\GestioneRoom();
 
-            $creaRoom->invitaAmicoRoom($username);
+            $creaRoom->elliminaRoom($_SESSION['username']);
 
-            header("Location: " . URL . "home/creaRoomView");
-            exit();
-
-        }
-
-
-    }
-    public function accettaInvitoRoom($username,$UUID){
-
-        require_once "./application/controller/autenticazione.php";
-        $autenticazione = new autenticazione();
-
-        if ($autenticazione->controlloLogin()) {
-
-            $creaRoom = new \models\GestioneRoom();
-
-
-            header("Location: " . URL . "home/creaRoomView");
-            exit();
+            $this->index();
 
         }
 
     }
-
-
-
 
 
 

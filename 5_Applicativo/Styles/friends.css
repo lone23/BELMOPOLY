@@ -1,6 +1,6 @@
 
 .main{
-	background-color: var(--cell-color);
+	background-color: var(--border-color);
 	display: inline-block;
 	width: 55vw;
 	margin-top: 5vw;
@@ -25,6 +25,7 @@
 	height: 20%;
 	border-radius: 2vw 2vw 0vw 0vw;
 	border: 0.3vw solid var(--border-color);
+	background-color: var(--cell-color);
 	border-bottom: none;
 }
 
@@ -62,6 +63,7 @@ p{
 	border-left: 0.3vw solid var(--border-color);
 	border-right: 0.3vw solid var(--border-color);
 	overflow: auto;
+	
 }
 
 .user {

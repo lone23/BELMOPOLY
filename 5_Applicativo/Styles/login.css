@@ -17,6 +17,7 @@
 
 .button{
 	width: 15vw;
+	height: 3vw;
 	font-size: 2vw;
 	transform: translate(0%, -25%);
 }
@@ -31,7 +32,7 @@ p{
 	height: 90%;
 	display: flex;
 	flex-direction: column;
-    justify-content: center; /* Centra orizzontalmente */
+    justify-content: center; 
     align-items: center;
 	background-color: var(--cell-color);
 	border-left: 0.3vw solid var(--border-color);
