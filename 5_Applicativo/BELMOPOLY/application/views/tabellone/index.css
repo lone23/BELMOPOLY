@@ -21,6 +21,11 @@ body{
     background-repeat: no-repeat;
 }
 
+.schema{
+    visibility: hidden;
+}
+
+/* -------------------------- CONTENITORI ----------------------*/
 .container {
     position: relative;
     display: inline-block;
@@ -29,129 +34,9 @@ body{
     height: 50vw;
     border-radius: 2vw;
     padding: 1vw;
-
-
     box-shadow: inset 0 1vw 2vw rgba(0,0,0,0.16), 0 1.5vw 2vw rgba(0,0,0,0.45);
-
 }
 
-.board{
-    color: var(--text-color);
-    user-select: none;
-
-}
-
-tr, td{
-    width: 2vw ;
-    height: 2vw;
-    background-color: var(--cell-color);
-}
-
-p{
-    margin: 0;
-    font-size: 0.62vw;
-}
-
-td{
-    text-align: center;
-    outline:solid var(--text-color) 0.15vw;
-    position: relative;
-}
-
-#pedina {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 1.5vw;
-    height: 1.5vw;
-    background-color: rgba(255,0,0,0.7);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-}
-
-td:hover{
-    background-color: var(--cell-hover-color);
-}
-
-.schema{
- visibility: hidden;
-}
-
-
-.left{
-    transform: rotate(90deg);
-}
-.right{
-    transform: rotate(-90deg);
-}
-.top{
-    transform: rotate(180deg);
-}
-
-.die {
-    width: 80px;
-    height: 80px;
-    font-size: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #ffcc00;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 18px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-.rettangoloDado {
-    width: 80px;
-    height: 80px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    background-color: #ffcc00;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    padding: 10px;
-}
-.puntino {
-    width: 17px;
-    height: 17px;
-    background-color: black;
-    border-radius: 50%;
-    justify-self: center;
-    align-self: center;
-}
-.hidden {
-    visibility: hidden;
-}
-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 18px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-button:hover {
-    background-color: #0056b3;
-}
 .dadi-container {
     display: flex;
     gap: 30px;
@@ -167,7 +52,8 @@ button:hover {
 
 .board-container {
     flex: 1;
-    margin-right: 20px; /* Spazio tra board e lista dei giocatori */
+    margin-right: 20px;
+    position: relative;
 }
 
 .players-container {
@@ -175,6 +61,82 @@ button:hover {
 }
 
 
+/* -------------------------- BOARD ----------------------*/
+.board{
+    color: var(--text-color);
+    user-select: none;
+}
+
+tr, td{
+    width: 2vw ;
+    height: 2vw;
+    background-color: var(--cell-color);
+}
+
+p {
+    margin: 0;
+    font-size: 0.62vw;
+}
+
+td{
+    text-align: center;
+    outline:solid var(--text-color) 0.15vw;
+    position: relative;
+}
+
+td:hover{
+    background-color: var(--cell-hover-color);
+}
+
+.left{
+    transform: rotate(90deg);
+}
+.right{
+    transform: rotate(-90deg);
+}
+.top{
+    transform: rotate(180deg);
+}
+
+
+/* -------------------------- PEDINA ----------------------*/
+#pedina {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1.5vw;
+    height: 1.5vw;
+    background-color: rgba(255,0,0,0.7);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* ------------------------- DADI ----------------------*/
+.rettangoloDado {
+    width: 80px;
+    height: 80px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    background-color: #ffcc00;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+}
+
+.puntino {
+    width: 17px;
+    height: 17px;
+    background-color: black;
+    border-radius: 50%;
+    justify-self: center;
+    align-self: center;
+}
+.hidden {
+    visibility: hidden;
+}
+
+/* ------------------------- GIOCATORI ----------------------*/
 .player {
     background-color: #f0f0f0;
     padding: 10px;
@@ -188,6 +150,42 @@ button:hover {
     font-size: 16px;
 }
 
+
+/* ------------------- IMPREVISTI/PROBABILITÀ ------------------*/
+#messaggioCarta {
+    display: none;
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    font-size: 18px;
+    text-align: center;
+    width: auto;
+    max-width: 450px;
+    border: 2px solid #000;
+    z-index: 10;
+}
+
+#okButton {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#okButton:hover {
+    background-color: #45a049;
+}
+
+
+/* -------------------------- COLORI CELLE ----------------------*/
 .brown{
     background-color: rgb(153, 87, 0);
 

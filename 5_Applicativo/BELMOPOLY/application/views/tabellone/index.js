@@ -5,9 +5,9 @@ const celle = [
     "cell-30", "cell-31", "cell-32", "cell-33", "cell-34", "cell-35", "cell-36", "cell-37", "cell-38", "cell-39"
 ];
 
-let posizionePedina = 0; // Posizione iniziale della pedina (GO!)
+let posizionePedina = 3; // Posizione iniziale della pedina (GO!)
 let passi;
-let intervalAnim;
+let intervalAnimazione;
 
 function updateDie(dieElement, value) {
     const dotPositions = {
@@ -19,7 +19,7 @@ function updateDie(dieElement, value) {
         6: [0, 2, 3, 5, 6, 8]
     };
 
-    dieElement.innerHTML = ""; // Svuota il contenitore del dado
+    dieElement.innerHTML = "";
 
     for (let i = 0; i < 9; i++) {
         const dot = document.createElement("div");
@@ -37,27 +37,25 @@ let muove = false;
 
 function tiraDadi() {
     if (muove) {
-        return;
+        return;  // Non può tirare i dadi finché non chiude il messaggio
     }
 
-    // Disabilita i pulsanti durante il lancio
     document.getElementById("rettangoloDado1").disabled = true;
     document.getElementById("rettangoloDado2").disabled = true;
     muove = true;
 
     let count = 0;
-    const maxCount = 20;  // Tempo in cui l'animazione dei dadi si esegue
+    const maxCount = 20;
 
     const rettangoloDado1 = document.getElementById('rettangoloDado1');
     const rettangoloDado2 = document.getElementById('rettangoloDado2');
 
     const interval = setInterval(() => {
         // Animazione dei dadi (mostra valori temporanei)
-        updateDie(rettangoloDado1, Math.floor(Math.random() * 6) + 1);  // Numeri casuali per animazione
-        updateDie(rettangoloDado2, Math.floor(Math.random() * 6) + 1);  // Numeri casuali per animazione
+        updateDie(rettangoloDado1, Math.floor(Math.random() * 6) + 1);
+        updateDie(rettangoloDado2, Math.floor(Math.random() * 6) + 1);
         count++;
 
-        // Dopo un certo tempo fermiamo l'animazione e prendiamo i dati effettivi
         if (count >= maxCount) {
             clearInterval(interval);
 
@@ -76,7 +74,7 @@ function tiraDadi() {
                     updateDie(rettangoloDado2, dado2);  // Mostra il dado 2
 
                     // Avvia il movimento della pedina
-                    intervalAnim = setInterval(muoviPedina, 500);
+                    intervalAnimazione = setInterval(muoviPedina, 500);
                 })
                 .catch(error => {
                     console.error('Errore nel recupero dei dati:', error);
@@ -84,34 +82,151 @@ function tiraDadi() {
                     muove = false;
                 });
         }
-    }, 70);  // Frequenza dell'animazione dei dadi (ogni 50ms)
+    }, 70);
 }
 
 
-// Function to move the piece
 function muoviPedina() {
-    // Remove the piece from the current cell
     const cellaCorrente = document.getElementById(celle[posizionePedina]);
     if (cellaCorrente.querySelector("#pedina")) {
         cellaCorrente.querySelector("#pedina").remove();
     }
 
-    // Move the piece based on the number of steps
     if (passi > 0) {
         posizionePedina = (posizionePedina + 1) % celle.length;
         passi--;
     } else {
-        let cella = document.getElementById(celle[posizionePedina]);
-        let testo = cella.querySelector("p") ? cella.querySelector("p").textContent : "nulla";
-        clearInterval(intervalAnim);
-        document.getElementById("evento").innerHTML = "SEI SULLA CASELLA " + testo;
+        const cellaId = celle[posizionePedina];
 
+        const possibilita = ["cell-7", "cell-22", "cell-36"];
+        const imprevisti = ["cell-2", "cell-17", "cell-33"];
+        const speciali = ["cell-5", "cell-15", "cell-25", "cell-35", "cell-12", "cell-28"];
+        const esclusioniNormali = ["go-cell", "cell-10", "cell-20", "cell-30", "cell-7", "cell-22", "cell-36", "cell-2", "cell-17", "cell-33", "cell-5", "cell-15", "cell-25", "cell-35", "cell-12", "cell-28"];
+
+        if (possibilita.includes(cellaId)) {
+            pescaCarta("possibilita");
+        } else if (imprevisti.includes(cellaId)) {
+            pescaCarta("imprevisti");
+        } else if (speciali.includes(cellaId)) {
+            const id = parseInt(cellaId.split("-")[1]); // estrae il numero dopo "cell-"
+            pescaCartaSpeciale(id);
+        } else if (!esclusioniNormali.includes(cellaId)) {
+            // Se non è una casella esclusa, pesca la carta normale
+            pescaCartaNormale();
+        } else {
+            const cella = document.getElementById(cellaId);
+            const testo = cella.querySelector("p") ? cella.querySelector("p").textContent : "nulla";
+            document.getElementById("evento").innerHTML = "SEI SULLA CASELLA " + testo;
+        }
+
+        clearInterval(intervalAnimazione);
         document.getElementById("rettangoloDado1").disabled = false;
         document.getElementById("rettangoloDado2").disabled = false;
         muove = false;
     }
 
-    // Add the piece to the new cell
     const nuovaCella = document.getElementById(celle[posizionePedina]);
     nuovaCella.innerHTML += '<div id="pedina"></div>';
+}
+
+function pescaCarta(tipo) {
+    fetch(url + 'Board/pescaCarta?tipo=' + tipo, {
+        method: 'GET'
+    })
+        .then(response => response.text())
+        .then(data => {
+            const messaggioElemento = document.getElementById('messaggioCarta');
+            const descrizioneElemento = document.getElementById('descrizioneCarta');
+
+            descrizioneElemento.innerHTML = '<h1>'+tipo+'</h1>' + '<p>'+data+'</p>';
+
+            messaggioElemento.style.display = 'block';
+            muove = true;
+        })
+        .catch(error => {
+            console.error('Errore nel recupero della carta:', error);
+            alert('Errore nella connessione al server.');
+        });
+}
+
+function pescaCartaSpeciale(id) {
+    fetch(url + 'Board/pescaCartaSpeciale?id=' + id, {
+        method: 'GET'
+    })
+        .then(response => response.json())
+        .then(data => {
+            const stazioni = [5, 15, 25, 35];
+            let descrizione = `<h1>${data.nome}</h1><p>Prezzo: ${data.prezzo}€</p>`;
+
+            if (stazioni.includes(id)) {
+                descrizione += `
+                    <ul>
+                        <li>Affitto 1 stazione: ${data.affitto1}€</li>
+                        <li>Affitto 2 stazioni: ${data.affitto2}€</li>
+                        <li>Affitto 3 stazioni: ${data.affitto3}€</li>
+                        <li>Affitto 4 stazioni: ${data.affitto4}€</li>
+                    </ul>
+                `;
+            } else {
+                descrizione += `
+                    <ul>
+                        <li>Affitto 1 compagnia: ${data.affitto1}€</li>
+                        <li>Affitto 2 compagnie: ${data.affitto2}€</li>
+                    </ul>
+                `;
+            }
+
+            document.getElementById('descrizioneCarta').innerHTML = descrizione;
+            document.getElementById('messaggioCarta').style.display = 'block';
+
+            muove = true;
+        })
+        .catch(error => {
+            console.error('Errore nella richiesta della carta speciale:', error);
+        });
+}
+
+function pescaCartaNormale() {
+    // Filtra le celle normali (quelle che non sono "speciali", "imprevisti" o "possibilità")
+    const celleNormali = celle.filter(cella => {
+        const esclusioni = ["go-cell", "cell-10", "cell-20", "cell-30", "cell-7", "cell-22", "cell-36", "cell-2", "cell-17", "cell-33", "cell-5", "cell-15", "cell-25", "cell-35", "cell-12", "cell-28"];
+        return !esclusioni.includes(cella);
+    });
+
+    // Identifica la casella corrente in base alla posizione della pedina
+    const cellaId = celleNormali[posizionePedina]; // Identifica la cella corrente fra le normali
+
+    // Chiamata per ottenere le informazioni della proprietà
+    fetch(url + 'Board/pescaCartaNormale?id=' + cellaId, {
+        method: 'GET'
+    })
+        .then(response => response.json())
+        .then(data => {
+            const descrizione = `
+                <h1>${data.nome}</h1>
+                <p>Prezzo: ${data.prezzo}€</p>
+                <ul>
+                    <li>Affitto: ${data.affitto}€</li>
+                    <li>Affitto Completo: ${data.affittoCompleto}€</li>
+                    <li>Affitto Casa 1: ${data.affittoCasa1}€</li>
+                    <li>Affitto Casa 2: ${data.affittoCasa2}€</li>
+                    <li>Affitto Casa 3: ${data.affittoCasa3}€</li>
+                    <li>Affitto Casa 4: ${data.affittoCasa4}€</li>
+                    <li>Affitto Albergo: ${data.affittoAlbergo}€</li>
+                    <li>Costo Casa: ${data.costoCasa}€</li>
+                    <li>Costo Albergo: ${data.costoAlbergo}€</li>
+                </ul>
+            `;
+
+            // Mostra la descrizione della carta
+            document.getElementById('descrizioneCarta').innerHTML = descrizione;
+            document.getElementById('messaggioCarta').style.display = 'block';
+
+            // Imposta che il gioco è in attesa di un'altra azione
+            muove = true; // Permetti al giocatore di fare altre azioni
+        })
+        .catch(error => {
+            console.error('Errore nella richiesta della carta normale:', error);
+            alert('Errore nella connessione al server.');
+        });
 }

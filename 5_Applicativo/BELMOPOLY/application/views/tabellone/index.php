@@ -8,9 +8,18 @@
     <script src="<?php echo URL ?>application/views/tabellone/index.js"></script>
 </head>
 <body class="container">
+<div id="messaggioCarta" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); font-size: 20px; text-align: center; border: 2px solid #000; width: 200px;">
+    <p id="descrizioneCarta" style="margin: 0;"></p>
+</div>
+
 <div class="board-and-players">
 <div class="board-container">
+
 <table class="board"">
+    <div id="messaggioCarta" class="messaggio-carta">
+        <div id="descrizioneCarta"></div>
+        <button id="okButton" onclick="chiudiMessaggio()">OK</button>
+    </div>
     <div class="top-row">
         <tr class="schema">
             <td></td>
