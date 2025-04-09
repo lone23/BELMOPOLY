@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <img src="<?php echo URL?>application/views/images/account.png" onclick="window.location.href='<?php echo URL; ?>autenticazione/logout'" alt="account" class="account">
-        <img src="<?php echo URL?>application/views/images/friends.png" onclick="window.location.href='<?php echo URL; ?>'" alt="friends" class="friends">
+        <img src="<?php echo URL?>application/views/images/friends.png" onclick="window.location.href='<?php echo URL; ?>GestioneAccount/mostraAmicizie'" alt="friends" class="friends">
         <div class="belmopoly">BELMOPOLY</div>
         <div onclick="window.location.href='<?php echo URL; ?>Home/creaRoom'" class="button">NEW GAME</div>
         <br>

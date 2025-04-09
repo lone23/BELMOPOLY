@@ -4,12 +4,17 @@ namespace models;
 
 use PDOException;
 
+
 class GestioneRoom
 {
     private $conn;
 
     public function __construct()
     {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
         $this->conn = \libs\Database::getConnection();
     }
 
@@ -60,30 +65,14 @@ class GestioneRoom
     public function elliminaRoom($username){
 
         try{
-            $sth = $this->conn->prepare("SELECT id FROM utente WHERE username = :username");
-            $sth->execute(['username' => $username]);
-            $utente = $sth->fetch();
+            $sth = $this->conn->prepare("DELETE FROM partita WHERE unique_key = :unique_key");
+            $sth->execute(['unique_key' => $_SESSION['uuid']]);
 
-            $utente_id = $utente['id'];
-
-            $sth = $this->conn->prepare("SELECT partita_id FROM fa_parte WHERE utente_id = :utente_id");
-            $sth->execute(['utente_id' => $utente_id]);
-            $partita = $sth->fetch();
-
-            $partita_id = $partita['partita_id'];
-
-            $sth = $this->conn->prepare("DELETE FROM partita WHERE id = :partita_id");
-            $sth->execute(['partita_id' => $partita_id]);
-
-
-            \libs\Logger::log("WARN -> Tentativo di elliminare la room effettuato con successo room: ". $partita_id);
-
+            \libs\Logger::log("WARN -> Tentativo di elliminare la room effettuato con successo room: ". $_SESSION['uuid']);
 
         }catch (PDOException $e){
             \libs\Logger::log("WARN -> Tentativo di elliminare la room fallito: "+ $e->getMessage());
         }
-
-
 
     }
 
@@ -92,7 +81,7 @@ class GestioneRoom
     {
 
         try {
-
+            echo "ciao";
             $sth = $this->conn->prepare("SELECT id FROM utente WHERE username = :username");
             $sth->bindValue(":username", $username);
             $sth->execute();
@@ -105,6 +94,7 @@ class GestioneRoom
             $sth->execute();
             $row = $sth->fetch(\PDO::FETCH_ASSOC);
             $partita_id = $row['id'];
+
 
             $sth = $this->conn->prepare("INSERT INTO fa_parte (utente_id, partita_id, capo_partita, richiesta, utente_prigione, posizione_pedina) 
                                  VALUES (:utente_id, :partita_id, :capo_partita, :richiesta, :utente_prigione, :posizione_pedina)");
@@ -122,7 +112,48 @@ class GestioneRoom
             \libs\Logger::log("INFO -> Invito room fallito, ID room: " . $partita_id . " ID player: " . $id . " error: " . $e->getMessage());
         }
     }
-        public function accettaInvito($username,$uuid)
+
+
+    public function getInvitiConUsernameCapo($username)
+    {
+        $richieste = [];
+
+        try {
+            // 1. Prendo l'id dell'utente
+            $sth = $this->conn->prepare("SELECT id FROM utente WHERE username = :username");
+            $sth->bindValue(":username", $username);
+            $sth->execute();
+            $userRow = $sth->fetch(\PDO::FETCH_ASSOC);
+
+            if (!$userRow) {
+                throw new \Exception("Utente non trovato.");
+            }
+
+            $userId = $userRow['id'];
+
+            $sth = $this->conn->prepare("
+            SELECT u.username AS capo_username
+            FROM fa_parte f_mio
+            INNER JOIN fa_parte f_capo ON f_mio.partita_id = f_capo.partita_id AND f_capo.capo_partita = TRUE
+            INNER JOIN utente u ON f_capo.utente_id = u.id
+            WHERE f_mio.utente_id = :utente_id AND f_mio.richiesta = TRUE
+        ");
+            $sth->bindValue(":utente_id", $userId, \PDO::PARAM_INT);
+            $sth->execute();
+
+            while ($row = $sth->fetch(\PDO::FETCH_ASSOC)) {
+                $richieste[] = $row['capo_username'];
+            }
+
+            return $richieste;
+
+        } catch (\Exception $e) {
+            \libs\Logger::log("WARN -> Errore nel recupero inviti: " . $e->getMessage());
+            return [];
+        }
+    }
+
+        public function accettaInvito($username)
     {
         try {
 

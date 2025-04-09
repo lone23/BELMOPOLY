@@ -8,6 +8,13 @@ class Utente
     private $email;
     private $data_creazione;
 
+    /**
+     * @param $username
+     * @param $password
+     * @param $data_creazione
+     * @param $email
+     */
+
 
 
     /**

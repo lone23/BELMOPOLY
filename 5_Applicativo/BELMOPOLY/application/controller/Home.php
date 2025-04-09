@@ -37,7 +37,7 @@ class home
 
             $creaRoom->creaRoom($_SESSION['username']);
 
-            $this->creaRoomView();
+            header("Location:" . URL . "home/creaRoomView");
 
         }
     }
@@ -55,6 +55,7 @@ class home
             $amici = $GesioneUtenti->MostraAmicizia($_SESSION['username']);
 
             require_once "./application/views/creazioneRoom/index.php";
+
 
         }
 
@@ -78,7 +79,7 @@ class home
 
     }
 
-    public function invitaRoom()
+    public function invitaRoom($username = null)
     {
 
         require_once "./application/controller/autenticazione.php";
@@ -88,13 +89,53 @@ class home
 
             $creaRoom = new \models\GestioneRoom();
 
-            $creaRoom->elliminaRoom($_SESSION['username']);
+            $creaRoom->invitaAmicoRoom($username);
 
-            $this->index();
+            header("Location:" . URL . "home/creaRoomView");
 
         }
 
     }
+
+    public function mostraRichiesteRoom()
+    {
+
+        require_once "./application/controller/autenticazione.php";
+        $autenticazione = new autenticazione();
+
+        if($autenticazione->controlloLogin()) {
+
+            $creaRoom = new \models\GestioneRoom();
+
+            $users = $creaRoom->getInvitiConUsernameCapo($_SESSION['username']);
+
+
+
+            require_once "./application/views/notifhce/invites.php";
+
+        }
+
+    }
+
+    public function accettaRichiesteRoom()
+    {
+
+        require_once "./application/controller/autenticazione.php";
+        $autenticazione = new autenticazione();
+
+        if($autenticazione->controlloLogin()) {
+
+            $creaRoom = new \models\GestioneRoom();
+
+            $creaRoom->accettaInvito($_SESSION['username']);
+
+            $this->creaRoomView();
+
+        }
+
+    }
+
+
 
 
 

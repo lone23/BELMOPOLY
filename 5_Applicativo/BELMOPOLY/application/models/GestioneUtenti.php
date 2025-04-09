@@ -47,31 +47,48 @@ class GestioneUtenti
     public function MostraRichiesteAmicizia($username)
     {
         $amici = array();
+        var_dump($username);
 
-        try{
-            $sth = $this->conn->prepare('SELECT u1.username 
-                                                FROM amico a
-                                                JOIN utente u1 ON u1.id = a.mandante
-                                                JOIN utente u2 ON u2.id = a.ricevente
-                                                WHERE u2.username = :username AND a.richiesta = 0;
-                                                ');
+        try {
 
+            // Ottieni l'id dell'utente
+            $sth = $this->conn->prepare('SELECT id FROM utente WHERE username = :username');
             $sth->bindValue(':username', $username);
             $sth->execute();
-        }catch (\PDOException $e){
+            while ($row = $sth->fetch(\PDO::FETCH_ASSOC)) {
+                $idUtente = $row['id'];
+            }
+            var_dump($idUtente);
+
+            // Ottieni gli username delle richieste ricevute
+            $sth = $this->conn->prepare('
+            SELECT u1.username 
+            FROM amico a
+            JOIN utente u1 ON u1.id = a.mandante
+            WHERE a.richiesta = :richiesta
+              AND a.mandante != :mandante
+              AND a.ricevente = :ricevente;
+        ');
+            $sth->bindValue(':richiesta', 0);  // Stato della richiesta
+            $sth->bindValue(':mandante', $idUtente);  // Non vogliamo che l'utente sia mandante
+            $sth->bindValue(':ricevente', $idUtente);  // L'utente è il ricevente
+            $sth->execute();
+
+        } catch (\PDOException $e) {
             \libs\Logger::log("ERROR -> Tentativo di mostrare le richieste di amicizia fallito: {$e->getMessage()}");
             die();
         }
 
+        // Popola l'array $amici con gli oggetti Utente
         while ($row = $sth->fetch()) {
             $utente = new Utente();
-            $utente->setUsername($row['username']);
+            $utente->setUsername($row['username']);  // Usa username invece di id
             $amici[] = $utente;
         }
 
         return $amici;
-
     }
+
 
     public function accettaRichiestaAmicizia($usernameUtente, $usernameAmico)
     {
@@ -117,33 +134,40 @@ class GestioneUtenti
     {
         $amici = array();
 
-        try{
-            $sth = $this->conn->prepare('SELECT u1.username 
-                                                FROM amico a
-                                                JOIN utente u1 ON u1.id = a.mandante
-                                                JOIN utente u2 ON u2.id = a.ricevente
-                                                WHERE u2.username = :username AND a.richiesta = 1;');
+        try {
+            $sth = $this->conn->prepare('
+            SELECT 
+                CASE 
+                    WHEN u1.username = :username THEN u2.username
+                    ELSE u1.username
+                END AS amico_username
+            FROM amico a
+            JOIN utente u1 ON u1.id = a.mandante
+            JOIN utente u2 ON u2.id = a.ricevente
+            WHERE (u1.username = :username OR u2.username = :username)
+              AND a.richiesta = 1
+        ');
 
             $sth->bindValue(':username', $username);
             $sth->execute();
-        }catch (\PDOException $e){
+        } catch (\PDOException $e) {
             \libs\Logger::log("ERROR -> Tentativo di mostrare le amicizie fallito: {$e->getMessage()}");
             die();
         }
 
         while ($row = $sth->fetch()) {
             $utente = new Utente();
-            $utente->setUsername($row['username']);
+            $utente->setUsername($row['amico_username']);
             $amici[] = $utente;
         }
 
         return $amici;
-
     }
 
 
     public function eliminaAmicizia($usernameUtente, $usernameAmico)
     {
+
         try {
 
             $sth = $this->conn->prepare('
@@ -152,7 +176,7 @@ class GestioneUtenti
             JOIN utente u2 ON a.ricevente = u2.id
             WHERE (u1.username = :user1 AND u2.username = :user2)
                OR (u1.username = :user2 AND u2.username = :user1)
-        ');
+             ');
 
             $sth->execute([
                 ':user1' => $usernameUtente,
@@ -170,6 +194,32 @@ class GestioneUtenti
 
         } catch (\PDOException $e) {
             \libs\Logger::log("ERROR -> Eliminazione amicizia fallita: {$e->getMessage()}");
+        }
+    }
+
+
+    public function mostraUtenti($param)
+    {
+
+        $utenti = array();
+
+        if(!isset($param)){
+            $param = "%";
+        }
+        try{
+            $sth = $this->conn->prepare('SELECT username FROM utente WHERE username LIKE :param');
+            $search = $param."%";
+            $sth->bindValue(':param', $search);
+            $sth->execute();
+
+            while ($row = $sth->fetch()) {
+                $utenti[] = $row['username'];
+            }
+
+            return $utenti;
+        }
+        catch (\PDOException $e){
+            \libs\Logger::log("WARNING -> Errore nella ricerca dei utenti");
         }
     }
 
