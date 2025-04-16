@@ -24,12 +24,12 @@ function updateDie(dieElement, value) {
     dieElement.innerHTML = "";
 
     for (let i = 0; i < 9; i++) {
-        const dot = document.createElement("div");
-        dot.classList.add("puntino");
+        const puntino = document.createElement("div");
+        puntino.classList.add("puntino");
         if (!dotPositions[value].includes(i)) {
-            dot.classList.add("hidden");
+            puntino.classList.add("hidden");
         }
-        dieElement.appendChild(dot);
+        dieElement.appendChild(puntino);
     }
 }
 
@@ -122,7 +122,7 @@ function muoviPedina() {
         const imprevisti = ["cell-7", "cell-22", "cell-36"];
         const probabilita = ["cell-2", "cell-17", "cell-33"];
         const speciali = ["cell-5", "cell-15", "cell-25", "cell-35", "cell-12", "cell-28"];
-        const normali = ["go-cell", "cell-10", "cell-20", "cell-30", "cell-7", "cell-22", "cell-36", "cell-2", "cell-17", "cell-33", "cell-5", "cell-15", "cell-25", "cell-35", "cell-12", "cell-28"];
+        const normali = ["cell-1", "cell-3", "cell-6", "cell-8", "cell-9", "cell-11", "cell-13", "cell-14", "cell-16", "cell-18", "cell-19", "cell-21", "cell-23", "cell-24", "cell-26", "cell-27", "cell-29", "cell-31", "cell-32", "cell-34", "cell-36", "cell-38", "cell-39"];
 
         if (probabilita.includes(cellaId)) {
             pescaCarta("probabilita");
@@ -131,7 +131,7 @@ function muoviPedina() {
         } else if (speciali.includes(cellaId)) {
             const id = parseInt(cellaId.split("-")[1]);
             pescaCartaSpeciale(id);
-        } else if (!normali.includes(cellaId)) {
+        } else if (normali.includes(cellaId)) {
             const idNumerico = parseInt(cellaId.split("-")[1]);
             pescaCartaNormale(idNumerico);
         } else {
@@ -166,13 +166,15 @@ function pescaCarta(tipo) {
             descrizioneElemento.innerHTML = '<h1>' + tipo + '</h1><p>' + data.descrizione + '</p>';
             messaggioElemento.style.display = 'block';
 
-            if (data.id === 4) {
+            if (tipo === "probabilita" && data.id === 4) {
                 destinazioneVeloce = celle.indexOf("cell-29");
                 passi = 1000;
                 mostraCartaNormaleDopoSpostamento = true;
-                intervalAnimazione = setInterval(muoviPedina, 150);
             } else {
                 muove = true;
+                // Riabilita i dadi solo se NON c'è un movimento automatico in sospeso
+                document.getElementById("rettangoloDado1").disabled = false;
+                document.getElementById("rettangoloDado2").disabled = false;
             }
 
         })
@@ -249,4 +251,19 @@ function pescaCartaNormale(idNumerico) {
             console.error('Errore nella richiesta della carta normale:', error);
             alert('Errore nella connessione al server.');
         });
+}
+
+function chiudiMessaggio() {
+    const messaggio = document.getElementById("messaggioCarta");
+    messaggio.style.display = "none";
+
+    // Se c'è un movimento automatico verso Data Cube Matrix
+    if (destinazioneVeloce !== null) {
+        muove = true;
+        intervalAnimazione = setInterval(muoviPedina, 150);
+    } else {
+        muove = false;
+        document.getElementById("rettangoloDado1").disabled = false;
+        document.getElementById("rettangoloDado2").disabled = false;
+    }
 }
