@@ -60,8 +60,6 @@ function tiraDadi() {
 
         if (count >= maxCount) {
             clearInterval(interval);
-
-            // Recupera i numeri reali dal PHP
             fetch(url + 'Board/generaNumeroDati', {
                 method: 'GET'
             })
@@ -70,7 +68,6 @@ function tiraDadi() {
                     dado1 = data.dado1;
                     dado2 = data.dado2;
 
-                    // Calcola il numero di passi e avvia il movimento
                     passi = dado1 + dado2;
                     updateDie(rettangoloDado1, dado1);  // Mostra il dado 1
                     updateDie(rettangoloDado2, dado2);  // Mostra il dado 2
@@ -99,10 +96,7 @@ function muoviPedina() {
             posizionePedina = (posizionePedina + 1) % celle.length;
         } else {
             const cella = document.getElementById(celle[posizionePedina]);
-            const testo = cella.querySelector("p") ? cella.querySelector("p").textContent : "una casella";
-            document.getElementById("evento").innerHTML = "SEI SULLA CASELLA " + testo;
 
-            // Mostra la pedina nella nuova posizione
             cella.innerHTML += '<div id="pedina"></div>';
 
             clearInterval(intervalAnimazione);
@@ -112,7 +106,6 @@ function muoviPedina() {
             document.getElementById("rettangoloDado1").disabled = false;
             document.getElementById("rettangoloDado2").disabled = false;
 
-            // Mostra la carta normale di Datacube se siamo su cell-29
             if (mostraCartaNormaleDopoSpostamento) {
                 mostraCartaNormaleDopoSpostamento = false;
                 pescaCartaNormale(29);
@@ -126,15 +119,15 @@ function muoviPedina() {
     } else {
         const cellaId = celle[posizionePedina];
 
-        const possibilita = ["cell-7", "cell-22", "cell-36"];
-        const imprevisti = ["cell-2", "cell-17", "cell-33"];
+        const imprevisti = ["cell-7", "cell-22", "cell-36"];
+        const probabilita = ["cell-2", "cell-17", "cell-33"];
         const speciali = ["cell-5", "cell-15", "cell-25", "cell-35", "cell-12", "cell-28"];
         const normali = ["go-cell", "cell-10", "cell-20", "cell-30", "cell-7", "cell-22", "cell-36", "cell-2", "cell-17", "cell-33", "cell-5", "cell-15", "cell-25", "cell-35", "cell-12", "cell-28"];
 
-        if (possibilita.includes(cellaId)) {
-            pescaCarta("imprevisti");
-        } else if (imprevisti.includes(cellaId)) {
+        if (probabilita.includes(cellaId)) {
             pescaCarta("probabilita");
+        } else if (imprevisti.includes(cellaId)) {
+            pescaCarta("imprevisti");
         } else if (speciali.includes(cellaId)) {
             const id = parseInt(cellaId.split("-")[1]);
             pescaCartaSpeciale(id);
@@ -143,8 +136,6 @@ function muoviPedina() {
             pescaCartaNormale(idNumerico);
         } else {
             const cella = document.getElementById(cellaId);
-            const testo = cella.querySelector("p") ? cella.querySelector("p").textContent : "nulla";
-            document.getElementById("evento").innerHTML = "SEI SULLA CASELLA " + testo;
         }
 
         clearInterval(intervalAnimazione);
