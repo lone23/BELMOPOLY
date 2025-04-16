@@ -1,0 +1,40 @@
+USE belmopoly;
+
+CREATE TABLE possibilita (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    descrizione TEXT NOT NULL
+);
+
+CREATE TABLE imprevisti (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    descrizione TEXT NOT NULL
+);
+
+INSERT INTO possibilita (descrizione) VALUES
+('Hackeri un conto aziendale e trovi un credito non registrato. Guadagni 250€.'),
+('I tuoi investimenti nel mercato finanziario vanno bene. Guadagni 300€.'),
+('Vinci un round in un’arena da combattimento clandestina. Guadagni 180€.'),
+('Andate fino a Datacube Matrix. Se passate dal via ritirate 250€'),
+('Un’IA segreta ti invia una transazione anonima. Guadagni 280€.'),
+('Riesci a vendere dati rubati sul dark web. Guadagni 220€.'),
+('Un’azienda sperimenta un nuovo impianto neurale su di te. Ricevi un biglietto di uscita gratis dal Virtual Lock'),
+('Un dirigente corrotto ti paga per far sparire alcune prove digitali. Incassa 250€.'),
+('Cloni una firma digitale di un dirigente di alto livello. Accedi a fondi aziendali e ricevi 270€.'),
+('Un virus sovrascrive i tuoi debiti digitali. Guadagni 200€.');
+
+INSERT INTO imprevisti (descrizione) VALUES
+('Il tuo hardware si rompe improvvisamente. Riparazione obbligatoria, paga 150€'),
+('Il mercato finanziario crolla, i tuoi investimenti vanno in fumo. Perdi 320€.'),
+('Sei vittima di un attacco ransomware. Paga 200€ per sbloccare i tuoi dati.'),
+('Il tuo impianto neurale subisce un sovraccarico. Paga 250€ per le riparazioni.'),
+('Sei stato tracciato da un’AI di sorveglianza. Torna indietro di 6 caselle per nasconderti.'),
+('Un virus si diffonde nei tuoi sistemi e devi resettare tutto. Perdi un turno.'),
+('Un hacker ruba i tuoi dati bancari e svuota il tuo conto. Perdi 370€.'),
+('La polizia ti trova un chip illegale nel tuo sistema. Paga 300€ di multa.'),
+('I tuoi dati personali vengono venduti sul mercato nero. Perdi 175€.'),
+('Il tuo portafoglio digitale subisce un attacco di phishing sofisticato. Perdi 210€ a causa del furto.');
+
+
+
+
+

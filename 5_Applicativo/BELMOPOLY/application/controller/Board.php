@@ -15,8 +15,8 @@ class Board
             session_start();
         }
 
-        $Dado1 = rand(1,6);
-        $Dado2 = rand(1,6);
+        $Dado1 = rand(1, 1);
+        $Dado2 = rand(1, 1);
         $_SESSION['Dado1'] = $Dado1;
         $_SESSION['Dado2'] = $Dado2;
 
@@ -35,7 +35,7 @@ class Board
 
         try {
             $db = Database::getConnection();
-            $id = rand(1,10);
+            $id = rand(4,4);
 
             $stmt = $db->prepare("SELECT descrizione FROM $tipo WHERE id = :id");
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
