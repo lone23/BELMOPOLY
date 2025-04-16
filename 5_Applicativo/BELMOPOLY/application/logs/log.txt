@@ -12488,3 +12488,6 @@
 [2025-04-16 14:22:58] - WARN -> Nessuna room trovata con uuid: 
 [2025-04-16 14:23:06] - WARN -> Nessuna room trovata con uuid: 
 [2025-04-16 14:23:06] - WARN -> Nessuna room trovata con uuid: 
+[2025-04-16 14:49:07] - INFO -> Utente utente1@gmail.com autenticato con successo
+[2025-04-16 14:49:08] - INFO -> Room creata con successo, ID: 1
+[2025-04-16 14:49:09] - INFO -> Partita con UUID '67ffa74468a907.46105170' avviata. Room impostata su FALSE per tutti.

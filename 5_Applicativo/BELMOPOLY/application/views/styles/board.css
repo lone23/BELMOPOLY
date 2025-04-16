@@ -134,7 +134,12 @@ td:hover{
     border-radius: 2vw;
 }
 
-.possession {
+.player .possession {
+    height: 0vw;
+    border: solid black 0px;
+}
+.player.selected .possession {
+    height: 10vw;
     border: solid black 1px;
 }
 
@@ -151,6 +156,7 @@ td:hover{
 .selected {
     background-color: var(--cell-hover);
 }
+
 
 
 /* ------------------- IMPREVISTI/PROBABILITÀ ------------------*/
