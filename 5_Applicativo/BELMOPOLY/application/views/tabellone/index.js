@@ -259,3 +259,16 @@ function pescaCartaNormale(idNumerico) {
             alert('Errore nella connessione al server.');
         });
 }
+
+let selectedPlayer;
+function showPossession(player){
+    if (selectedPlayer){
+        document.getElementById(selectedPlayer).className = "player";
+    } else {
+        document.getElementById("p1").className = "player";
+    }
+    document.getElementById(player).className = "player selected";
+    selectedPlayer = player;
+
+
+}

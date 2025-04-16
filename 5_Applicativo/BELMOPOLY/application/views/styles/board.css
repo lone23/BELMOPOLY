@@ -5,10 +5,7 @@
     --cell-hover-color: rgb(238, 141, 160);
 }
 
-.content {
-    display: flex; /* Enables flexbox */
-    justify-content: space-between;
-}
+
 
 .casella-img {
     width: 2vw;
@@ -18,23 +15,49 @@
 
 body{
     color: var(--border-color);
-    border-collapse: collapse;
     font-family: basic;
 }
 
 .schema{
     visibility: visible;
+
 }
 
-/* -------------------------- BOARD ----------------------*/
+.content {
+    outline: solid white 2px;
+    width: 100%;
+    display: flex; /* Enables flexbox */
+    justify-content: space-between;
+}
+
 .board{
-    width: auto;
+    aspect-ratio: 1 / 1;
+    outline: solid red 4px;
+    border-collapse: collapse;
+    height: 50vw;
+    width: 50vw;
+    table-layout: fixed;
 }
 
 tr, td{
-    width: 1.7vw ;
-    height: 1.7vw;
+    outline: solid blue 2px;
     background-color: var(--cell-color);
+    padding: 0vw;
+    width: 10px;
+    height: 10px;
+}
+
+td{
+    box-sizing: border-box;
+    text-align: center;
+    border:solid var(--border-color) 0.15vw;
+    aspect-ratio: 1 / 1;
+}
+
+.game{
+    outline: solid green 4px;
+    margin-top: 0;
+    width: 40vw;
 }
 
 p {
@@ -42,11 +65,7 @@ p {
     font-size: 0.7vw;
 }
 
-td{
-    text-align: center;
-    outline:solid var(--border-color) 0.15vw;
-    position: relative;
-}
+
 
 td:hover{
     background-color: var(--cell-hover-color);
@@ -62,11 +81,7 @@ td:hover{
     transform: rotate(180deg);
 }
 
-.game{
-    margin-top: 1.7vw;
-    margin-left: 2vw;
-    width: 40vw;
-}
+
 
 .button {
     margin: 0vw;
@@ -121,9 +136,7 @@ td:hover{
     justify-content: space-between;
 }
 
-.hidden {
-    visibility: hidden;
-}
+
 
 /* ------------------------- GIOCATORI ----------------------*/
 .player {
@@ -134,7 +147,12 @@ td:hover{
     border-radius: 2vw;
 }
 
-.possession {
+.player .possession {
+    height: 0vw;
+    border: solid black 0px;
+}
+.player.selected .possession {
+    height: 10vw;
     border: solid black 1px;
 }
 

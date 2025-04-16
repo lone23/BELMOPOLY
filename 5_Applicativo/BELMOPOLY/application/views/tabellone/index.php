@@ -48,7 +48,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td id="cell-20" colspan="3" rowspan="3"><p style="transform: rotate(135deg); font-size: 1.2vw;">Subway</p></td>
+                        <td id="cell-20" colspan="3" rowspan="3" class="tl-corner"><p style="transform: rotate(135deg); font-size: 1.2vw;">Subway</p></td>
                         <td id="cell-21" colspan="2" rowspan="2"><p class="top">Neural Sector</p></td>
                         <td id="cell-22" colspan="2" rowspan="3"><p class="top">?</p></td>
                         <td id="cell-23" colspan="2" rowspan="2"><p class="top">Neural Nexus</p></td>
@@ -58,7 +58,7 @@
                         <td id="cell-27" colspan="2" rowspan="2"><p class="top">Datacube Lab</p></td>
                         <td id="cell-28" colspan="2" rowspan="2"><p class="top">Nano Company</p></td>
                         <td id="cell-29" colspan="2" rowspan="2"><p class="top">Datacube Matrix</p></td>
-                        <td id="cell-30" colspan="3" rowspan="3"><p style="transform: rotate(-135deg); font-size: 1.2vw;">Malware</p></td>
+                        <td id="cell-30" colspan="3" rowspan="3" class="tr-corner"><p style="transform: rotate(-135deg); font-size: 1.2vw;">Malware</p></td>
                         <td class="schema"></td>
                     </tr>
                     <tr>
@@ -166,7 +166,7 @@
                     </tr>
 
                     <tr>
-                        <td id="cell-10" colspan="3" rowspan="3"><p style="transform: rotate(45deg); font-size: 1.2vw;">Virtual Lock</p></td>
+                        <td id="cell-10" class="bl-corner" colspan="3" rowspan="3"><p style="transform: rotate(45deg); font-size: 1.2vw;">Virtual Lock</p></td>
                         <td colspan="2" class="cyan"><p>120$</p></td>
                         <td colspan="2" class="cyan"><p>100$</p></td>
                         <td id="cell-7" colspan="2" rowspan="3"><p>?</p></td>
@@ -176,7 +176,7 @@
                         <td colspan="2" class="brown"><p>60$</p></td>
                         <td id="cell-2" colspan="2" rowspan="3"><img src="<?php echo URL?>application/views/images/chest.png" alt="probabilita" class="casella-img"></td>
                         <td colspan="2" class="brown"><p>60$</p></td>
-                        <td colspan="3" rowspan="3" id="go-cell" style="position: relative;">
+                        <td colspan="3" rowspan="3" id="go-cell" class="br-corner" style="position: relative;">
                             <p style="transform: rotate(-45deg); font-size: 2vw;">GO!</p>
                             <div id="pedina"></div>
                         </td>
@@ -199,7 +199,7 @@
         <!-- Players Container -->
 
         <div class="game">
-            <div class="player">
+            <div class="player selected" id="p1" onclick="showPossession('p1')">
                 <div class="info">
                     <p>Giocatore 1</p>
                     <p id="money">99999$</p>
@@ -208,7 +208,7 @@
 
                 </div>
             </div>
-            <div class="player selected">
+            <div class="player" id="p2" onclick="showPossession('p2')">
                 <div class="info">
                     <p>Giocatore 2</p>
                     <p id="money">99999$</p>
@@ -217,7 +217,7 @@
 
                 </div>
             </div>
-            <div class="player">
+            <div class="player" id="p3" onclick="showPossession('p3')">
                 <div class="info">
                     <p>Giocatore 3</p>
                     <p id="money">99999$</p>
@@ -226,7 +226,7 @@
 
                 </div>
             </div>
-            <div class="player">
+            <div class="player" id="p4" onclick="showPossession('p4')">
                 <div class="info">
                     <p>Giocatore 4</p>
                     <p id="money">99999$</p>
