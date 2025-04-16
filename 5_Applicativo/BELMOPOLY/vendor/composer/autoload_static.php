@@ -15,6 +15,17 @@ class ComposerStaticInite9342014998a448e3d7ebafb04a4439d
         array (
             'libs\\' => 5,
         ),
+        'W' => 
+        array (
+            'WebSocket\\' => 10,
+        ),
+        'P' => 
+        array (
+            'Psr\\Log\\' => 8,
+            'Psr\\Http\\Message\\' => 17,
+            'Phrity\\Util\\' => 12,
+            'Phrity\\Net\\' => 11,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -26,16 +37,38 @@ class ComposerStaticInite9342014998a448e3d7ebafb04a4439d
         array (
             0 => __DIR__ . '/../..' . '/application/libs',
         ),
+        'WebSocket\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/textalk/websocket/lib',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/src',
+        ),
+        'Psr\\Http\\Message\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
+        ),
+        'Phrity\\Util\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phrity/util-errorhandler/src',
+        ),
+        'Phrity\\Net\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phrity/net-uri/src',
+        ),
     );
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'libs\\Application' => __DIR__ . '/../..' . '/application/libs/application.php',
-        'libs\\Database' => __DIR__ . '/../..' . '/application/libs/database.php',
-        'libs\\Validator' => __DIR__ . '/../..' . '/application/libs/validator.php',
-        'models\\AuthModel' => __DIR__ . '/../..' . '/application/models/AuthModel.php',
-        'models\\Faq' => __DIR__ . '/../..' . '/application/models/Faq.php',
-        'models\\FaqMapper' => __DIR__ . '/../..' . '/application/models/FaqMapper.php',
+        'libs\\Database' => __DIR__ . '/../..' . '/application/libs/Database.php',
+        'libs\\Logger' => __DIR__ . '/../..' . '/application/libs/Logger.php',
+        'models\\AutenticazioneUtenti' => __DIR__ . '/../..' . '/application/models/AutenticazioneUtenti.php',
+        'models\\GestioneRoom' => __DIR__ . '/../..' . '/application/models/GestioneRoom.php',
+        'models\\GestioneUtenti' => __DIR__ . '/../..' . '/application/models/GestioneUtenti.php',
+        'models\\Utente' => __DIR__ . '/../..' . '/application/models/Utente.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

@@ -187,11 +187,30 @@ class GestioneRoom
 
             $id = $row['id'];
 
-            $sth = $this->conn->prepare("SELECT id FROM partita WHERE unique_key = :unique_key");
-            $sth->bindValue(':unique_key', $_SESSION['uuid']);
+            $sth = $this->conn->prepare("
+            SELECT DISTINCT f_mio.partita_id as id
+            FROM fa_parte f_mio
+            INNER JOIN fa_parte f_capo 
+                ON f_mio.partita_id = f_capo.partita_id 
+                AND f_capo.capo_partita = TRUE
+            WHERE f_mio.utente_id = :utente_id 
+                AND f_mio.richiesta = TRUE
+        ");
+            $sth->bindValue(":utente_id", $id, \PDO::PARAM_INT);
             $sth->execute();
             $row = $sth->fetch(\PDO::FETCH_ASSOC);
             $partita_id = $row['id'];
+
+
+
+            var_dump($partita_id);
+            $sth = $this->conn->prepare("SELECT unique_key FROM partita WHERE id = :id");
+            $sth->bindValue(":id", $partita_id);
+            $sth->execute();
+            $row = $sth->fetch(\PDO::FETCH_ASSOC);
+            $uuid = $row['unique_key'];
+
+            $_COOKIE['uuid'] = $uuid;
 
 
             $sth = $this->conn->prepare("UPDATE fa_parte 
