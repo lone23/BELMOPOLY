@@ -12470,3 +12470,15 @@
 [2025-04-02 14:17:09] - INFO -> Tentativo di creare la room effettuato con successo room: 13
 [2025-04-02 14:17:10] - WARN -> Tentativo di elliminare la room effettuato con successo room: 13
 [2025-04-02 14:17:11] - WARN -> Tentativo di elliminare la room effettuato con successo room: 
+[2025-04-16 08:27:37] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [1049] Unknown database 'belmopoly'
+[2025-04-16 08:27:39] - ERROR -> Database errore di connessione: SQLSTATE[HY000] [1049] Unknown database 'belmopoly'
+[2025-04-16 08:31:38] - INFO -> Utente utente1@gmail.com autenticato con successo
+[2025-04-16 08:32:19] - Tentativo di login fallito per email: shishetta
+[2025-04-16 08:32:29] - INFO -> Utente utente1@gmail.com autenticato con successo
+[2025-04-16 08:33:08] - INFO -> Room creata con successo, ID: 1
+[2025-04-16 08:33:10] - INFO -> Partita con UUID '67ff4f2471dd07.64575567' avviata. Room impostata su FALSE per tutti.
+[2025-04-16 10:21:35] - INFO -> Room eliminata con successo: 67ff4f2471dd07.64575567
+[2025-04-16 10:21:37] - INFO -> Room creata con successo, ID: 2
+[2025-04-16 10:21:39] - INFO -> Room eliminata con successo: 67ff6891eb1e73.54940252
+[2025-04-16 10:22:05] - INFO -> Room creata con successo, ID: 3
+[2025-04-16 10:22:07] - INFO -> Room eliminata con successo: 67ff68adbc9374.17720554
