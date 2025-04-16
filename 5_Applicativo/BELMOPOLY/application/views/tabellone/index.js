@@ -5,7 +5,7 @@ const celle = [
     "cell-30", "cell-31", "cell-32", "cell-33", "cell-34", "cell-35", "cell-36", "cell-37", "cell-38", "cell-39"
 ];
 
-let posizionePedina = 3; // Posizione iniziale della pedina (GO!)
+let posizionePedina = 1; // Posizione iniziale della pedina (GO!)
 let passi;
 let intervalAnimazione;
 
@@ -101,7 +101,7 @@ function muoviPedina() {
         const possibilita = ["cell-7", "cell-22", "cell-36"];
         const imprevisti = ["cell-2", "cell-17", "cell-33"];
         const speciali = ["cell-5", "cell-15", "cell-25", "cell-35", "cell-12", "cell-28"];
-        const esclusioniNormali = ["go-cell", "cell-10", "cell-20", "cell-30", "cell-7", "cell-22", "cell-36", "cell-2", "cell-17", "cell-33", "cell-5", "cell-15", "cell-25", "cell-35", "cell-12", "cell-28"];
+        const normali = ["go-cell", "cell-10", "cell-20", "cell-30", "cell-7", "cell-22", "cell-36", "cell-2", "cell-17", "cell-33", "cell-5", "cell-15", "cell-25", "cell-35", "cell-12", "cell-28"];
 
         if (possibilita.includes(cellaId)) {
             pescaCarta("possibilita");
@@ -110,7 +110,7 @@ function muoviPedina() {
         } else if (speciali.includes(cellaId)) {
             const id = parseInt(cellaId.split("-")[1]); // estrae il numero dopo "cell-"
             pescaCartaSpeciale(id);
-        } else if (!esclusioniNormali.includes(cellaId)) {
+        } else if (!normali.includes(cellaId)) {
             // Se non è una casella esclusa, pesca la carta normale
             pescaCartaNormale();
         } else {
@@ -187,43 +187,40 @@ function pescaCartaSpeciale(id) {
 }
 
 function pescaCartaNormale() {
-    // Filtra le celle normali (quelle che non sono "speciali", "imprevisti" o "possibilità")
-    const celleNormali = celle.filter(cella => {
-        const esclusioni = ["go-cell", "cell-10", "cell-20", "cell-30", "cell-7", "cell-22", "cell-36", "cell-2", "cell-17", "cell-33", "cell-5", "cell-15", "cell-25", "cell-35", "cell-12", "cell-28"];
-        return !esclusioni.includes(cella);
-    });
+    // Ottiene l'ID della cella corrente
+    const cellaId = celle[posizionePedina]; // es. "cell-3"
 
-    // Identifica la casella corrente in base alla posizione della pedina
-    const cellaId = celleNormali[posizionePedina]; // Identifica la cella corrente fra le normali
+    // Estrae solo la parte numerica, es. "3"
+    const idNumerico = parseInt(cellaId.split("-")[1]);
 
-    // Chiamata per ottenere le informazioni della proprietà
-    fetch(url + 'Board/pescaCartaNormale?id=' + cellaId, {
+    // Effettua la richiesta al backend passando l'ID numerico
+    fetch(url + 'Board/pescaCartaNormale?id=' + idNumerico, {
         method: 'GET'
     })
         .then(response => response.json())
         .then(data => {
             const descrizione = `
-                <h1>${data.nome}</h1>
-                <p>Prezzo: ${data.prezzo}€</p>
-                <ul>
-                    <li>Affitto: ${data.affitto}€</li>
-                    <li>Affitto Completo: ${data.affittoCompleto}€</li>
-                    <li>Affitto Casa 1: ${data.affittoCasa1}€</li>
-                    <li>Affitto Casa 2: ${data.affittoCasa2}€</li>
-                    <li>Affitto Casa 3: ${data.affittoCasa3}€</li>
-                    <li>Affitto Casa 4: ${data.affittoCasa4}€</li>
-                    <li>Affitto Albergo: ${data.affittoAlbergo}€</li>
-                    <li>Costo Casa: ${data.costoCasa}€</li>
-                    <li>Costo Albergo: ${data.costoAlbergo}€</li>
-                </ul>
-            `;
+            <h1>${data.nome}</h1>
+            <p>Prezzo: ${data.prezzo}€</p>
+            <ul>
+                <li>Affitto: ${data.affitto}€</li>
+                <li>Affitto Completo: ${data.affittoCompleto}€</li>
+                <li>Affitto Casa 1: ${data.affittoCasa1}€</li>
+                <li>Affitto Casa 2: ${data.affittoCasa2}€</li>
+                <li>Affitto Casa 3: ${data.affittoCasa3}€</li>
+                <li>Affitto Casa 4: ${data.affittoCasa4}€</li>
+                <li>Affitto Albergo: ${data.affittoAlbergo}€</li>
+                <li>Costo Casa: ${data.costoCasa}€</li>
+                <li>Costo Albergo: ${data.costoAlbergo}€</li>
+            </ul>
+        `;
 
-            // Mostra la descrizione della carta
+            // Mostra la descrizione
             document.getElementById('descrizioneCarta').innerHTML = descrizione;
             document.getElementById('messaggioCarta').style.display = 'block';
 
-            // Imposta che il gioco è in attesa di un'altra azione
-            muove = true; // Permetti al giocatore di fare altre azioni
+            // Abilita eventuali altre azioni
+            muove = true;
         })
         .catch(error => {
             console.error('Errore nella richiesta della carta normale:', error);
