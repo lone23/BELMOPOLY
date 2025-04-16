@@ -69,7 +69,7 @@ class GestioneAccount
         }
     }
 
-    public function mostraAmicizie(){
+    public function mostraAmicizie($param = '%'){
         require_once "./application/controller/Autenticazione.php";
 
         $autenticazione = new autenticazione();
@@ -78,14 +78,15 @@ class GestioneAccount
 
             $GesioneUtenti = new \models\GestioneUtenti();
 
-            $amici = $GesioneUtenti->MostraAmicizia($_SESSION['username']);
+
+            $amici = $GesioneUtenti->MostraAmicizia($param, $_SESSION['username']);
 
             require 'application/views/amici/friends.php';
 
         }
     }
 
-    public function rifiutaRichiestaAmicizia()
+    public function rifiutaRichiestaAmicizia($username)
     {
         require_once "./application/controller/Autenticazione.php";
 
@@ -93,8 +94,8 @@ class GestioneAccount
 
         if($autenticazione->controlloLogin()){
             $regexUsername = '/^[a-zA-Z0-9]{1,20}$/';
-            $usernameAmico = $_POST['username'];
-            if(preg_match($regexUsername, $_POST['username'])){
+            $usernameAmico = $username;
+            if(preg_match($regexUsername,$usernameAmico)){
                 $GesioneUtenti = new \models\GestioneUtenti();
 
                 $GesioneUtenti->rifiutaRichiestaAmicizia($_SESSION['username'], $usernameAmico);
@@ -140,7 +141,7 @@ class GestioneAccount
         if($autenticazione->controlloLogin()) {
 
             $GesioneUtenti = new \models\GestioneUtenti();
-            $utenti = $GesioneUtenti->mostraUtenti($param);
+            $utenti = $GesioneUtenti->mostraUtenti($param, $_SESSION['username']);
 
 
             require_once "./application/views/amici/users.php";
@@ -152,5 +153,6 @@ class GestioneAccount
 
 
     }
+
 
 }

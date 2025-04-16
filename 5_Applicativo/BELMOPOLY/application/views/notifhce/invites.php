@@ -25,7 +25,7 @@
                     <div class="user">
                         <div class="name"><?php echo $utente; ?></div>
                         <div class="options">
-                            <div class="option">DECLINE</div>
+                            <div class="option" onclick="rifiutaInvito('<?php echo $utente; ?>')">DECLINE</div>
                             <div class="option" onclick="window.location.href = '<?php echo URL; ?>home/accettaRichiesteRoom'">ACCEPT</div>
                         </div>
                     </div>
@@ -34,5 +34,11 @@
         </div>
 
     </div>
+
+<script>
+    function rifiutaInvito(valore) {
+         window.location.href = "<?php echo URL; ?>home/elliminaInvitoRoom/" + encodeURIComponent(valore);
+    }
+</script>
 </body>
 </html>

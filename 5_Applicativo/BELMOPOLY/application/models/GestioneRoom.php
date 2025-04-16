@@ -62,19 +62,42 @@ class GestioneRoom
 
     }
 
-    public function elliminaRoom($username){
+    public function elliminaRoom($username)
+    {
+        try {
+            $this->conn->beginTransaction();
 
-        try{
-            $sth = $this->conn->prepare("DELETE FROM partita WHERE unique_key = :unique_key");
+            // Ottieni l'id della partita in base alla unique_key
+            $sth = $this->conn->prepare("SELECT id FROM partita WHERE unique_key = :unique_key");
             $sth->execute(['unique_key' => $_SESSION['uuid']]);
+            $partita = $sth->fetch();
 
-            \libs\Logger::log("WARN -> Tentativo di elliminare la room effettuato con successo room: ". $_SESSION['uuid']);
+            if ($partita) {
+                $partitaId = $partita['id'];
 
-        }catch (PDOException $e){
-            \libs\Logger::log("WARN -> Tentativo di elliminare la room fallito: "+ $e->getMessage());
+                // Elimina prima i riferimenti in fa_parte
+                $sth = $this->conn->prepare("DELETE FROM fa_parte WHERE partita_id = :partita_id");
+                $sth->execute(['partita_id' => $partitaId]);
+
+                // Ora elimina la partita
+                $sth = $this->conn->prepare("DELETE FROM partita WHERE id = :partita_id");
+                $sth->execute(['partita_id' => $partitaId]);
+
+                $this->conn->commit();
+                \libs\Logger::log("INFO -> Room eliminata con successo: " . $_SESSION['uuid']);
+
+                $_SESSION['uuid'] = null;
+            } else {
+                \libs\Logger::log("WARN -> Nessuna room trovata con uuid: " . $_SESSION['uuid']);
+                $this->conn->rollBack();
+            }
+
+        } catch (PDOException $e) {
+            $this->conn->rollBack();
+            \libs\Logger::log("ERROR -> Tentativo di eliminare la room fallito: " . $e->getMessage());
         }
-
     }
+
 
 
     public function invitaAmicoRoom($username)
@@ -186,6 +209,133 @@ class GestioneRoom
             \libs\Logger::log("INFO -> Invito room fallito, ID room: " . $partita_id . " ID player: " . $id . " error: " . $e->getMessage());
         }
     }
+
+
+    public function eliminaInvitoGiocatore($capoUsername, $giocatoreUsername)
+    {
+        try {
+            $sth = $this->conn->prepare("SELECT id FROM utente WHERE username = :username");
+            $sth->execute(['username' => $capoUsername]);
+            $capoRow = $sth->fetch(\PDO::FETCH_ASSOC);
+
+            if (!$capoRow) {
+                throw new \Exception("Capo non trovato.");
+            }
+            $capoId = $capoRow['id'];
+
+            $sth = $this->conn->prepare("
+            SELECT partita_id 
+            FROM fa_parte 
+            WHERE utente_id = :capo_id AND capo_partita = TRUE
+        ");
+            $sth->execute(['capo_id' => $capoId]);
+            $partitaRow = $sth->fetch(\PDO::FETCH_ASSOC);
+
+            if (!$partitaRow) {
+                throw new \Exception("Partita non trovata per il capo.");
+            }
+            $partitaId = $partitaRow['partita_id'];
+
+            $sth = $this->conn->prepare("SELECT id FROM utente WHERE username = :username");
+            $sth->execute(['username' => $giocatoreUsername]);
+            $utenteRow = $sth->fetch(\PDO::FETCH_ASSOC);
+
+            if (!$utenteRow) {
+                throw new \Exception("Giocatore non trovato.");
+            }
+            $utenteId = $utenteRow['id'];
+
+            $sth = $this->conn->prepare("
+            DELETE FROM fa_parte 
+            WHERE partita_id = :partita_id AND utente_id = :utente_id
+        ");
+            $sth->execute([
+                'partita_id' => $partitaId,
+                'utente_id' => $utenteId
+            ]);
+
+            \libs\Logger::log("INFO -> Invito eliminato per '$giocatoreUsername' nella partita del capo '$capoUsername'.");
+
+        } catch (\Exception $e) {
+            \libs\Logger::log("ERROR -> Errore nell'eliminazione invito: " . $e->getMessage());
+        }
+    }
+
+
+    public function startGame()
+    {
+        try {
+            $uuidPartita = $_SESSION['uuid'];
+
+            // 1. Recupera l'id della partita tramite uuid
+            $sth = $this->conn->prepare("SELECT id FROM partita WHERE unique_key = :uuid");
+            $sth->execute(['uuid' => $uuidPartita]);
+            $partitaRow = $sth->fetch(\PDO::FETCH_ASSOC);
+
+            if (!$partitaRow) {
+                throw new \Exception("Partita non trovata con uuid: $uuidPartita");
+            }
+
+            $partitaId = $partitaRow['id'];
+
+            // 2. Aggiorna la colonna `room` a false per tutti i partecipanti
+            $sth = $this->conn->prepare("
+            UPDATE fa_parte 
+            SET room = FALSE 
+            WHERE partita_id = :partita_id
+        ");
+            $sth->execute(['partita_id' => $partitaId]);
+
+            \libs\Logger::log("INFO -> Partita con UUID '$uuidPartita' avviata. Room impostata su FALSE per tutti.");
+
+        } catch (\Exception $e) {
+            \libs\Logger::log("ERROR -> Errore nell'avvio della partita con uuid '$uuidPartita': " . $e->getMessage());
+        }
+    }
+
+
+
+    public function isStartGame($username)
+    {
+
+        try {
+
+            $sth = $this->conn->prepare("SELECT id FROM utente WHERE username = :username");
+            $sth->execute(['username' => $username]);
+            $userRow = $sth->fetch(\PDO::FETCH_ASSOC);
+
+            if (!$userRow) {
+                throw new \Exception("Utente non trovato.");
+            }
+
+            $userId = $userRow['id'];
+
+
+            $sth = $this->conn->prepare("
+            SELECT room 
+            FROM fa_parte 
+            WHERE utente_id = :utente_id
+            LIMIT 1
+        ");
+            $sth->execute(['utente_id' => $userId]);
+            $roomRow = $sth->fetch(\PDO::FETCH_ASSOC);
+
+
+            if (!$roomRow) {
+                return true; // Non è in nessuna room => considerata "chiusa"
+            }
+
+
+            return !$roomRow['room'];
+
+        } catch (\Exception $e) {
+            \libs\Logger::log("ERROR -> Errore nel controllo room: " . $e->getMessage());
+            return true; // Per sicurezza ritorna true (come se fosse chiusa)
+        }
+
+
+    }
+
 
 
 

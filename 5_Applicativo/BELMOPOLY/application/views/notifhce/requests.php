@@ -25,7 +25,7 @@
                 <div class="user">
                     <div class="name"><?php echo $utente->getUsername(); ?></div>
                     <div class="options">
-                        <div class="option">DECLINE</div>
+                        <div class="option" onclick="rifiutaInvito('<?php echo $utente->getUsername(); ?>')">DECLINE</div>
                         <div class="option" onclick="accettaInvito('<?php echo $utente->getUsername(); ?>')">ACCEPT</div>
                     </div>
                 </div>
@@ -35,8 +35,11 @@
 
     </div>
     <script>
+        function rifiutaInvito(valore) {
+            window.location.href = "<?php echo URL; ?>GestioneAccount/rifiutaRichiestaAmicizia/" + encodeURIComponent(valore);
+        }
         function accettaInvito(valore) {
-            window.location.href = "<?php echo URL; ?>GestioneAccount/accettaRichiesteRoom/" + encodeURIComponent(valore);
+            window.location.href = "<?php echo URL; ?>GestioneAccount/accettaRichiestaAmicizia/" + encodeURIComponent(valore);
         }
     </script>
 </body>

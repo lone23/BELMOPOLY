@@ -47,7 +47,6 @@ class GestioneUtenti
     public function MostraRichiesteAmicizia($username)
     {
         $amici = array();
-        var_dump($username);
 
         try {
 
@@ -58,7 +57,6 @@ class GestioneUtenti
             while ($row = $sth->fetch(\PDO::FETCH_ASSOC)) {
                 $idUtente = $row['id'];
             }
-            var_dump($idUtente);
 
             // Ottieni gli username delle richieste ricevute
             $sth = $this->conn->prepare('
@@ -118,7 +116,7 @@ class GestioneUtenti
                              JOIN utente u2 ON u2.id = a.ricevente
                              WHERE u1.username = :usernameAmico
                              AND u2.username = :usernameUtente
-                             AND a.richiesta = TRUE');
+                             AND a.richiesta = FALSE');
 
             $sth->bindValue(':usernameUtente', $usernameUtente);
             $sth->bindValue(':usernameAmico', $usernameAmico);
@@ -130,9 +128,15 @@ class GestioneUtenti
 
     }
 
-    public function MostraAmicizia($username)
+    public function MostraAmicizia($param, $username)
     {
         $amici = array();
+
+        if (!isset($param)) {
+            $param = "%";
+        } else {
+            $param = $param . "%"; // Aggiungi il % per fare la ricerca che inizia con $param
+        }
 
         try {
             $sth = $this->conn->prepare('
@@ -146,9 +150,10 @@ class GestioneUtenti
             JOIN utente u2 ON u2.id = a.ricevente
             WHERE (u1.username = :username OR u2.username = :username)
               AND a.richiesta = 1
-        ');
+              AND (u1.username LIKE :param OR u2.username LIKE :param)');  // Aggiunta la condizione LIKE per il parametro
 
             $sth->bindValue(':username', $username);
+            $sth->bindValue(':param', $param);
             $sth->execute();
         } catch (\PDOException $e) {
             \libs\Logger::log("ERROR -> Tentativo di mostrare le amicizie fallito: {$e->getMessage()}");
@@ -163,6 +168,7 @@ class GestioneUtenti
 
         return $amici;
     }
+
 
 
     public function eliminaAmicizia($usernameUtente, $usernameAmico)
@@ -198,30 +204,53 @@ class GestioneUtenti
     }
 
 
-    public function mostraUtenti($param)
+    public function mostraUtenti($param, $username)
     {
 
         $utenti = array();
+        $amici = $this->MostraAmicizia('%',$username);
+
 
         if(!isset($param)){
             $param = "%";
         }
         try{
-            $sth = $this->conn->prepare('SELECT username FROM utente WHERE username LIKE :param');
+            $sth = $this->conn->prepare('SELECT username FROM utente WHERE username LIKE :param AND username != :usernameUtente');
             $search = $param."%";
             $sth->bindValue(':param', $search);
+            $sth->bindValue(':usernameUtente',$username);
             $sth->execute();
 
             while ($row = $sth->fetch()) {
-                $utenti[] = $row['username'];
+                $utente = new Utente();
+                $utente->setUsername($row['username']);
+                $utenti[] = $utente;
             }
 
-            return $utenti;
+            $amiciUsernames = array_map(function($a) {
+                return $a->getUsername();
+            }, $amici);
+
+            $utentiUsernames = array_map(function($u) {
+                return $u->getUsername();
+            }, $utenti);
+
+
+            $utentiUsernames = array_diff($utentiUsernames, $amiciUsernames);
+
+            $finalUtenti = array_filter($utenti, function($u) use ($utentiUsernames) {
+                return in_array($u->getUsername(), $utentiUsernames);
+            });
+
+
+            return array_values($finalUtenti);
         }
         catch (\PDOException $e){
             \libs\Logger::log("WARNING -> Errore nella ricerca dei utenti");
         }
     }
+
+
 
 
 
