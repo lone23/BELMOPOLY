@@ -13,8 +13,13 @@
         <div class="main">
             <div class="tools">
                 <img src="<?php echo URL?>application/views/images/notification.png"  onclick="window.location.href='<?php echo URL; ?>GestioneAccount/mostraRichiesteAmicizia'" alt="notification" class="notification">
-                <input type="text" class="search-bar"  placeholder="SEARCH...">
-                <img src="<?php echo URL?>application/views/images/search.png" alt="search" class="search">
+                <input
+                        type="text"
+                        class="search-bar"
+                        placeholder="SEARCH..."
+                        id="ricerca"
+                >
+                <img src="<?php echo URL ?>application/views/images/search.png" onclick="cercaUtente()" alt="search" class="search">
             </div>
             <div class="buttons">
                 <div class="selector selected">FRIENDS</div>
@@ -35,6 +40,13 @@
 
     <script>
 
+        function cercaUtente() {
+            const valore = document.getElementById("ricerca").value;
+
+
+            window.location.href = "<?php echo URL; ?>GestioneAccount/mostraAmicizie/" + encodeURIComponent(valore);
+
+        }
         function rimuoviAmico(valore) {
 
             window.location.href = "<?php echo URL; ?>GestioneAccount/elliminaAmicizia/" + encodeURIComponent(valore);

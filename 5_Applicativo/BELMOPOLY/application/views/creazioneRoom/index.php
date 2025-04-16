@@ -8,6 +8,22 @@
     <title>Create Room</title>
 </head>
 <body>
+<script>
+    fetch('<?php echo URL ?>home/isStartGame', {
+        method: 'GET'
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+</script>
+
+
+
 <div class="container">
     <img src="<?php echo URL?>application/views/images/arrow.png" onclick="window.location.href='<?php echo URL; ?>home/esciRoom'" alt="account" class="account">
     <div class="content">
@@ -27,7 +43,7 @@
                     <div class="user"> <?php echo $utente->getUsername(); ?> <div class="invite" onclick="window.location.href='<?php echo URL; ?>home/invitaRoom/<?php echo $utente->getUsername(); ?>'">INVITE</div></div>
                 <?php endforeach; ?>
             </div>
-            <div class="button" onclick="window.location.href='<?php echo URL; ?>Board/index'">START</div>
+            <div class="button" onclick="window.location.href='<?php echo URL; ?>home/startGame'">START</div>
         </div>
     </div>
 </div>

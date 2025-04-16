@@ -29,7 +29,7 @@ class home
 
             $GesioneUtenti = new \models\GestioneUtenti();
 
-            $amici = $GesioneUtenti->MostraAmicizia($_SESSION['username']);
+            $amici = $GesioneUtenti->MostraAmicizia('%',$_SESSION['username']);
 
             require_once "./application/views/creazioneRoom/index.php";
 
@@ -52,7 +52,7 @@ class home
 
             $GesioneUtenti = new \models\GestioneUtenti();
 
-            $amici = $GesioneUtenti->MostraAmicizia($_SESSION['username']);
+            $amici = $GesioneUtenti->MostraAmicizia("%",$_SESSION['username']);
 
             require_once "./application/views/creazioneRoom/index.php";
 
@@ -130,6 +130,59 @@ class home
             $creaRoom->accettaInvito($_SESSION['username']);
 
             $this->creaRoomView();
+
+        }
+
+    }
+
+    public function elliminaInvitoRoom($capoPartita = null)
+    {
+
+        require_once "./application/controller/autenticazione.php";
+        $autenticazione = new autenticazione();
+
+        if($autenticazione->controlloLogin()) {
+
+            $creaRoom = new \models\GestioneRoom();
+
+            $creaRoom->eliminaInvitoGiocatore($capoPartita,$_SESSION['username']);
+
+            $this->index();
+
+        }
+
+    }
+
+    public function isStartGame()
+    {
+
+        require_once "./application/controller/autenticazione.php";
+        $autenticazione = new autenticazione();
+
+        if($autenticazione->controlloLogin()) {
+
+            header('Content-Type: application/json');
+            $gestioneRoom = new \models\GestioneRoom();
+            $response = $gestioneRoom->isStartGame($_SESSION['username']);
+            echo json_encode($response);
+        }
+
+
+
+    }
+
+    public function startGame()
+    {
+        require_once "./application/controller/autenticazione.php";
+        $autenticazione = new autenticazione();
+
+        if($autenticazione->controlloLogin()) {
+
+            $creaRoom = new \models\GestioneRoom();
+
+            $creaRoom->startGame();
+
+            header("Location:" . URL . "board/index");
 
         }
 
