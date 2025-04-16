@@ -2,13 +2,10 @@
     --background: #02151c;
     --border-color: #202d40;
     --cell-color: rgb(218, 105, 133);
-    --cell-hover-color: rgb(238, 141, 160);
+    --cell-hover: rgb(238, 141, 160);
 }
 
-.content {
-    display: flex; /* Enables flexbox */
-    justify-content: space-between;
-}
+
 
 .casella-img {
     width: 2vw;
@@ -18,23 +15,46 @@
 
 body{
     color: var(--border-color);
-    border-collapse: collapse;
     font-family: basic;
 }
 
 .schema{
     visibility: visible;
+
 }
 
-/* -------------------------- BOARD ----------------------*/
+.content {
+    outline: solid white 4px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-evenly;
+}
+
 .board{
-    width: auto;
+    outline: solid red 4px;
+    height: 100%;
+    aspect-ratio: 1 / 1; /* mantiene proporzioni quadrate */
+    border-collapse: collapse;
+    table-layout: fixed;
 }
 
 tr, td{
-    width: 1.7vw ;
-    height: 1.7vw;
+    outline: solid blue 2px;
     background-color: var(--cell-color);
+    width: 0.1vw;
+}
+
+
+
+td{
+    aspect-ratio: 1 / 1;
+}
+
+.game{
+    outline: solid green 4px;
+    margin-top: 0;
 }
 
 p {
@@ -42,14 +62,10 @@ p {
     font-size: 0.7vw;
 }
 
-td{
-    text-align: center;
-    outline:solid var(--border-color) 0.15vw;
-    position: relative;
-}
+
 
 td:hover{
-    background-color: var(--cell-hover-color);
+    background-color: var(--cell-hover);
 }
 
 .left{
@@ -62,20 +78,17 @@ td:hover{
     transform: rotate(180deg);
 }
 
-.game{
-    margin-top: 1.7vw;
-    margin-left: 2vw;
-    width: 40vw;
-}
+
 
 .button {
     margin: 0vw;
     font-size: 1.5vw;
     width: 8vw;
     height: auto;
+
 }
 
-/* -------------------------- PEDINA ----------------------*/
+
 #pedina {
     position: absolute;
     top: 50%;
@@ -87,7 +100,7 @@ td:hover{
     transform: translate(-50%, -50%);
 }
 
-/* ------------------------- DADI ----------------------*/
+
 .dado {
     font-size: 1.5vw;
     width: 3vw;
@@ -99,6 +112,10 @@ td:hover{
     border-radius: 1vw;
     border: solid var(--border-color) 0.3vw;
     padding: 1vw;
+}
+
+.hidden {
+    visibility: hidden;
 }
 
 .puntino {
@@ -121,9 +138,7 @@ td:hover{
     justify-content: space-between;
 }
 
-.hidden {
-    visibility: hidden;
-}
+
 
 /* ------------------------- GIOCATORI ----------------------*/
 .player {
@@ -134,7 +149,12 @@ td:hover{
     border-radius: 2vw;
 }
 
-.possession {
+.player .possession {
+    height: 0vw;
+    border: solid black 0px;
+}
+.player.selected .possession {
+    height: 10vw;
     border: solid black 1px;
 }
 

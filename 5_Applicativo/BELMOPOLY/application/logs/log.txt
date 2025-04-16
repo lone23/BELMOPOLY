@@ -12485,3 +12485,6 @@
 [2025-04-16 11:28:37] - INFO -> Utente utente1@gmail.com autenticato con successo
 [2025-04-16 11:28:41] - INFO -> Room creata con successo, ID: 4
 [2025-04-16 11:28:42] - INFO -> Partita con UUID '67ff7849b7da50.56950706' avviata. Room impostata su FALSE per tutti.
+[2025-04-16 14:22:58] - WARN -> Nessuna room trovata con uuid: 
+[2025-04-16 14:23:06] - WARN -> Nessuna room trovata con uuid: 
+[2025-04-16 14:23:06] - WARN -> Nessuna room trovata con uuid: 

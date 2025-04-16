@@ -61,13 +61,15 @@ INSERT INTO utente (email, username, password, data_iscrizione) VALUES
 ('utente9@gmail.com', 'utente9', '$2y$10$rwe.xst3iEr8FZ7Ma5v8ouhXYvGcAne2M8rjGZv6fQNq/S/SJpo62', CURDATE()),
 ('utente10@gmail.com', 'utente10', '$2y$10$rwe.xst3iEr8FZ7Ma5v8ouhXYvGcAne2M8rjGZv6fQNq/S/SJpo62', CURDATE());
 
-CREATE TABLE IF NOT EXISTS probabilita (
+USE belmopoly;
+
+CREATE TABLE probabilita (
  id INT AUTO_INCREMENT PRIMARY KEY,
  descrizione TEXT NOT NULL,
  incasso INT
 );
 
-CREATE TABLE IF NOT EXISTS imprevisti (
+CREATE TABLE imprevisti (
     id INT AUTO_INCREMENT PRIMARY KEY,
     descrizione TEXT NOT NULL,
     perdita INT
@@ -98,7 +100,7 @@ INSERT INTO imprevisti (descrizione, perdita) VALUES
 ('Il tuo portafoglio digitale subisce un attacco di phishing sofisticato. Perdi 210€ a causa del furto.', 210);
 
 
-CREATE TABLE IF NOT EXISTS proprietaSpeciali (
+CREATE TABLE proprietaSpeciali (
    id INT PRIMARY KEY,
    nome VARCHAR(255) NOT NULL,
    prezzo INT NOT NULL,
@@ -108,7 +110,7 @@ CREATE TABLE IF NOT EXISTS proprietaSpeciali (
    affitto4 INT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS proprietaNormali (
+CREATE TABLE proprietaNormali (
     id INT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     prezzo INT NOT NULL,
