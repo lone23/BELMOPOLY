@@ -15,7 +15,7 @@ class Board
             session_start();
         }
 
-        $Dado1 = rand(1,1);
+        $Dado1 = rand(1, 1);
         $Dado2 = rand(1, 1);
         $_SESSION['Dado1'] = $Dado1;
         $_SESSION['Dado2'] = $Dado2;
@@ -28,14 +28,14 @@ class Board
     {
         $tipo = $_GET['tipo'] ?? null;
 
-        if ($tipo !== 'possibilita' && $tipo !== 'imprevisti') {
-            echo "Tipo non valido.";
+        if ($tipo !== 'probabilita' && $tipo !== 'imprevisti') {
+            echo json_encode(["errore" => "Tipo non valido."]);
             return;
         }
+
         try {
             $db = Database::getConnection();
-
-            $id = rand(1, 10);
+            $id = rand(4,4);
 
             $stmt = $db->prepare("SELECT descrizione FROM $tipo WHERE id = :id");
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -44,12 +44,15 @@ class Board
             $carta = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($carta) {
-                echo $carta['descrizione'];
+                echo json_encode([
+                    "id" => $id,
+                    "descrizione" => $carta['descrizione']
+                ]);
             } else {
-                echo "Carta non trovata.";
+                echo json_encode(["errore" => "Carta non trovata."]);
             }
         } catch (PDOException $e) {
-            echo "Errore di connessione al database.";
+            echo json_encode(["errore" => "Errore di connessione al database."]);
         }
     }
 

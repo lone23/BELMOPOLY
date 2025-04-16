@@ -5,9 +5,11 @@ const celle = [
     "cell-30", "cell-31", "cell-32", "cell-33", "cell-34", "cell-35", "cell-36", "cell-37", "cell-38", "cell-39"
 ];
 
-let posizionePedina = 1; // Posizione iniziale della pedina (GO!)
+let posizionePedina = 0;
 let passi;
 let intervalAnimazione;
+let destinazioneVeloce = null;
+let mostraCartaNormaleDopoSpostamento = false;
 
 function updateDie(dieElement, value) {
     const dotPositions = {
@@ -85,14 +87,40 @@ function tiraDadi() {
     }, 70);
 }
 
-
 function muoviPedina() {
     const cellaCorrente = document.getElementById(celle[posizionePedina]);
     if (cellaCorrente.querySelector("#pedina")) {
         cellaCorrente.querySelector("#pedina").remove();
     }
 
-    if (passi > 0) {
+    // Muovimento verso Data Cube Matrix
+    if (destinazioneVeloce !== null) {
+        if (posizionePedina !== destinazioneVeloce) {
+            posizionePedina = (posizionePedina + 1) % celle.length;
+        } else {
+            const cella = document.getElementById(celle[posizionePedina]);
+            const testo = cella.querySelector("p") ? cella.querySelector("p").textContent : "una casella";
+            document.getElementById("evento").innerHTML = "SEI SULLA CASELLA " + testo;
+
+            // Mostra la pedina nella nuova posizione
+            cella.innerHTML += '<div id="pedina"></div>';
+
+            clearInterval(intervalAnimazione);
+            muove = false;
+            destinazioneVeloce = null;
+
+            document.getElementById("rettangoloDado1").disabled = false;
+            document.getElementById("rettangoloDado2").disabled = false;
+
+            // Mostra la carta normale di Datacube se siamo su cell-29
+            if (mostraCartaNormaleDopoSpostamento) {
+                mostraCartaNormaleDopoSpostamento = false;
+                pescaCartaNormale(29);
+            }
+            return;
+        }
+
+    } else if (passi > 0) {
         posizionePedina = (posizionePedina + 1) % celle.length;
         passi--;
     } else {
@@ -104,15 +132,15 @@ function muoviPedina() {
         const normali = ["go-cell", "cell-10", "cell-20", "cell-30", "cell-7", "cell-22", "cell-36", "cell-2", "cell-17", "cell-33", "cell-5", "cell-15", "cell-25", "cell-35", "cell-12", "cell-28"];
 
         if (possibilita.includes(cellaId)) {
-            pescaCarta("possibilita");
-        } else if (imprevisti.includes(cellaId)) {
             pescaCarta("imprevisti");
+        } else if (imprevisti.includes(cellaId)) {
+            pescaCarta("probabilita");
         } else if (speciali.includes(cellaId)) {
-            const id = parseInt(cellaId.split("-")[1]); // estrae il numero dopo "cell-"
+            const id = parseInt(cellaId.split("-")[1]);
             pescaCartaSpeciale(id);
         } else if (!normali.includes(cellaId)) {
-            // Se non è una casella esclusa, pesca la carta normale
-            pescaCartaNormale();
+            const idNumerico = parseInt(cellaId.split("-")[1]);
+            pescaCartaNormale(idNumerico);
         } else {
             const cella = document.getElementById(cellaId);
             const testo = cella.querySelector("p") ? cella.querySelector("p").textContent : "nulla";
@@ -125,6 +153,7 @@ function muoviPedina() {
         muove = false;
     }
 
+    // Mostra la pedina nella nuova posizione
     const nuovaCella = document.getElementById(celle[posizionePedina]);
     nuovaCella.innerHTML += '<div id="pedina"></div>';
 }
@@ -133,15 +162,28 @@ function pescaCarta(tipo) {
     fetch(url + 'Board/pescaCarta?tipo=' + tipo, {
         method: 'GET'
     })
-        .then(response => response.text())
+        .then(response => response.json())
         .then(data => {
+            if (data.errore) {
+                alert(data.errore);
+                return;
+            }
+
             const messaggioElemento = document.getElementById('messaggioCarta');
             const descrizioneElemento = document.getElementById('descrizioneCarta');
 
-            descrizioneElemento.innerHTML = '<h1>'+tipo+'</h1>' + '<p>'+data+'</p>';
-
+            descrizioneElemento.innerHTML = '<h1>' + tipo + '</h1><p>' + data.descrizione + '</p>';
             messaggioElemento.style.display = 'block';
-            muove = true;
+
+            if (data.id === 4) {
+                destinazioneVeloce = celle.indexOf("cell-29");
+                passi = 1000;
+                mostraCartaNormaleDopoSpostamento = true;
+                intervalAnimazione = setInterval(muoviPedina, 150);
+            } else {
+                muove = true;
+            }
+
         })
         .catch(error => {
             console.error('Errore nel recupero della carta:', error);
@@ -186,14 +228,7 @@ function pescaCartaSpeciale(id) {
         });
 }
 
-function pescaCartaNormale() {
-    // Ottiene l'ID della cella corrente
-    const cellaId = celle[posizionePedina]; // es. "cell-3"
-
-    // Estrae solo la parte numerica, es. "3"
-    const idNumerico = parseInt(cellaId.split("-")[1]);
-
-    // Effettua la richiesta al backend passando l'ID numerico
+function pescaCartaNormale(idNumerico) {
     fetch(url + 'Board/pescaCartaNormale?id=' + idNumerico, {
         method: 'GET'
     })
@@ -212,14 +247,11 @@ function pescaCartaNormale() {
                 <li>Affitto Albergo: ${data.affittoAlbergo}€</li>
                 <li>Costo Casa: ${data.costoCasa}€</li>
                 <li>Costo Albergo: ${data.costoAlbergo}€</li>
-            </ul>
-        `;
+            </ul>`;
 
-            // Mostra la descrizione
             document.getElementById('descrizioneCarta').innerHTML = descrizione;
             document.getElementById('messaggioCarta').style.display = 'block';
 
-            // Abilita eventuali altre azioni
             muove = true;
         })
         .catch(error => {
