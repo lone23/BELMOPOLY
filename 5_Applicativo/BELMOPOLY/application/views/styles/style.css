@@ -51,19 +51,7 @@ img {
   position: absolute;
 }
 
-/* Angoli stondati esterni */
-.tl-corner {
-  border-top-left-radius: 2vw;
-}
-.tr-corner {
-  border-top-right-radius: 2vw;
-}
-.bl-corner {
-  border-bottom-left-radius: 2vw;
-}
-.br-corner {
-  border-bottom-right-radius: 2vw;
-}
+
 
 .belmopoly {
   color: var(--border-color);
