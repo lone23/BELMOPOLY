@@ -12491,3 +12491,46 @@
 [2025-04-16 14:49:07] - INFO -> Utente utente1@gmail.com autenticato con successo
 [2025-04-16 14:49:08] - INFO -> Room creata con successo, ID: 1
 [2025-04-16 14:49:09] - INFO -> Partita con UUID '67ffa74468a907.46105170' avviata. Room impostata su FALSE per tutti.
+[2025-04-16 15:25:09] - Tentativo di login fallito per email: jombo@gmail.com
+[2025-04-16 15:25:14] - Tentativo di login fallito per email: jombo@gmail.com
+[2025-04-16 15:25:28] - INFO -> Utente utente1@gmail.com autenticato con successo
+[2025-04-16 15:25:33] - INFO -> Richiesta di amicizia inviata correttamente da utente1 a utente10
+[2025-04-16 15:25:33] - INFO -> Richiesta di amicizia inviata correttamente da utente1 a utente2
+[2025-04-16 15:25:34] - INFO -> Richiesta di amicizia inviata correttamente da utente1 a utente3
+[2025-04-16 15:25:35] - WARNING -> Richiesta di amicizia fallita da utente1 a utente3 ->SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-3' for key 'PRIMARY'
+[2025-04-16 15:25:35] - INFO -> Richiesta di amicizia inviata correttamente da utente1 a utente4
+[2025-04-16 15:25:36] - WARNING -> Richiesta di amicizia fallita da utente1 a utente4 ->SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-4' for key 'PRIMARY'
+[2025-04-16 15:25:37] - WARNING -> Richiesta di amicizia fallita da utente1 a utente3 ->SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-3' for key 'PRIMARY'
+[2025-04-16 15:25:38] - WARNING -> Richiesta di amicizia fallita da utente1 a utente2 ->SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-2' for key 'PRIMARY'
+[2025-04-16 15:25:39] - WARNING -> Richiesta di amicizia fallita da utente1 a utente3 ->SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-3' for key 'PRIMARY'
+[2025-04-16 15:25:39] - WARNING -> Richiesta di amicizia fallita da utente1 a utente4 ->SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-4' for key 'PRIMARY'
+[2025-04-16 15:25:40] - WARNING -> Richiesta di amicizia fallita da utente1 a utente3 ->SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-3' for key 'PRIMARY'
+[2025-04-16 15:25:41] - INFO -> Richiesta di amicizia inviata correttamente da utente1 a utente7
+[2025-04-16 15:25:43] - INFO -> Richiesta di amicizia inviata correttamente da utente1 a utente9
+[2025-04-16 15:25:44] - INFO -> Richiesta di amicizia inviata correttamente da utente1 a utente6
+[2025-04-16 15:25:45] - WARNING -> Richiesta di amicizia fallita da utente1 a utente9 ->SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-9' for key 'PRIMARY'
+[2025-04-16 15:25:47] - INFO -> Richiesta di amicizia inviata correttamente da utente1 a utente8
+[2025-04-16 15:25:48] - WARNING -> Richiesta di amicizia fallita da utente1 a utente7 ->SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-7' for key 'PRIMARY'
+[2025-04-16 15:25:51] - WARNING -> Richiesta di amicizia fallita da utente1 a utente6 ->SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-6' for key 'PRIMARY'
+[2025-04-16 15:27:33] - INFO -> Utente utente2@gmail.com autenticato con successo
+[2025-04-16 15:27:34] - INFO -> Room creata con successo, ID: 1
+[2025-04-16 15:27:35] - INFO -> Partita con UUID '67ffb04672bb52.65517676' avviata. Room impostata su FALSE per tutti.
+[2025-04-16 15:27:40] - INFO -> Partita con UUID '67ffb04672bb52.65517676' avviata. Room impostata su FALSE per tutti.
+[2025-04-16 15:27:45] - INFO -> Partita con UUID '67ffb04672bb52.65517676' avviata. Room impostata su FALSE per tutti.
+[2025-04-16 15:27:50] - INFO -> Partita con UUID '67ffb04672bb52.65517676' avviata. Room impostata su FALSE per tutti.
+[2025-04-16 15:29:23] - INFO -> Partita con UUID '67ffb04672bb52.65517676' avviata. Room impostata su FALSE per tutti.
+[2025-04-16 15:29:28] - INFO -> Partita con UUID '67ffb04672bb52.65517676' avviata. Room impostata su FALSE per tutti.
+[2025-04-16 15:29:33] - INFO -> Partita con UUID '67ffb04672bb52.65517676' avviata. Room impostata su FALSE per tutti.
+[2025-04-16 15:29:38] - INFO -> Partita con UUID '67ffb04672bb52.65517676' avviata. Room impostata su FALSE per tutti.
+[2025-04-16 15:29:43] - INFO -> Partita con UUID '67ffb04672bb52.65517676' avviata. Room impostata su FALSE per tutti.
+[2025-04-16 15:29:48] - INFO -> Partita con UUID '67ffb04672bb52.65517676' avviata. Room impostata su FALSE per tutti.
+[2025-04-16 15:29:53] - INFO -> Partita con UUID '67ffb04672bb52.65517676' avviata. Room impostata su FALSE per tutti.
+[2025-04-16 15:29:58] - INFO -> Partita con UUID '67ffb04672bb52.65517676' avviata. Room impostata su FALSE per tutti.
+[2025-04-16 15:30:03] - INFO -> Partita con UUID '67ffb04672bb52.65517676' avviata. Room impostata su FALSE per tutti.
+[2025-04-16 15:30:08] - INFO -> Partita con UUID '67ffb04672bb52.65517676' avviata. Room impostata su FALSE per tutti.
+[2025-04-16 15:30:13] - INFO -> Partita con UUID '67ffb04672bb52.65517676' avviata. Room impostata su FALSE per tutti.
+[2025-04-16 15:30:18] - INFO -> Partita con UUID '67ffb04672bb52.65517676' avviata. Room impostata su FALSE per tutti.
+[2025-04-16 15:30:24] - INFO -> Partita con UUID '67ffb04672bb52.65517676' avviata. Room impostata su FALSE per tutti.
+[2025-04-16 15:30:29] - INFO -> Partita con UUID '67ffb04672bb52.65517676' avviata. Room impostata su FALSE per tutti.
+[2025-04-16 15:30:34] - INFO -> Partita con UUID '67ffb04672bb52.65517676' avviata. Room impostata su FALSE per tutti.
+[2025-04-16 15:30:39] - INFO -> Utente utente2@gmail.com autenticato con successo

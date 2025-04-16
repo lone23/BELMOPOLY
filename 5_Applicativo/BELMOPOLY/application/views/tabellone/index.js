@@ -11,7 +11,7 @@ let intervalAnimazione;
 let destinazioneVeloce = null;
 let mostraCartaNormaleDopoSpostamento = false;
 
-function updateDie(dieElement, value) {
+function aggiornaDado(dieElement, value) {
     const dotPositions = {
         1: [4],
         2: [0, 8],
@@ -54,8 +54,8 @@ function tiraDadi() {
 
     const interval = setInterval(() => {
         // Animazione dei dadi (mostra valori temporanei)
-        updateDie(rettangoloDado1, Math.floor(Math.random() * 6) + 1);
-        updateDie(rettangoloDado2, Math.floor(Math.random() * 6) + 1);
+        aggiornaDado(rettangoloDado1, Math.floor(Math.random() * 6) + 1);
+        aggiornaDado(rettangoloDado2, Math.floor(Math.random() * 6) + 1);
         count++;
 
         if (count >= maxCount) {
@@ -69,8 +69,8 @@ function tiraDadi() {
                     dado2 = data.dado2;
 
                     passi = dado1 + dado2;
-                    updateDie(rettangoloDado1, dado1);  // Mostra il dado 1
-                    updateDie(rettangoloDado2, dado2);  // Mostra il dado 2
+                    aggiornaDado(rettangoloDado1, dado1);  // Mostra il dado 1
+                    aggiornaDado(rettangoloDado2, dado2);  // Mostra il dado 2
 
                     // Avvia il movimento della pedina
                     intervalAnimazione = setInterval(muoviPedina, 500);
@@ -83,6 +83,16 @@ function tiraDadi() {
         }
     }, 70);
 }
+
+// Per mostrare il numero 5 sui dadi a inizio game
+window.addEventListener("DOMContentLoaded", () => {
+    const rettangoloDado1 = document.getElementById("rettangoloDado1");
+    const rettangoloDado2 = document.getElementById("rettangoloDado2");
+
+    aggiornaDado(rettangoloDado1, 5);
+    aggiornaDado(rettangoloDado2, 5);
+});
+
 
 function muoviPedina() {
     const cellaCorrente = document.getElementById(celle[posizionePedina]);
@@ -277,6 +287,4 @@ function showPossession(player){
     }
     document.getElementById(player).className = "player selected";
     selectedPlayer = player;
-
-
 }
