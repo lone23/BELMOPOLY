@@ -61,7 +61,6 @@ INSERT INTO utente (email, username, password, data_iscrizione) VALUES
 ('utente9@gmail.com', 'utente9', '$2y$10$rwe.xst3iEr8FZ7Ma5v8ouhXYvGcAne2M8rjGZv6fQNq/S/SJpo62', CURDATE()),
 ('utente10@gmail.com', 'utente10', '$2y$10$rwe.xst3iEr8FZ7Ma5v8ouhXYvGcAne2M8rjGZv6fQNq/S/SJpo62', CURDATE());
 
-USE belmopoly;
 
 CREATE TABLE probabilita (
  id INT AUTO_INCREMENT PRIMARY KEY,

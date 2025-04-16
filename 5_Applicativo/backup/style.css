@@ -51,6 +51,8 @@ img {
   position: absolute;
 }
 
+
+
 .belmopoly {
   color: var(--border-color);
   font-family: basic;
@@ -104,6 +106,7 @@ img {
 
   border: 0.3vw solid var(--border-color);
   border-radius: 2vw;
+  transition: background-color 0.3s ease;
   
   box-shadow: inset 0 1vw 2vw rgba(0,0,0,0.06), 0 0vw 2vw rgba(0,0,0,0.25);
 }
