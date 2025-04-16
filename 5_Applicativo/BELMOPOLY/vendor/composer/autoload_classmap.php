@@ -8,9 +8,10 @@ $baseDir = dirname($vendorDir);
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'libs\\Application' => $baseDir . '/application/libs/application.php',
-    'libs\\Database' => $baseDir . '/application/libs/database.php',
-    'libs\\Validator' => $baseDir . '/application/libs/validator.php',
-    'models\\AuthModel' => $baseDir . '/application/models/AuthModel.php',
-    'models\\Faq' => $baseDir . '/application/models/Faq.php',
-    'models\\FaqMapper' => $baseDir . '/application/models/FaqMapper.php',
+    'libs\\Database' => $baseDir . '/application/libs/Database.php',
+    'libs\\Logger' => $baseDir . '/application/libs/Logger.php',
+    'models\\AutenticazioneUtenti' => $baseDir . '/application/models/AutenticazioneUtenti.php',
+    'models\\GestioneRoom' => $baseDir . '/application/models/GestioneRoom.php',
+    'models\\GestioneUtenti' => $baseDir . '/application/models/GestioneUtenti.php',
+    'models\\Utente' => $baseDir . '/application/models/Utente.php',
 );

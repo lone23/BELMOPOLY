@@ -12,7 +12,7 @@
         <img src="<?php echo URL ?>application/views/images/arrow.png"  onclick="window.location.href='<?php echo URL; ?>home/index'" alt="back" class="account">
         <div class="main">
             <div class="tools">
-                <img src="<?php echo URL ?>application/views/images/friends.png"  onclick="window.location.href='<?php echo URL; ?>GestioneUtenti/MostraRichiesteAmicizia'" class="notification">
+                <img src="<?php echo URL ?>application/views/images/friends.png"  onclick="window.location.href='<?php echo URL; ?>GestioneAccount/mostraAmicizie'" class="notification">
                 <input type="text" class="search-bar" placeholder="SEARCH...">
                 <img src="<?php echo URL ?>application/views/images/search.png" alt="search" class="search">
             </div>

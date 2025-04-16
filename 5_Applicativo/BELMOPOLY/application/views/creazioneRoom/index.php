@@ -9,19 +9,22 @@
 </head>
 <body>
 <script>
-    fetch('<?php echo URL ?>home/isStartGame', {
-        method: 'GET'
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-</script>
 
+    const socket = new WebSocket("ws://localhost:3000");
+
+    socket.onopen = () => {
+        const uuid = "<?php echo $_COOKIE['uuid']; ?>";
+        socket.send(JSON.stringify({ joinRoom: uuid }));
+    };
+
+    socket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        console.log(data);
+        if (data.startGame) {
+            window.location.href = "<?php echo URL; ?>board/index";
+        }
+    };
+</script>
 
 
 <div class="container">

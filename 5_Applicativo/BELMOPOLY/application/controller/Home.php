@@ -1,4 +1,8 @@
 <?php
+
+use WebSocket\Client;
+
+
 class home
 {
 
@@ -164,7 +168,7 @@ class home
             header('Content-Type: application/json');
             $gestioneRoom = new \models\GestioneRoom();
             $response = $gestioneRoom->isStartGame($_SESSION['username']);
-            echo json_encode($response);
+
         }
 
 
@@ -179,13 +183,19 @@ class home
         if($autenticazione->controlloLogin()) {
 
             $creaRoom = new \models\GestioneRoom();
+            $creaRoom->startGame(); // aggiorna il DB
 
-            $creaRoom->startGame();
+            // 🔥 Comunica via WebSocket al server Node.js
+            $uuid = $_SESSION['uuid'];
+            $client = new Client("ws://localhost:3000");
+            $client->send(json_encode([
+                'startGame' => true,
+                'room' => $uuid
+            ]));
+            $client->close();
 
             header("Location:" . URL . "board/index");
-
         }
-
     }
 
 

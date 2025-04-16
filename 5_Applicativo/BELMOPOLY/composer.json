@@ -7,5 +7,9 @@
         "classmap": [
             "application/libs/",
             "application/models/"]
+    },
+    "require": {
+        "textalk/websocket": "^1.6",
+        "ext-json": "*"
     }
 }
