@@ -26,7 +26,7 @@
 
 
 
-            <table class="board"">
+            <table class="board">
 
                     <tr class="schema">
                         <td></td>
@@ -58,7 +58,7 @@
                     <tr>
                         <td id="cell-20" colspan="3" rowspan="3" class="tl-corner"><p style="transform: rotate(135deg); font-size: 1vw;">Subway</p></td>
                         <td id="cell-21" colspan="2" rowspan="2"><p class="top">Neural Sector</p></td>
-                        <td id="cell-22" colspan="2" rowspan="3"><p class="top">?</p></td>
+                        <td id="cell-22" colspan="2" rowspan="3"><p class="top"><img src="<?php echo URL?>application/views/images/question.png" alt="probabilita" class="casella-img"></p></td>
                         <td id="cell-23" colspan="2" rowspan="2"><p class="top">Neural Nexus</p></td>
                         <td id="cell-24" colspan="2" rowspan="2"><p class="top">Neural Horizon</p></td>
                         <td id="cell-25" colspan="2" rowspan="2"><p class="top">Cyber Station North</p></td>
@@ -136,7 +136,7 @@
                     <tr>
                         <td id="cell-14" rowspan="2" colspan="2"><p class="left">Plasma Reactor</p></td>
                         <td rowspan="2" class="magenta"><p class="left">160$</p></td>
-                        <td id="cell-36" rowspan="2" colspan="3"><p class="right">?</p></td>
+                        <td id="cell-36" rowspan="2" colspan="3"><p class="right"><img src="<?php echo URL?>application/views/images/question.png" alt="probabilita" class="casella-img"></p></td>
                         <td class="schema"></td>
                     </tr>
                     <tr>
@@ -177,7 +177,7 @@
                         <td id="cell-10" class="bl-corner" colspan="3" rowspan="3"><p style="transform: rotate(45deg); font-size: 1vw;">Virtual Lock</p></td>
                         <td colspan="2" class="cyan"><p>120$</p></td>
                         <td colspan="2" class="cyan"><p>100$</p></td>
-                        <td id="cell-7" colspan="2" rowspan="3"><p>?</p></td>
+                        <td id="cell-7" colspan="2" rowspan="3"><p><img src="<?php echo URL?>application/views/images/question.png" alt="probabilita" class="casella-img"></p></td>
                         <td colspan="2" class="cyan"><p>100$</p></td>
                         <td colspan="2" class="gray"><p>200$</p></td>
                         <td id="cell-4" colspan="2" rowspan="3"><p>-200$</p></td>

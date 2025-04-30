@@ -108,7 +108,7 @@ function tiraDadi() {
                     aggiornaDado(rettangoloDado2, dado2);  // Mostra il dado 2
 
                     // Avvia il movimento della pedina
-                    intervalAnimazione = setInterval(muoviPedina, 1);
+                    intervalAnimazione = setInterval(muoviPedina, 500);
                 })
                 .catch(error => {
                     console.error('Errore nel recupero dei dati:', error);
