@@ -6,6 +6,11 @@
     <title>Monopoly Game</title>
     <link rel="stylesheet" href="<?php echo URL?>application/views/styles/style.css">
     <link rel="stylesheet" href="<?php echo URL?>application/views/styles/board.css">
+    <script>
+        const url = "<?php echo URL; ?>";
+        const UUID = "<?php echo $_COOKIE['uuid']; ?>";
+
+    </script>
     <script src="<?php echo URL ?>application/views/tabellone/index.js"></script>
 </head>
 <body>
@@ -247,8 +252,5 @@
     </div>
 </div>
 
-<script>
-    const url = "<?php echo URL; ?>";
-</script>
 </body>
 </html>

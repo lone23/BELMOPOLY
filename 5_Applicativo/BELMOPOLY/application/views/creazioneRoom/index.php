@@ -13,17 +13,21 @@
     const socket = new WebSocket("ws://localhost:3000");
 
     socket.onopen = () => {
-        const uuid = "<?php echo $_COOKIE['uuid']; ?>";
+
+        const uuid = "<?php echo $_SESSION['uuid']; ?>";
+        console.log(uuid);
         socket.send(JSON.stringify({ joinRoom: uuid }));
+
     };
 
     socket.onmessage = (event) => {
         const data = JSON.parse(event.data);
-        console.log(data);
         if (data.startGame) {
+            // Vai alla nuova pagina quando il gioco parte
             window.location.href = "<?php echo URL; ?>board/index";
         }
     };
+
 </script>
 
 

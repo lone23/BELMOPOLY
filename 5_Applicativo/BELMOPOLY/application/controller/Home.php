@@ -151,7 +151,7 @@ class home
 
             $creaRoom->eliminaInvitoGiocatore($capoPartita,$_SESSION['username']);
 
-            $this->index();
+            $this->mostraRichiesteRoom();
 
         }
 
@@ -190,8 +190,10 @@ class home
             $client = new Client("ws://localhost:3000");
             $client->send(json_encode([
                 'startGame' => true,
-                'room' => $uuid
+                'room' => $uuid,
+                'startingIndex' => 0
             ]));
+
             $client->close();
 
             header("Location:" . URL . "board/index");

@@ -31,6 +31,7 @@ class GestioneRoom
             $id = $row['id'];
 
             $_SESSION['uuid'] = uniqid('', true);
+            setcookie('uuid', $_SESSION['uuid'], time() + 3600, '/');
 
             $sth = $this->conn->prepare("INSERT INTO partita (turno_player, unique_key) VALUES (:turno_player, :unique_key)");
             $sth->bindValue(':turno_player', $id);
@@ -203,14 +204,14 @@ class GestioneRoom
 
 
 
-            var_dump($partita_id);
             $sth = $this->conn->prepare("SELECT unique_key FROM partita WHERE id = :id");
             $sth->bindValue(":id", $partita_id);
             $sth->execute();
             $row = $sth->fetch(\PDO::FETCH_ASSOC);
             $uuid = $row['unique_key'];
 
-            $_COOKIE['uuid'] = $uuid;
+            $_SESSION['uuid'] = $uuid;
+            setcookie('uuid', $uuid, time() + 3600, '/');
 
 
             $sth = $this->conn->prepare("UPDATE fa_parte 

@@ -10,6 +10,41 @@ let passi;
 let intervalAnimazione;
 let destinazioneVeloce = null;
 let mostraCartaNormaleDopoSpostamento = false;
+const socket = new WebSocket("ws://localhost:3000");
+
+socket.onopen = () => {
+    socket.send(JSON.stringify({ joinRoom: UUID }));
+};
+
+socket.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    if (data.startGame || data.nextTurn) {
+        console.log(data.turno);
+        if (data.turno) {
+            // È il mio turno!
+            document.querySelector('.action-bar').style.display = 'flex';
+            alert("È il tuo turno!");
+        } else {
+            // Turno di un altro
+            document.querySelector('.action-bar').style.display = 'none';
+        }
+    }
+};
+
+// Quando il giocatore ha finito il turno (es: clicca "OK" o altro)
+function fineTurno() {
+    console.log("Invio fine turno per room:", UUID);
+    if (socket.readyState === WebSocket.OPEN) {
+        socket.send(JSON.stringify({
+            turnFinished: true,
+            room: UUID
+        }));
+        console.log("Messaggio inviato");
+    } else {
+        console.warn("WebSocket non pronto. Stato:", socket.readyState);
+    }
+}
+
 
 function aggiornaDado(dieElement, value) {
     const dotPositions = {
@@ -276,6 +311,8 @@ function chiudiMessaggio() {
         document.getElementById("rettangoloDado1").disabled = false;
         document.getElementById("rettangoloDado2").disabled = false;
     }
+
+    fineTurno();
 }
 
 let selectedPlayer;
