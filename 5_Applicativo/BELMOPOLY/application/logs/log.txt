@@ -55,3 +55,7 @@
 [2025-04-30 13:27:36] - INFO -> Invito room effettuato con successo, ID room: 17 ID player: 1
 [2025-04-30 13:27:37] - INFO -> Partita con UUID '681208bdcbe3c0.48242094' avviata. Room impostata su FALSE per tutti.
 [2025-04-30 13:32:24] - INFO -> Partita con UUID '681208bdcbe3c0.48242094' avviata. Room impostata su FALSE per tutti.
+[2025-04-30 13:36:37] - INFO -> Invito room effettuato con successo, ID room: 17 ID player: 1
+[2025-04-30 13:36:38] - INFO -> Room eliminata con successo: 681208bdcbe3c0.48242094
+[2025-04-30 13:36:39] - INFO -> Room creata con successo, ID: 18
+[2025-04-30 13:36:41] - INFO -> Partita con UUID '68120b47bd4433.25495208' avviata. Room impostata su FALSE per tutti.

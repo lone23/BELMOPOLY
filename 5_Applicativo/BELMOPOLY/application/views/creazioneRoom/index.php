@@ -39,24 +39,24 @@
 
                 <div class="player">
                     <img src="<?php echo URL?>application/views/images/account.png" alt="user" class="icon">
-                    <p>User 1</p>
+                    <p>YOU</p>
                 </div>
 
                 <div class="player">
                     <img src="<?php echo URL?>application/views/images/account.png" alt="user" class="icon">
-                    <p>User 1</p>
+                    <p>[EMPTY]</p>
                 </div>
             </div>
             <div class="line">
 
                 <div class="player">
                     <img src="<?php echo URL?>application/views/images/account.png" alt="user" class="icon">
-                    <p>User 1</p>
+                    <p>[EMPTY]</p>
                 </div>
 
                 <div class="player">
                     <img src="<?php echo URL?>application/views/images/account.png" alt="user" class="icon">
-                    <p>User 1</p>
+                    <p>[EMPTY]</p>
                 </div>
             </div>
         </div>
