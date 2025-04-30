@@ -1,7 +1,8 @@
 
 .main{
 	background-color: var(--cell-color);
-	display: inline-block;
+	display: flex;
+	flex-direction: column;
 	width: 55vw;
 	margin-top: 5vw;
 	height: 46vw;
@@ -62,6 +63,12 @@ p{
 	border-left: 0.3vw solid var(--border-color);
 	border-right: 0.3vw solid var(--border-color);
 	overflow: auto;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.fields::-webkit-scrollbar {
+	display: none;
 }
 
 .user {
@@ -115,6 +122,12 @@ p{
 
 .request:hover {
 	background-color: var(--cell-hover);
+	transform: scale(1.02);
+	transition: transform 0.1s ease;
+}
+
+.request:active{
+	transform: scale(0.95);
 }
 
 .selector {
@@ -139,6 +152,14 @@ p{
 	
 }
 
+.search:hover, .notification:hover{
+	transform: scale(1.05);
+	transition: transform 0.1s ease;
+}
+
+.search:active, .notification:active{
+	transform: scale(0.95);
+}
 
 
 input[type=text]:focus, input[type=password]:focus {

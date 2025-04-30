@@ -1,8 +1,15 @@
 .content {
-	outline: solid white 2px;
-	margin-top: 5vw;
+	margin-top: 6vw;
 	display: flex;
     justify-content: space-evenly;
+	width: 82.8vw;
+}
+
+p{
+	font-size: 2vw;
+	font-family: basic;
+	margin: 1vw;
+	color: var(--border-color);
 }
 
 .players {
@@ -16,11 +23,11 @@
 	padding: 1vw;
 }
 .list {
-	height: 34vw;
+	height: 35vw;
 	display: inline-block;
 	background-color: var(--cell-color);
 	border: 0.3vw solid var(--border-color);
-    width: 35vw;
+    width: 100%;
 	border-radius: 2vw;
 	margin-right: 5vw;
 	overflow: auto;
@@ -31,16 +38,15 @@
 }
 
 .line {
-	margin-bottom: 8vw;
+	margin-bottom: 5vw;
 	display: flex; 
     justify-content: space-between;
 	width: 100%;
 }
 
 .button {
-	outline: solid white 2px;
 	width: 35vw;
-	padding: 0vw;
+	padding: 0.2vw;
 	margin: 1vw 0vw;
 }
 
@@ -56,7 +62,10 @@
 
 .icon {
 	width: 10vw;
-	outline: solid white 2px;
+}
+
+.icon:hover{
+
 }
 
 .user {

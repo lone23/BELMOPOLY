@@ -88,6 +88,12 @@ td:hover{
 }
 
 /* ------------------------- DADI ----------------------*/
+@keyframes glow {
+    0% { background-color: rgb(222, 153, 182); }
+    50% { background-color: rgb(218, 105, 133); }
+    100% { background-color: rgb(222, 153, 182); }
+}
+
 .dado {
     font-size: 1.5vw;
     width: 3vw;
@@ -99,7 +105,25 @@ td:hover{
     border-radius: 1vw;
     border: solid var(--border-color) 0.3vw;
     padding: 1vw;
+    animation: glow 1s infinite ease-in-out;
+    cursor: pointer;
 }
+
+.dado:hover,
+.dado:hover ~ .dado,
+.dado:has(~ .dado:hover) {
+    animation: none;
+    background-color: rgb(222, 153, 182);
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+}
+.dado:active,
+.dado:active ~ .dado,
+.dado:has(~ .dado:active) {
+    transform: scale(0.95);
+}
+
+
 
 .puntino {
     width: 0.7vw;

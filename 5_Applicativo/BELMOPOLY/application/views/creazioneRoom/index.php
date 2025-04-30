@@ -32,18 +32,36 @@
     <div class="content">
         <div class="players">
             <div class="line">
-                <img src="<?php echo URL?>application/views/images/account.png" alt="user" class="icon">
-                <img src="<?php echo URL?>application/views/images/account.png" alt="user" class="icon">
+
+                <div class="player">
+                    <img src="<?php echo URL?>application/views/images/account.png" alt="user" class="icon">
+                    <p>User 1</p>
+                </div>
+
+                <div class="player">
+                    <img src="<?php echo URL?>application/views/images/account.png" alt="user" class="icon">
+                    <p>User 1</p>
+                </div>
             </div>
             <div class="line">
-                <img src="<?php echo URL?>application/views/images/account.png" alt="account" class="icon">
-                <img src="<?php echo URL?>application/views/images/account.png" alt="account" class="icon">
+
+                <div class="player">
+                    <img src="<?php echo URL?>application/views/images/account.png" alt="user" class="icon">
+                    <p>User 1</p>
+                </div>
+
+                <div class="player">
+                    <img src="<?php echo URL?>application/views/images/account.png" alt="user" class="icon">
+                    <p>User 1</p>
+                </div>
             </div>
         </div>
         <div class="right">
             <div class="list">
                 <?php foreach ($amici as $utente) : ?>
-                    <div class="user"> <?php echo $utente->getUsername(); ?> <div class="invite" onclick="window.location.href='<?php echo URL; ?>home/invitaRoom/<?php echo $utente->getUsername(); ?>'">INVITE</div></div>
+                    <div class="user"> <?php echo $utente->getUsername(); ?>
+                        <div class="invite" onclick="window.location.href='<?php echo URL; ?>home/invitaRoom/<?php echo $utente->getUsername(); ?>'">INVITE</div>
+                    </div>
                 <?php endforeach; ?>
             </div>
             <div class="button" onclick="window.location.href='<?php echo URL; ?>home/startGame'">START</div>
