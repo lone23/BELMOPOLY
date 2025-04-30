@@ -16,12 +16,15 @@
 <body>
 <div class="container">
     <div class="content">
-
-
         <div id="messaggioCarta" class="messaggio-carta">
-            <div id="descrizioneCarta"></div>
-            <button id="okButton" onclick="chiudiMessaggio()">OK</button>
+            <div id="descrizioneCarta" class="description"></div>
+            <div class="buttons">
+                <div id="okButton" class="button" onclick="chiudiMessaggio()">BUY</div>
+                <div id="okButton" class="button" onclick="chiudiMessaggio()">LEAVE</div>
+            </div>
         </div>
+
+
 
             <table class="board"">
 
@@ -53,7 +56,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td id="cell-20" colspan="3" rowspan="3" class="tl-corner"><p style="transform: rotate(135deg); font-size: 1.2vw;">Subway</p></td>
+                        <td id="cell-20" colspan="3" rowspan="3" class="tl-corner"><p style="transform: rotate(135deg); font-size: 1vw;">Subway</p></td>
                         <td id="cell-21" colspan="2" rowspan="2"><p class="top">Neural Sector</p></td>
                         <td id="cell-22" colspan="2" rowspan="3"><p class="top">?</p></td>
                         <td id="cell-23" colspan="2" rowspan="2"><p class="top">Neural Nexus</p></td>
@@ -63,7 +66,7 @@
                         <td id="cell-27" colspan="2" rowspan="2"><p class="top">Datacube Lab</p></td>
                         <td id="cell-28" colspan="2" rowspan="2"><p class="top">Nano Company</p></td>
                         <td id="cell-29" colspan="2" rowspan="2"><p class="top">Datacube Matrix</p></td>
-                        <td id="cell-30" colspan="3" rowspan="3" class="tr-corner"><p style="transform: rotate(-135deg); font-size: 1.2vw;">Malware</p></td>
+                        <td id="cell-30" colspan="3" rowspan="3" class="tr-corner"><p style="transform: rotate(-135deg); font-size: 1vw;">Malware</p></td>
                         <td class="schema"></td>
                     </tr>
                     <tr>
@@ -171,7 +174,7 @@
                     </tr>
 
                     <tr>
-                        <td id="cell-10" class="bl-corner" colspan="3" rowspan="3"><p style="transform: rotate(45deg); font-size: 1.2vw;">Virtual Lock</p></td>
+                        <td id="cell-10" class="bl-corner" colspan="3" rowspan="3"><p style="transform: rotate(45deg); font-size: 1vw;">Virtual Lock</p></td>
                         <td colspan="2" class="cyan"><p>120$</p></td>
                         <td colspan="2" class="cyan"><p>100$</p></td>
                         <td id="cell-7" colspan="2" rowspan="3"><p>?</p></td>
@@ -240,6 +243,7 @@
 
                 </div>
             </div>
+
 
 
         <div class="action-bar">

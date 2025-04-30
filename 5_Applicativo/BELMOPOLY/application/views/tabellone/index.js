@@ -108,7 +108,7 @@ function tiraDadi() {
                     aggiornaDado(rettangoloDado2, dado2);  // Mostra il dado 2
 
                     // Avvia il movimento della pedina
-                    intervalAnimazione = setInterval(muoviPedina, 500);
+                    intervalAnimazione = setInterval(muoviPedina, 1);
                 })
                 .catch(error => {
                     console.error('Errore nel recupero dei dati:', error);
@@ -208,8 +208,8 @@ function pescaCarta(tipo) {
             const messaggioElemento = document.getElementById('messaggioCarta');
             const descrizioneElemento = document.getElementById('descrizioneCarta');
 
-            descrizioneElemento.innerHTML = '<h1>' + tipo + '</h1><p>' + data.descrizione + '</p>';
-            messaggioElemento.style.display = 'block';
+            descrizioneElemento.innerHTML = '<h1 class="name">' + tipo + '</h1><div class="information"><p>' + data.descrizione + '</p></div>';
+            messaggioElemento.style.display = 'flex';
 
             if (tipo === "probabilita" && data.id === 4) {
                 destinazioneVeloce = celle.indexOf("cell-29");
@@ -236,28 +236,24 @@ function pescaCartaSpeciale(id) {
         .then(response => response.json())
         .then(data => {
             const stazioni = [5, 15, 25, 35];
-            let descrizione = `<h1>${data.nome}</h1><p>Prezzo: ${data.prezzo}€</p>`;
+            let descrizione = `<h1 class="name">${data.nome}</h1><div class="information"><p>Prezzo: ${data.prezzo}€</p><br>`;
 
             if (stazioni.includes(id)) {
                 descrizione += `
-                    <ul>
-                        <li>Affitto 1 stazione: ${data.affitto1}€</li>
-                        <li>Affitto 2 stazioni: ${data.affitto2}€</li>
-                        <li>Affitto 3 stazioni: ${data.affitto3}€</li>
-                        <li>Affitto 4 stazioni: ${data.affitto4}€</li>
-                    </ul>
-                `;
+                        <p>Affitto 1 stazione: ${data.affitto1}€</p>
+                        <p>Affitto 2 stazioni: ${data.affitto2}€</p>
+                        <p>Affitto 3 stazioni: ${data.affitto3}€</p>
+                        <p>Affitto 4 stazioni: ${data.affitto4}€</p>
+                        </div>`;
             } else {
                 descrizione += `
-                    <ul>
-                        <li>Affitto 1 compagnia: ${data.affitto1}€</li>
-                        <li>Affitto 2 compagnie: ${data.affitto2}€</li>
-                    </ul>
-                `;
+                        <p>Affitto 1 compagnia: ${data.affitto1}€</p>
+                        <p>Affitto 2 compagnie: ${data.affitto2}€</p>
+                        </div>`;
             }
 
             document.getElementById('descrizioneCarta').innerHTML = descrizione;
-            document.getElementById('messaggioCarta').style.display = 'block';
+            document.getElementById('messaggioCarta').style.display = 'flex';
 
             muove = true;
         })
@@ -273,22 +269,23 @@ function pescaCartaNormale(idNumerico) {
         .then(response => response.json())
         .then(data => {
             const descrizione = `
-            <h1>${data.nome}</h1>
+            <p class="name">${data.nome}</p>
+            <div class="information">
             <p>Prezzo: ${data.prezzo}€</p>
-            <ul>
-                <li>Affitto: ${data.affitto}€</li>
-                <li>Affitto Completo: ${data.affittoCompleto}€</li>
-                <li>Affitto Casa 1: ${data.affittoCasa1}€</li>
-                <li>Affitto Casa 2: ${data.affittoCasa2}€</li>
-                <li>Affitto Casa 3: ${data.affittoCasa3}€</li>
-                <li>Affitto Casa 4: ${data.affittoCasa4}€</li>
-                <li>Affitto Albergo: ${data.affittoAlbergo}€</li>
-                <li>Costo Casa: ${data.costoCasa}€</li>
-                <li>Costo Albergo: ${data.costoAlbergo}€</li>
-            </ul>`;
+            <br>
+            <p>Affitto: ${data.affitto}€</p>
+            <p>Affitto Completo: ${data.affittoCompleto}€</p>
+            <p>Affitto Casa 1: ${data.affittoCasa1}€</p>
+            <p>Affitto Casa 2: ${data.affittoCasa2}€</p>
+            <p>Affitto Casa 3: ${data.affittoCasa3}€</p>
+            <p>Affitto Casa 4: ${data.affittoCasa4}€</p>
+            <p>Affitto Albergo: ${data.affittoAlbergo}€</p>
+            <p>Costo Casa: ${data.costoCasa}€</p>
+            <p>Costo Albergo: ${data.costoAlbergo}€</p>
+            </div>`;
 
             document.getElementById('descrizioneCarta').innerHTML = descrizione;
-            document.getElementById('messaggioCarta').style.display = 'block';
+            document.getElementById('messaggioCarta').style.display = 'flex';
 
             muove = true;
         })

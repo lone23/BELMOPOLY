@@ -156,6 +156,17 @@ td:hover{
     padding: 2vw;
     margin-bottom: 1vw;
     border-radius: 2vw;
+    cursor: pointer;
+}
+
+.player:hover{
+    background-color: var(--cell-hover);
+    transform: scale(1.02);
+    transition: transform 0.1s ease;
+}
+
+.player:active{
+    transform: scale(0.95);
 }
 
 .player .possession {
@@ -184,36 +195,45 @@ td:hover{
 
 
 /* ------------------- IMPREVISTI/PROBABILITÀ ------------------*/
-#messaggioCarta {
+.messaggio-carta {
     position: absolute;
-    top: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    font-size: 18px;
-    text-align: center;
-    width: auto;
-    max-width: 450px;
-    border: 2px solid #000;
+    border: solid var(--border-color) 0.3vw;
+    background-color: var(--cell-color);
+    padding: 1vw;
+    width: 28vw;
+    aspect-ratio: 1 / 1;
+    border-radius: 2vw;
+    box-shadow: inset 0 1vw 2vw rgba(0,0,0,0.06), 0 0vw 2vw rgba(0,0,0,0.25);
+    font-size: 1.5vw;
+    text-align: left;
+    transform: translate(8.5vw, 10vw);
     z-index: 10;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.description{
+    height: fit-content;
 }
 
-#okButton {
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
+.information p{
+    font-size: 1.3vw;
 }
 
-#okButton:hover {
-    background-color: #45a049;
+
+.name {
+    text-align: center;
+    font-size: 2.5vw;
+    margin-bottom: 1vw;
 }
+
+.buttons{
+    height: 15%;
+    display: flex;
+    justify-content: space-evenly;
+    bottom: 0;
+}
+
 
 
 /* -------------------------- COLORI CELLE ----------------------*/
