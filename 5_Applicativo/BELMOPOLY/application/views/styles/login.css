@@ -1,6 +1,7 @@
 
 .main{
-	display: inline-block;
+	display: flex;
+	flex-direction: column;
 	width: 55vw;
 	margin-top: 5vw;
 	height: 46vw;
@@ -16,11 +17,27 @@
 }
 
 .button{
-	width: 15vw;
+	width: 25vw;
 	height: 4vw;
 	font-size: 2vw;
-	transform: translate(130%, -25%);
-	font-weight: bold
+	font-weight: bold;
+	padding: 2vw;
+}
+
+.button:hover{
+	background-color: var(--cell-hover);
+	transform: scale(1.02);
+	transition: transform 0.1s ease;
+}
+
+.button:active{
+	transform: scale(0.95);
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 p{
@@ -38,7 +55,6 @@ p{
 	background-color: var(--cell-color);
 	border-left: 0.3vw solid var(--border-color);
 	border-right: 0.3vw solid var(--border-color);
-
 }
 
 .selector {
@@ -83,6 +99,11 @@ input[type=text], input[type=password] {
 
 input[type=text]:focus, input[type=password]:focus {
 	outline: 0.3vw solid var(--cell-hover);
+}
+input:-webkit-autofill {
+	font-family: basic !important;
+	transition: background-color 100000s ease-in-out 0s; /* hack */
+	-webkit-text-fill-color: var(--border-color) !important; /* forza il colore del testo */
 }
 
 ::placeholder{

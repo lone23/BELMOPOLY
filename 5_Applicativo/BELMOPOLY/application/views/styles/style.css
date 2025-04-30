@@ -7,7 +7,6 @@
   --cell-unselected: rgb(200, 90, 110);
 }
 
-
 body{
   margin-top: 1vw;
   background-color: var(--background);

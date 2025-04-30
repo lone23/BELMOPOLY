@@ -63,7 +63,8 @@
         <div class="right">
             <div class="list">
                 <?php foreach ($amici as $utente) : ?>
-                    <div class="user"> <?php echo $utente->getUsername(); ?>
+                    <div class="user">
+                        <div class="name"><?php echo $utente->getUsername(); ?></div>
                         <div class="invite" onclick="window.location.href='<?php echo URL; ?>home/invitaRoom/<?php echo $utente->getUsername(); ?>'">INVITE</div>
                     </div>
                 <?php endforeach; ?>

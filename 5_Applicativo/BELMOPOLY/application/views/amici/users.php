@@ -32,7 +32,7 @@
                 <?php foreach ($utenti as $utente) : ?>
                     <div class="user">
                         <div class="name"><?php echo $utente->getUsername(); ?></div>
-                        <div class="request" onclick="aggiungiAmico('<?php echo $utente->getUsername();; ?>')">SEND INVITE</div>
+                        <div class="request" onclick="aggiungiAmico('<?php echo $utente->getUsername();; ?>')">ADD FRIEND</div>
                     </div>
                 <?php endforeach; ?>
             </div>

@@ -19,7 +19,7 @@
                     <input type="text" placeholder="USERNAME" name="username" required>
                     <input type="text" placeholder="EMAIL" name="email" required>
                     <input type="password" placeholder="PASSWORD" name="password" required>
-                    <input type="submit" value="REGISTER" class="button">
+                    <button type="submit" class="button">REGISTER</button>
                     <p><?php
                         if(Isset($_SESSION["ControlloRegister"])){
                             echo $_SESSION["ControlloRegister"];

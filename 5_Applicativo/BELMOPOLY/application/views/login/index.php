@@ -17,11 +17,12 @@
         </div>
         <div class="fields">
             <form method="POST" action="<?php echo URL; ?>autenticazione/verificaLogin">
-                <input type="text" placeholder="E-MAIL" name="email" required>
+                <input type="text" placeholder="EMAIL" name="email" required>
                 <input type="password" placeholder="PASSWORD" name="password" required>
                 <input type="text" style="visibility: hidden;">
                 <!-- Campo nascosto rimosso se non è necessario -->
-                <input type="submit" value="LOGIN" class="button">
+                <button type="submit" class="button">LOGIN</button>
+
                 <p><?php
                     if(Isset($_SESSION["ControlloLogin"])){
                         echo $_SESSION["ControlloLogin"];

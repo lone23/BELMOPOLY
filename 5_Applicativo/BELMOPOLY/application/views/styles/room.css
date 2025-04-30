@@ -24,7 +24,8 @@ p{
 }
 .list {
 	height: 35vw;
-	display: inline-block;
+	display: flex;
+	justify-content: center;
 	background-color: var(--cell-color);
 	border: 0.3vw solid var(--border-color);
     width: 100%;
@@ -51,13 +52,23 @@ p{
 }
 
 .invite {
-
+	margin: 3vw;
 	background-color: var(--cell-color);
 	width: 8vw;
 	font-size: 1.5vw;
 	padding: 1vw;
 	border: 0.3vw solid var(--border-color);
 	border-radius: 2vw;
+}
+
+.invite:hover{
+	background-color: var(--cell-hover);
+	transform: scale(1.02);
+	transition: transform 0.1s ease;
+}
+
+.invite:active{
+	transform: scale(0.95);
 }
 
 .icon {
@@ -68,15 +79,21 @@ p{
 
 }
 
+.name{
+	margin-left: 3vw;
+}
+
 .user {
-	background-color: var(--cell-hover);
+	background-color: var(--cell-user);
 	display: flex; /* Enables flexbox */
     justify-content: space-between;
+	align-items: center;
 	color: var(--border-color);
 	font-family: basic;
   	font-size: 2vw;
 	border: 0.3vw solid var(--border-color);
 	border-radius: 2vw;
 	margin-top: 1vw;
-	padding: 0.8vw;
+	height: 7vw;
+	width: 96%;
 }

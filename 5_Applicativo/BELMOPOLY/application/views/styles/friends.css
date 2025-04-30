@@ -116,17 +116,14 @@ p{
 	border-radius: 2vw;
 }
 
-.option:hover {
-	background-color: var(--cell-hover);
-}
 
-.request:hover {
+.request:hover, .option:hover {
 	background-color: var(--cell-hover);
 	transform: scale(1.02);
 	transition: transform 0.1s ease;
 }
 
-.request:active{
+.request:active, .option:active {
 	transform: scale(0.95);
 }
 
