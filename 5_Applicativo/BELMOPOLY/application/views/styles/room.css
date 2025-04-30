@@ -1,7 +1,8 @@
 .content {
+	outline: solid white 2px;
 	margin-top: 5vw;
-	display: flex; /* Enables flexbox */
-    justify-content: space-between;
+	display: flex;
+    justify-content: space-evenly;
 }
 
 .players {
@@ -10,8 +11,9 @@
     flex-direction: column;
 	background-color: var(--cell-color);
 	border: 0.3vw solid var(--border-color);
-    width: 45vw;
+    width: 40vw;
 	border-radius: 2vw;
+	padding: 1vw;
 }
 .list {
 	height: 34vw;
@@ -29,21 +31,21 @@
 }
 
 .line {
-	margin-bottom: 2vw;
-	margin-left: 5vw;
-	margin-top: 4vw;
+	margin-bottom: 8vw;
 	display: flex; 
     justify-content: space-between;
-	width: 35vw;
+	width: 100%;
 }
 
 .button {
+	outline: solid white 2px;
 	width: 35vw;
 	padding: 0vw;
 	margin: 1vw 0vw;
 }
 
 .invite {
+
 	background-color: var(--cell-color);
 	width: 8vw;
 	font-size: 1.5vw;
@@ -54,6 +56,7 @@
 
 .icon {
 	width: 10vw;
+	outline: solid white 2px;
 }
 
 .user {

@@ -32,8 +32,8 @@ body{
 }
 
 tr, td{
-    width: 1.7vw ;
-    height: 1.7vw;
+    width: 1.5vw ;
+    height: 1.5vw;
     background-color: var(--cell-color);
 }
 
