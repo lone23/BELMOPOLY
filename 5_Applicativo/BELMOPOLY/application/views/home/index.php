@@ -8,14 +8,14 @@
 </head>
 <body>
     <div class="container">
-        <img src="<?php echo URL?>application/views/images/account.png" onclick="window.location.href='<?php echo URL; ?>autenticazione/logout'" alt="account" class="account">
-        <img src="<?php echo URL?>application/views/images/friends.png" onclick="window.location.href='<?php echo URL; ?>GestioneAccount/mostraAmicizie'" alt="friends" class="friends">
+        <img src="<?php echo URL?>application/views/images/account.png" onclick="window.location.href='<?php echo URL; ?>autenticazione/logout'" alt="account" class="left-icon clickable">
+        <img src="<?php echo URL?>application/views/images/friends.png" onclick="window.location.href='<?php echo URL; ?>GestioneAccount/mostraAmicizie'" alt="friends" class="right-icon clickable">
         <div class="belmopoly">BELMOPOLY</div>
-        <div onclick="window.location.href='<?php echo URL; ?>Home/creaRoom'" class="button">NEW GAME</div>
+        <div onclick="window.location.href='<?php echo URL; ?>Home/creaRoom'" class="button clickable">NEW GAME</div>
         <br>
-        <div class="button">CONTINUE</div>
+        <div class="button clickable">CONTINUE</div>
         <br>
-        <div class="button">CHARACTER</div>
+        <div class="button clickable">CHARACTER</div>
     </div>
 </body>
 </html>

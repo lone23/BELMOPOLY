@@ -24,16 +24,6 @@
 	padding: 2vw;
 }
 
-.button:hover{
-	background-color: var(--cell-hover);
-	transform: scale(1.02);
-	transition: transform 0.1s ease;
-}
-
-.button:active{
-	transform: scale(0.95);
-}
-
 form {
 	display: flex;
 	flex-direction: column;
@@ -99,11 +89,6 @@ input[type=text], input[type=password] {
 
 input[type=text]:focus, input[type=password]:focus {
 	outline: 0.3vw solid var(--cell-hover);
-}
-input:-webkit-autofill {
-	font-family: basic !important;
-	transition: background-color 100000s ease-in-out 0s; /* hack */
-	-webkit-text-fill-color: var(--border-color) !important; /* forza il colore del testo */
 }
 
 ::placeholder{

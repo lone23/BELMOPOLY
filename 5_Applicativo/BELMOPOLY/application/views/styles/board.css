@@ -6,15 +6,12 @@
 }
 
 .content {
-    display: flex; /* Enables flexbox */
-    justify-content: space-between;
+    display: flex;
+    justify-content: space-around;
+    height: 100%;
 }
 
-.casella-img {
-    width: 2vw;
-    margin: 0vw;
-    padding: 0vw;
-}
+
 
 body{
     color: var(--border-color);
@@ -31,6 +28,7 @@ body{
     width: auto;
 }
 
+
 tr, td{
     width: 1.5vw ;
     height: 1.5vw;
@@ -39,7 +37,7 @@ tr, td{
 
 p {
     margin: 0;
-    font-size: 0.7vw;
+    font-size: 0.1vw;
 }
 
 td{
@@ -48,24 +46,29 @@ td{
     position: relative;
 }
 
-td:hover{
-    background-color: var(--cell-hover-color);
-}
-
 .left{
     transform: rotate(90deg);
 }
+
 .right{
     transform: rotate(-90deg);
 }
+
 .top{
     transform: rotate(180deg);
 }
 
+.casella-img {
+    width: 1.5vw;
+    margin: 0vw;
+    padding: 0vw;
+}
+
+/* -------------------------- GUI ----------------------*/
 .game{
-    margin-top: 1.7vw;
-    margin-left: 2vw;
-    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 .button {
@@ -74,6 +77,50 @@ td:hover{
     width: 8vw;
     height: auto;
 }
+
+.action-bar {
+    border: solid var(--border-color) 0.3vw;
+    background-color: var(--cell-color);
+    padding: 1vw;
+    border-radius: 2vw;
+    background: var(--cell-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.player {
+    border: solid var(--border-color) 0.3vw;
+    background-color: var(--cell-color);
+    padding: 2vw;
+    margin-bottom: 1vw;
+    border-radius: 2vw;
+    cursor: pointer;
+}
+
+.player .possession {
+    height: 0vw;
+    border: solid black 0px;
+}
+.player.selected .possession {
+    height: 10vw;
+    border: solid black 1px;
+}
+
+.info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.player p {
+    font-size: 1.5vw;
+}
+
+.selected {
+    background-color: var(--cell-hover);
+}
+
 
 /* -------------------------- PEDINA ----------------------*/
 #pedina {
@@ -101,12 +148,9 @@ td:hover{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    background-color: var(--cell-hover-color);
     border-radius: 1vw;
     border: solid var(--border-color) 0.3vw;
     padding: 1vw;
-    animation: glow 1s infinite ease-in-out;
-    cursor: pointer;
 }
 
 .dado:hover,
@@ -123,12 +167,16 @@ td:hover{
     transform: scale(0.95);
 }
 
-.dado:disabled{
-    background-color: rgb(218, 105, 133);
-    cursor: default;
+.dado:enabled{
+    animation: glow 1s infinite ease-in-out;
+    cursor: pointer;
 }
 
-
+.dado:disabled{
+    animation: none;
+    background-color: blue;
+    cursor: default;
+}
 
 .puntino {
     width: 0.7vw;
@@ -139,67 +187,11 @@ td:hover{
     align-self: center;
 }
 
-.action-bar {
-    border: solid var(--border-color) 0.3vw;
-    background-color: var(--cell-color);
-    padding: 1vw;
-    border-radius: 2vw;
-    background: var(--cell-color);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
 .hidden {
     visibility: hidden;
 }
 
-/* ------------------------- GIOCATORI ----------------------*/
-.player {
-    border: solid var(--border-color) 0.3vw;
-    background-color: var(--cell-color);
-    padding: 2vw;
-    margin-bottom: 1vw;
-    border-radius: 2vw;
-    cursor: pointer;
-}
-
-.player:hover{
-    background-color: var(--cell-hover);
-    transform: scale(1.02);
-    transition: transform 0.1s ease;
-}
-
-.player:active{
-    transform: scale(0.95);
-}
-
-.player .possession {
-    height: 0vw;
-    border: solid black 0px;
-}
-.player.selected .possession {
-    height: 10vw;
-    border: solid black 1px;
-}
-
-.info {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}
-
-.player p {
-    font-size: 1.5vw;
-}
-
-.selected {
-    background-color: var(--cell-hover);
-}
-
-
-
-/* ------------------- IMPREVISTI/PROBABILITÀ ------------------*/
+/* ------------------- EVENTI ------------------*/
 .messaggio-carta {
     position: absolute;
     border: solid var(--border-color) 0.3vw;

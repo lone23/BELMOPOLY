@@ -9,12 +9,12 @@
 </head>
 <body>
     <div class="container">
-        <img src="<?php echo URL ?>application/views/images/arrow.png"  onclick="window.location.href='<?php echo URL; ?>home/index'" alt="back" class="account">
+        <img src="<?php echo URL ?>application/views/images/arrow.png"  onclick="window.location.href='<?php echo URL; ?>home/index'" alt="back" class="left-icon clickable">
         <div class="main">
             <div class="tools">
-                <img src="<?php echo URL ?>application/views/images/friends.png"  onclick="window.location.href='<?php echo URL; ?>GestioneAccount/mostraAmicizie'" class="notification">
+                <img src="<?php echo URL ?>application/views/images/friends.png"  onclick="window.location.href='<?php echo URL; ?>GestioneAccount/mostraAmicizie'" class="notification clickable">
                 <input type="text" class="search-bar" placeholder="SEARCH...">
-                <img src="<?php echo URL ?>application/views/images/search.png" alt="search" class="search">
+                <img src="<?php echo URL ?>application/views/images/search.png" alt="search" class="search clickable">
             </div>
             <div class="buttons">
                 <div class="selector"  onclick="window.location.href='<?php echo URL; ?>GestioneAccount/mostraRichiesteAmicizia'">REQUESTS</div>
@@ -25,8 +25,8 @@
                     <div class="user">
                         <div class="name"><?php echo $utente; ?></div>
                         <div class="options">
-                            <div class="option" onclick="rifiutaInvito('<?php echo $utente; ?>')">DECLINE</div>
-                            <div class="option" onclick="window.location.href = '<?php echo URL; ?>home/accettaRichiesteRoom'">ACCEPT</div>
+                            <div class="option clickable" onclick="rifiutaInvito('<?php echo $utente; ?>')">DECLINE</div>
+                            <div class="option clickable" onclick="window.location.href = '<?php echo URL; ?>home/accettaRichiesteRoom'">ACCEPT</div>
                         </div>
                     </div>
                 <?php endforeach; ?>

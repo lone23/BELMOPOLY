@@ -59,3 +59,30 @@
 [2025-04-30 13:36:38] - INFO -> Room eliminata con successo: 681208bdcbe3c0.48242094
 [2025-04-30 13:36:39] - INFO -> Room creata con successo, ID: 18
 [2025-04-30 13:36:41] - INFO -> Partita con UUID '68120b47bd4433.25495208' avviata. Room impostata su FALSE per tutti.
+[2025-04-30 13:45:42] - INFO -> Room eliminata con successo: 68120b47bd4433.25495208
+[2025-04-30 13:45:49] - INFO -> Utente utente1@gmail.com autenticato con successo
+[2025-04-30 13:45:51] - INFO -> Utente utente2@gmail.com autenticato con successo
+[2025-04-30 13:45:54] - INFO -> Room creata con successo, ID: 19
+[2025-04-30 13:45:55] - INFO -> Invito room effettuato con successo, ID room: 19 ID player: 2
+[2025-04-30 13:45:58] - INFO -> Invito room effettuato con successo, ID room: 19 ID player: 2
+[2025-04-30 13:46:01] - INFO -> Partita con UUID '68120d72682dd1.51109565' avviata. Room impostata su FALSE per tutti.
+[2025-04-30 14:22:56] - INFO -> Room eliminata con successo: 68120d72682dd1.51109565
+[2025-04-30 14:25:35] - INFO -> Amicizia tra utente1 e utente2 eliminata correttamente
+[2025-04-30 14:36:08] - INFO -> Richiesta di amicizia inviata correttamente da utente1 a utente2
+[2025-04-30 14:36:13] - INFO -> Invito room effettuato con successo, ID room:  ID player: 2
+[2025-04-30 14:36:14] - WARN -> Nessuna room trovata con uuid: 
+[2025-04-30 14:36:43] - INFO -> Amicizia accettata correttamente da utente2 a utente1
+[2025-04-30 14:36:49] - INFO -> Room creata con successo, ID: 20
+[2025-04-30 14:36:50] - INFO -> Invito room effettuato con successo, ID room: 20 ID player: 2
+[2025-04-30 14:36:56] - INFO -> Invito room effettuato con successo, ID room: 20 ID player: 2
+[2025-04-30 14:36:59] - INFO -> Room eliminata con successo: 681219615c8128.84143091
+[2025-04-30 14:37:01] - WARN -> Nessuna room trovata con uuid: 681219615c8128.84143091
+[2025-04-30 14:37:43] - WARN -> Nessuna room trovata con uuid: 
+[2025-04-30 14:40:12] - WARN -> Nessuna room trovata con uuid: 
+[2025-04-30 14:40:30] - WARN -> Nessuna room trovata con uuid: 
+[2025-04-30 14:40:32] - INFO -> Room creata con successo, ID: 21
+[2025-04-30 14:40:33] - INFO -> Partita con UUID '68121a40340ee7.50722263' avviata. Room impostata su FALSE per tutti.
+[2025-04-30 14:50:52] - INFO -> Room eliminata con successo: 68121a40340ee7.50722263
+[2025-04-30 14:51:27] - INFO -> Room creata con successo, ID: 22
+[2025-04-30 14:51:28] - INFO -> Partita con UUID '68121ccf7462e5.29413992' avviata. Room impostata su FALSE per tutti.
+[2025-04-30 14:54:08] - INFO -> Partita con UUID '68121ccf7462e5.29413992' avviata. Room impostata su FALSE per tutti.

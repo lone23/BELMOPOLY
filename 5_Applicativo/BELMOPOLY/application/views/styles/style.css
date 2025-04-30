@@ -7,6 +7,25 @@
   --cell-unselected: rgb(200, 90, 110);
 }
 
+.clickable:hover{
+    transform: scale(1.02);
+    transition: transform 0.1s ease;
+}
+
+div.clickable:hover{
+  background-color: var(--cell-hover);
+}
+
+.clickable:active{
+  transform: scale(0.95);
+}
+
+input:-webkit-autofill {
+  font-family: basic !important;
+  transition: background-color 100000s ease-in-out 0s;
+  -webkit-text-fill-color: var(--border-color) !important;
+}
+
 body{
   margin-top: 1vw;
   background-color: var(--background);
@@ -34,14 +53,14 @@ body{
   to {background-position: top right;}
 }
 
-.account{
+.left-icon{
   left: 1vw;
   top: 1vw;
   position: absolute;
   cursor: pointer;
 }
 
-.friends{
+.right-icon{
   right: 1vw;
   top: 1vw;
   position: absolute;
@@ -53,15 +72,6 @@ img {
   width: 4vw; 
   height: auto;
 
-}
-
-.account:hover, .friends:hover{
-  transform: scale(1.05);
-  transition: transform 0.1s ease;
-}
-
-.account:active, .friends:active{
-  transform: scale(0.95);
 }
 
 .belmopoly {
@@ -91,17 +101,6 @@ img {
 @font-face {
   font-family: basic;
   src: url(../Fonts/Basic.woff);
-}
-
-
-.button:hover{
-  background-color: var(--cell-hover);
-  transform: scale(1.02);
-  transition: transform 0.1s ease;
-}
-
-.button:active{
-  transform: scale(0.95);
 }
 
 .button{

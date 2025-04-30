@@ -9,10 +9,10 @@
 </head>
 <body>
     <div class="container">
-        <img src="<?php echo URL?>application/views/images/arrow.png" onclick="window.location.href='<?php echo URL; ?>home/index'" alt="back" class="account">
+        <img src="<?php echo URL?>application/views/images/arrow.png" onclick="window.location.href='<?php echo URL; ?>home/index'" alt="back" class="left-icon clickable">
         <div class="main">
             <div class="tools">
-                <img src="<?php echo URL?>application/views/images/notification.png" onclick="window.location.href='<?php echo URL; ?>GestioneAccount/mostraRichiesteAmicizia'" alt="notification" class="notification">
+                <img src="<?php echo URL?>application/views/images/notification.png" onclick="window.location.href='<?php echo URL; ?>GestioneAccount/mostraRichiesteAmicizia'" alt="notification" class="notification clickable">
 
                 <input
                         type="text"
@@ -20,7 +20,7 @@
                         placeholder="SEARCH..."
                         id="ricerca"
                 >
-                <img src="<?php echo URL ?>application/views/images/search.png" onclick="cercaUtente()" alt="search" class="search">
+                <img src="<?php echo URL ?>application/views/images/search.png" onclick="cercaUtente()" alt="search" class="search clickable">
 
 
             </div>
@@ -32,7 +32,7 @@
                 <?php foreach ($utenti as $utente) : ?>
                     <div class="user">
                         <div class="name"><?php echo $utente->getUsername(); ?></div>
-                        <div class="request" onclick="aggiungiAmico('<?php echo $utente->getUsername();; ?>')">ADD FRIEND</div>
+                        <div class="request clickable" onclick="aggiungiAmico('<?php echo $utente->getUsername();; ?>')">ADD FRIEND</div>
                     </div>
                 <?php endforeach; ?>
             </div>

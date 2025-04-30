@@ -33,6 +33,11 @@ p{
 	margin-right: 5vw;
 	overflow: auto;
 }
+
+.list::-webkit-scrollbar {
+	display: none;
+}
+
 .right {
 	display:  flex;
     flex-direction: column;
@@ -59,16 +64,6 @@ p{
 	padding: 1vw;
 	border: 0.3vw solid var(--border-color);
 	border-radius: 2vw;
-}
-
-.invite:hover{
-	background-color: var(--cell-hover);
-	transform: scale(1.02);
-	transition: transform 0.1s ease;
-}
-
-.invite:active{
-	transform: scale(0.95);
 }
 
 .icon {

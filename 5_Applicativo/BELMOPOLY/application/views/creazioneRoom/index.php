@@ -32,7 +32,7 @@
 
 
 <div class="container">
-    <img src="<?php echo URL?>application/views/images/arrow.png" onclick="window.location.href='<?php echo URL; ?>home/esciRoom'" alt="account" class="account">
+    <img src="<?php echo URL?>application/views/images/arrow.png" onclick="window.location.href='<?php echo URL; ?>home/esciRoom'" alt="back" class="left-icon clickable">
     <div class="content">
         <div class="players">
             <div class="line">
@@ -65,11 +65,11 @@
                 <?php foreach ($amici as $utente) : ?>
                     <div class="user">
                         <div class="name"><?php echo $utente->getUsername(); ?></div>
-                        <div class="invite" onclick="window.location.href='<?php echo URL; ?>home/invitaRoom/<?php echo $utente->getUsername(); ?>'">INVITE</div>
+                        <div class="invite clickable" onclick="window.location.href='<?php echo URL; ?>home/invitaRoom/<?php echo $utente->getUsername(); ?>'">INVITE</div>
                     </div>
                 <?php endforeach; ?>
             </div>
-            <div class="button" onclick="window.location.href='<?php echo URL; ?>home/startGame'">START</div>
+            <div class="button clickable" onclick="window.location.href='<?php echo URL; ?>home/startGame'">START</div>
         </div>
     </div>
 </div>

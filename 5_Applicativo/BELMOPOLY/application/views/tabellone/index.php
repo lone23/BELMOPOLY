@@ -56,7 +56,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td id="cell-20" colspan="3" rowspan="3" class="tl-corner"><p style="transform: rotate(135deg); font-size: 1vw;">Subway</p></td>
+                        <td id="cell-20" colspan="3" rowspan="3" class="tl-corner"><p style="transform: rotate(135deg);" class="angle">Subway</p></td>
                         <td id="cell-21" colspan="2" rowspan="2"><p class="top">Neural Sector</p></td>
                         <td id="cell-22" colspan="2" rowspan="3"><p class="top"><img src="<?php echo URL?>application/views/images/question.png" alt="probabilita" class="casella-img"></p></td>
                         <td id="cell-23" colspan="2" rowspan="2"><p class="top">Neural Nexus</p></td>
@@ -66,7 +66,7 @@
                         <td id="cell-27" colspan="2" rowspan="2"><p class="top">Datacube Lab</p></td>
                         <td id="cell-28" colspan="2" rowspan="2"><p class="top">Nano Company</p></td>
                         <td id="cell-29" colspan="2" rowspan="2"><p class="top">Datacube Matrix</p></td>
-                        <td id="cell-30" colspan="3" rowspan="3" class="tr-corner"><p style="transform: rotate(-135deg); font-size: 1vw;">Malware</p></td>
+                        <td id="cell-30" colspan="3" rowspan="3" class="tr-corner"><p style="transform: rotate(-135deg);" class="angle">Malware</p></td>
                         <td class="schema"></td>
                     </tr>
                     <tr>
@@ -87,7 +87,7 @@
                     <tr>
                         <td id="cell-19" rowspan="2" colspan="2"><p class="left">Techno Factory</p></td>
                         <td rowspan="2" class="orange"><p class="left">200$</p></td>
-                        <td rowspan="18" colspan="18" class="center"><p style="transform: rotate(-45deg); font-size: 5vw;">BELMOPOLY</p></td>
+                        <td rowspan="18" colspan="18" class="center"><p style="transform: rotate(-45deg); font-size: 4vw;">BELMOPOLY</p></td>
                         <td rowspan="2" class="green"><p class="right">300$</p></td>
                         <td id="cell-31" rowspan="2" colspan="2"><p class="right">Neural Plaza</p></td>
                         <td class="schema"></td>
@@ -174,7 +174,7 @@
                     </tr>
 
                     <tr>
-                        <td id="cell-10" class="bl-corner" colspan="3" rowspan="3"><p style="transform: rotate(45deg); font-size: 1vw;">Virtual Lock</p></td>
+                        <td id="cell-10" class="bl-corner" colspan="3" rowspan="3"><p style="transform: rotate(45deg);" class="angle">Virtual Lock</p></td>
                         <td colspan="2" class="cyan"><p>120$</p></td>
                         <td colspan="2" class="cyan"><p>100$</p></td>
                         <td id="cell-7" colspan="2" rowspan="3"><p><img src="<?php echo URL?>application/views/images/question.png" alt="probabilita" class="casella-img"></p></td>
@@ -185,7 +185,7 @@
                         <td id="cell-2" colspan="2" rowspan="3"><img src="<?php echo URL?>application/views/images/chest.png" alt="probabilita" class="casella-img"></td>
                         <td colspan="2" class="brown"><p>60$</p></td>
                         <td colspan="3" rowspan="3" id="go-cell" class="br-corner" style="position: relative;">
-                            <p style="transform: rotate(-45deg); font-size: 2vw;">GO!</p>
+                            <p style="transform: rotate(-45deg); font-size: 1vw;">GO!</p>
                             <div id="pedina"></div>
                         </td>
 
@@ -216,7 +216,7 @@
 
                 </div>
             </div>
-            <div class="player" id="p2" onclick="showPossession('p2')">
+            <div class="player clickable" id="p2" onclick="showPossession('p2')">
                 <div class="info">
                     <p>Giocatore 2</p>
                     <p id="money">99999$</p>
@@ -225,7 +225,7 @@
 
                 </div>
             </div>
-            <div class="player" id="p3" onclick="showPossession('p3')">
+            <div class="player clickable" id="p3" onclick="showPossession('p3')">
                 <div class="info">
                     <p>Giocatore 3</p>
                     <p id="money">99999$</p>
@@ -234,7 +234,7 @@
 
                 </div>
             </div>
-            <div class="player" id="p4" onclick="showPossession('p4')">
+            <div class="player clickable" id="p4" onclick="showPossession('p4')">
                 <div class="info">
                     <p>Giocatore 4</p>
                     <p id="money">99999$</p>
@@ -249,8 +249,8 @@
         <div class="action-bar">
             <div id="rettangoloDado1" class="dado" onclick="tiraDadi()"></div>
             <div id="rettangoloDado2" class="dado" onclick="tiraDadi()"></div>
-            <div class="button">TRADE</div>
-            <div class="button">QUIT</div>
+            <div class="button clickable">TRADE</div>
+            <div class="button clickable">QUIT</div>
         </div>
         </div>
     </div>

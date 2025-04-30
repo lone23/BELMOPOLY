@@ -315,9 +315,9 @@ function chiudiMessaggio() {
 let selectedPlayer;
 function showPossession(player){
     if (selectedPlayer){
-        document.getElementById(selectedPlayer).className = "player";
+        document.getElementById(selectedPlayer).className = "player clickable";
     } else {
-        document.getElementById("p1").className = "player";
+        document.getElementById("p1").className = "player clickable";
     }
     document.getElementById(player).className = "player selected";
     selectedPlayer = player;

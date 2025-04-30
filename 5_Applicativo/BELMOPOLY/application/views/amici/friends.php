@@ -9,17 +9,17 @@
 </head>
 <body>
     <div class="container">
-        <img src="<?php echo URL?>application/views/images/arrow.png" onclick="window.location.href='<?php echo URL; ?>home/index'" alt="back" class="account">
+        <img src="<?php echo URL?>application/views/images/arrow.png" onclick="window.location.href='<?php echo URL; ?>home/index'" alt="back" class="left-icon clickable">
         <div class="main">
             <div class="tools">
-                <img src="<?php echo URL?>application/views/images/notification.png"  onclick="window.location.href='<?php echo URL; ?>GestioneAccount/mostraRichiesteAmicizia'" alt="notification" class="notification">
+                <img src="<?php echo URL?>application/views/images/notification.png"  onclick="window.location.href='<?php echo URL; ?>GestioneAccount/mostraRichiesteAmicizia'" alt="notification" class="toggle-option clickable">
                 <input
                         type="text"
                         class="search-bar"
                         placeholder="SEARCH..."
                         id="ricerca"
                 >
-                <img src="<?php echo URL ?>application/views/images/search.png" onclick="cercaUtente()" alt="search" class="search">
+                <img src="<?php echo URL ?>application/views/images/search.png" onclick="cercaUtente()" alt="search" class="search clickable">
             </div>
             <div class="buttons">
                 <div class="selector selected">FRIENDS</div>
@@ -29,7 +29,7 @@
                 <?php foreach ($amici as $utente) : ?>
                 <div class="user">
                     <div class="name"> <?php echo $utente->getUsername(); ?></div>
-                    <div class="request" onclick="rimuoviAmico('<?php echo $utente->getUsername(); ?>')">REMOVE</div>
+                    <div class="request clickable" onclick="rimuoviAmico('<?php echo $utente->getUsername(); ?>')">REMOVE</div>
 
                 </div>
                 <?php endforeach; ?>

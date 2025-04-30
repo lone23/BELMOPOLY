@@ -116,17 +116,6 @@ p{
 	border-radius: 2vw;
 }
 
-
-.request:hover, .option:hover {
-	background-color: var(--cell-hover);
-	transform: scale(1.02);
-	transition: transform 0.1s ease;
-}
-
-.request:active, .option:active {
-	transform: scale(0.95);
-}
-
 .selector {
 	cursor: pointer; 
 	display: flex;
@@ -148,16 +137,6 @@ p{
 	border-radius: 0vw 0vw 2vw 2vw;
 	
 }
-
-.search:hover, .notification:hover{
-	transform: scale(1.05);
-	transition: transform 0.1s ease;
-}
-
-.search:active, .notification:active{
-	transform: scale(0.95);
-}
-
 
 input[type=text]:focus, input[type=password]:focus {
 	outline: 0.3vw solid var(--cell-hover);
