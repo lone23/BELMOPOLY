@@ -9,6 +9,7 @@
     <script>
         const url = "<?php echo URL; ?>";
         const UUID = "<?php echo $_COOKIE['uuid']; ?>";
+        const id = "<?php echo $_COOKIE['id']; ?>";
 
     </script>
     <script src="<?php echo URL ?>application/views/tabellone/index.js"></script>

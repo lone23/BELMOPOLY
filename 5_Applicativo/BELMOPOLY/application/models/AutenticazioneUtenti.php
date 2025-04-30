@@ -17,7 +17,7 @@ class AutenticazioneUtenti
         }
 
         try {
-            $sth = $this->conn->prepare('SELECT password, username FROM utente WHERE email = :email');
+            $sth = $this->conn->prepare('SELECT id, password, username FROM utente WHERE email = :email');
             $sth->bindValue(':email', $email);
             $sth->execute();
 
@@ -30,6 +30,7 @@ class AutenticazioneUtenti
 
             $username = $row["username"];
             $passwordHash = $row["password"];
+            $_SESSION['id'] = $row["id"];
 
             if (password_verify($password, $passwordHash)) {
                 \libs\Logger::log("INFO -> Utente $email autenticato con successo");
