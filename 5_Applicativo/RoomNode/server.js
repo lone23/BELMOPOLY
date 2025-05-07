@@ -8,14 +8,17 @@ const wss = new WebSocket.Server({ port: 3001 }, () => {
 wss.on('connection', function connection(ws) {
     console.log("Client connected");
 
+    let username;
+    let roomId;
+
     ws.on('message', function incoming(message) {
         const msg = JSON.parse(message.toString());
 
         console.log("Ricevuto:", msg);
 
-        //prendere i singoli dati
-        const username = msg.username;
-        const roomId = msg.roomId;
+        // Prendere i singoli dati
+        username = msg.username;
+        roomId = msg.roomId;
 
         // Inizializza la stanza se non esiste
         if (!rooms[roomId]) rooms[roomId] = [];
@@ -25,7 +28,7 @@ wss.on('connection', function connection(ws) {
             rooms[roomId].push(username);
         }
 
-        //messaggio contenente tutti i dati
+        // Messaggio contenente tutti i dati
         const userlist = {
             type: "userlist",
             users: rooms[roomId],
@@ -38,5 +41,27 @@ wss.on('connection', function connection(ws) {
                 client.send(JSON.stringify(userlist));
             }
         });
+    });
+
+    // Gestisci la chiusura della connessione
+    ws.on('close', () => {
+        if (username && roomId) {
+            // Rimuovi l'utente dalla lista della stanza
+            rooms[roomId] = rooms[roomId].filter(user => user !== username);
+
+            // Messaggio di aggiornamento per tutti gli utenti nella stanza
+            const userlist = {
+                type: "userlist",
+                users: rooms[roomId],
+                roomId: roomId
+            };
+
+            // Manda l'aggiornamento a tutti i client connessi nella stanza
+            wss.clients.forEach(function each(client) {
+                if (client.readyState === WebSocket.OPEN) {
+                    client.send(JSON.stringify(userlist));
+                }
+            });
+        }
     });
 });
