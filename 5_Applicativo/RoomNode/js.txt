@@ -1,0 +1,32 @@
+    /*
+    gestione visualizzazione utente nella room
+     */
+    const username =  <?php echo json_encode($_SESSION['username']); ?>;
+    const roomId = <?php echo json_encode($_SESSION['uuid']); ?>;
+
+    const ws = new WebSocket("ws://localhost:3001");
+
+    ws.onopen = () => {
+        console.log("Connessione aperta");
+
+        // Manda un oggetto con più dati
+        ws.send(JSON.stringify({
+            type: "join",
+            username: username,
+            roomId: roomId
+        }));
+    };
+
+    ws.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+
+        if (data.roomId === roomId) {
+            console.log(data)
+            const slots = document.querySelectorAll(".player-slot");
+            slots.forEach((slot, index) => {
+                slot.innerText = data.users[index] || "[EMPTY]";
+            });
+        } else {
+            console.log("⛔ Messaggio per un'altra stanza");
+        }
+    };

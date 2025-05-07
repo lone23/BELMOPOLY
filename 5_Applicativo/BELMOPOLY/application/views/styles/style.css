@@ -103,6 +103,10 @@ img {
   src: url(../Fonts/Basic.woff);
 }
 
+a {
+  text-decoration: none;
+}
+
 .button{
   cursor: pointer;
   display: flex;
@@ -114,7 +118,7 @@ img {
   height: 5vw;
 
   padding: 1vw;
-  margin-top: 2vw;
+  margin-top: 4vw;
 
   color: var(--border-color);
   font-family: basic;

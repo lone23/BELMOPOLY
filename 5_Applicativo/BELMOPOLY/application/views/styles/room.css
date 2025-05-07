@@ -32,6 +32,10 @@ p{
 	border-radius: 2vw;
 	margin-right: 5vw;
 	overflow: auto;
+	align-content: space-around;
+	flex-direction: column-reverse;
+	flex-wrap: wrap;
+	justify-content: flex-end;
 }
 
 .list::-webkit-scrollbar {

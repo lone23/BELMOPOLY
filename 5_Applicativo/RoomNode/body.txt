@@ -1,0 +1,46 @@
+
+
+<div class="container">
+    <img src="<?php echo URL?>application/views/images/arrow.png" onclick="window.location.href='<?php echo URL; ?>home/esciRoom'" alt="back" class="left-icon clickable">
+    <div class="content">
+        <div class="players">
+            <div class="line">
+
+                <div class="player">
+                    <img src="<?php echo URL?>application/views/images/account.png" alt="user" class="icon">
+                    <p class="player-slot">[EMPTY]</p>
+                </div>
+
+                <div class="player">
+                    <img src="<?php echo URL?>application/views/images/account.png" alt="user" class="icon">
+                    <p class="player-slot">[EMPTY]</p>
+                </div>
+            </div>
+            <div class="line">
+
+                <div class="player">
+                    <img src="<?php echo URL?>application/views/images/account.png" alt="user" class="icon">
+                    <p class="player-slot">[EMPTY]</p>
+                </div>
+
+                <div class="player">
+                    <img src="<?php echo URL?>application/views/images/account.png" alt="user" class="icon">
+                    <p class="player-slot">[EMPTY]</p>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="list">
+                <?php foreach ($amici as $utente) : ?>
+                    <div class="user">
+                        <div class="name"><?php echo $utente->getUsername(); ?></div>
+                        <div class="invite clickable" onclick="window.location.href='<?php echo URL; ?>home/invitaRoom/<?php echo $utente->getUsername(); ?>'">INVITE</div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <div class="button clickable" onclick="window.location.href='<?php echo URL; ?>home/startGame'">START</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

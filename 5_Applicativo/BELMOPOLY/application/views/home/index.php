@@ -12,10 +12,10 @@
         <img src="<?php echo URL?>application/views/images/friends.png" onclick="window.location.href='<?php echo URL; ?>GestioneAccount/mostraAmicizie'" alt="friends" class="right-icon clickable">
         <div class="belmopoly">BELMOPOLY</div>
         <div onclick="window.location.href='<?php echo URL; ?>Home/creaRoom'" class="button clickable">NEW GAME</div>
-        <br>
         <div class="button clickable">CONTINUE</div>
-        <br>
-        <div class="button clickable">CHARACTER</div>
+        <a href="<?php echo URL; ?>application/views/imports/rules.pdf" download>
+        <div class="button clickable">DOWNLOAD RULES</div>
+        </a>
     </div>
 </body>
 </html>
