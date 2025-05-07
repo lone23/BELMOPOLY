@@ -86,3 +86,5 @@
 [2025-04-30 14:51:27] - INFO -> Room creata con successo, ID: 22
 [2025-04-30 14:51:28] - INFO -> Partita con UUID '68121ccf7462e5.29413992' avviata. Room impostata su FALSE per tutti.
 [2025-04-30 14:54:08] - INFO -> Partita con UUID '68121ccf7462e5.29413992' avviata. Room impostata su FALSE per tutti.
+[2025-05-07 15:19:19] - INFO -> Room creata con successo, ID: 1
+[2025-05-07 15:22:38] - INFO -> Partita con UUID '681b5dd78070a9.69951502' avviata. Room impostata su FALSE per tutti.
