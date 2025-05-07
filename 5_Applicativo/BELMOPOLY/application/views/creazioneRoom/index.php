@@ -39,30 +39,68 @@
         console.log("Connessione WebSocket chiusa");
     };
 
+    /*
+    gestione visualizzazione utente nella room
+    */
+    const username =  <?php echo json_encode($_SESSION['username']); ?>;
+    const roomId = <?php echo json_encode($_SESSION['uuid']); ?>;
+
+    const ws = new WebSocket("ws://localhost:3001");
+
+    ws.onopen = () => {
+        console.log("Connessione aperta");
+
+        // Manda un oggetto con più dati
+        ws.send(JSON.stringify({
+            type: "join",
+            username: username,
+            roomId: roomId
+        }));
+    };
+
+    ws.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+
+        if (data.roomId === roomId) {
+            console.log(data)
+            const slots = document.querySelectorAll(".player-slot");
+            slots.forEach((slot, index) => {
+                slot.innerText = data.users[index] || "[EMPTY]";
+            });
+        } else {
+            console.log("⛔ Messaggio per un'altra stanza");
+        }
+    };
+
 </script>
+
 
 <div class="container">
     <img src="<?php echo URL?>application/views/images/arrow.png" onclick="window.location.href='<?php echo URL; ?>home/esciRoom'" alt="back" class="left-icon clickable">
     <div class="content">
         <div class="players">
             <div class="line">
+
                 <div class="player">
                     <img src="<?php echo URL?>application/views/images/account.png" alt="user" class="icon">
-                    <p>YOU</p>
+                    <p class="player-slot">[EMPTY]</p>
                 </div>
+
                 <div class="player">
                     <img src="<?php echo URL?>application/views/images/account.png" alt="user" class="icon">
-                    <p>[EMPTY]</p>
+                    <p class="player-slot">[EMPTY]</p>
                 </div>
             </div>
             <div class="line">
+
                 <div class="player">
                     <img src="<?php echo URL?>application/views/images/account.png" alt="user" class="icon">
-                    <p>[EMPTY]</p>
+                    <p class="player-slot">[EMPTY]</p>
                 </div>
+
                 <div class="player">
                     <img src="<?php echo URL?>application/views/images/account.png" alt="user" class="icon">
-                    <p>[EMPTY]</p>
+                    <p class="player-slot">[EMPTY]</p>
                 </div>
             </div>
         </div>
