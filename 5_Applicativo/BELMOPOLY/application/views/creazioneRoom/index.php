@@ -62,11 +62,19 @@
         const data = JSON.parse(event.data);
 
         if (data.roomId === roomId) {
+            const startButton = document.getElementById('start-button');
             console.log(data)
             const slots = document.querySelectorAll(".player-slot");
             slots.forEach((slot, index) => {
                 slot.innerText = data.users[index] || "[EMPTY]";
             });
+            if (data.users[0] == username){
+                startButton.textContent = "START";
+                startButton.classList.add('clickable');
+                startButton.onclick = () => {
+                    window.location.href = "<?php echo URL; ?>home/startGame";
+                };
+            }
         } else {
             console.log("⛔ Messaggio per un'altra stanza");
         }
@@ -113,7 +121,7 @@
                     </div>
                 <?php endforeach; ?>
             </div>
-            <div class="button clickable" onclick="window.location.href='<?php echo URL; ?>home/startGame'">START</div>
+            <div id="start-button" class="button" >WAITING FOR HOST</div>
         </div>
     </div>
 </div>

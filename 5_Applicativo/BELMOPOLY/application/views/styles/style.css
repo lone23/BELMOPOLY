@@ -10,6 +10,7 @@
 .clickable:hover{
     transform: scale(1.02);
     transition: transform 0.1s ease;
+    cursor: pointer;
 }
 
 div.clickable:hover{
@@ -57,14 +58,12 @@ body{
   left: 1vw;
   top: 1vw;
   position: absolute;
-  cursor: pointer;
 }
 
 .right-icon{
   right: 1vw;
   top: 1vw;
   position: absolute;
-  cursor: pointer;
 }
 
 img {
@@ -108,7 +107,6 @@ a {
 }
 
 .button{
-  cursor: pointer;
   display: flex;
   justify-content: center; 
   align-items: center;

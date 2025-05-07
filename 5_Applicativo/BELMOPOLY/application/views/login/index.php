@@ -21,7 +21,7 @@
                 <input type="password" placeholder="PASSWORD" name="password" required>
                 <input type="text" style="visibility: hidden;">
                 <!-- Campo nascosto rimosso se non è necessario -->
-                <button type="submit" class="button">LOGIN</button>
+                <button type="submit" class="button clickable">LOGIN</button>
 
                 <p><?php
                     if(Isset($_SESSION["ControlloLogin"])){
