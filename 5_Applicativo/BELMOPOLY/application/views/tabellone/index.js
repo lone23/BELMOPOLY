@@ -10,42 +10,50 @@ let passi;
 let intervalAnimazione;
 let destinazioneVeloce = null;
 let mostraCartaNormaleDopoSpostamento = false;
-const socket = new WebSocket("ws://localhost:3000");
+let isMyTurn = false;  // Variabile che tiene traccia se è il turno del client
+let socket = new WebSocket('ws://localhost:4000');
 
 socket.onopen = () => {
-    socket.send(JSON.stringify({ joinRoom: UUID }));
+    console.log("Connesso al server WebSocket");
+    const joinMessage = {
+        joinRoom: UUID,       // L'UUID della stanza
+        playerId: id  // L'ID unico del giocatore
+    };
+    socket.send(JSON.stringify(joinMessage));
 };
 
 socket.onmessage = (event) => {
     const data = JSON.parse(event.data);
-    if (data.startGame || data.nextTurn) {
-        console.log(data.turno);
-        if (data.turno) {
-            // È il mio turno!
-            document.querySelector('.action-bar').style.display = 'flex';
-            alert("È il tuo turno!");
-        } else {
-            // Turno di un altro
-            document.querySelector('.action-bar').style.display = 'none';
-        }
+    console.log("Messaggio ricevuto:", data);
+
+    if (data.turn !== undefined) {
+        isMyTurn = data.turn;
+        console.log(isMyTurn);
+
     }
 };
 
-// Quando il giocatore ha finito il turno (es: clicca "OK" o altro)
 function fineTurno() {
-    console.log("Invio fine turno per room:", UUID);
-    if (socket.readyState === WebSocket.OPEN) {
+    if (isMyTurn) {
+        isMyTurn = false;
         socket.send(JSON.stringify({
-            turnFinished: true,
-            room: UUID
+            turnEnd: true,
+            room: UUID,
+            playerId: id
         }));
-        console.log("Messaggio inviato");
-    } else {
-        console.warn("WebSocket non pronto. Stato:", socket.readyState);
+        console.log("Turno passato");
     }
 }
 
+// Quando la connessione WebSocket si chiude
+socket.onclose = () => {
+    console.log("Connessione WebSocket chiusa");
+};
 
+// Quando si verifica un errore nel WebSocket
+socket.onerror = (error) => {
+    console.error("Errore WebSocket:", error);
+};
 function aggiornaDado(dieElement, value) {
     const dotPositions = {
         1: [4],
@@ -73,6 +81,10 @@ let dado2;
 let muove = false;
 
 function tiraDadi() {
+    if (!isMyTurn) {
+        alert("Non è il tuo turno!");
+        return;  // Blocca il tiro se non è il turno del giocatore
+    }
     if (muove) {
         return;  // Non può tirare i dadi finché non chiude il messaggio
     }

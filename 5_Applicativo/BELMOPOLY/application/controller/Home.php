@@ -174,6 +174,7 @@ class home
 
 
     }
+// startGame.php
 
     public function startGame()
     {
@@ -187,7 +188,11 @@ class home
 
             // 🔥 Comunica via WebSocket al server Node.js
             $uuid = $_SESSION['uuid'];
+
+            // Creazione della connessione al WebSocket
             $client = new Client("ws://localhost:3000");
+
+            // Invia messaggio per iniziare il gioco nella stanza
             $client->send(json_encode([
                 'startGame' => true,
                 'room' => $uuid,
@@ -196,9 +201,11 @@ class home
 
             $client->close();
 
+            // Redirige l'utente alla pagina del gioco
             header("Location:" . URL . "board/index");
         }
     }
+
 
 
 

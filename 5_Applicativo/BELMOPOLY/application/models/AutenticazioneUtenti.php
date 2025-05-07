@@ -30,7 +30,7 @@ class AutenticazioneUtenti
 
             $username = $row["username"];
             $passwordHash = $row["password"];
-            $_SESSION['id'] = $row["id"];
+            setcookie('id', $row["id"], time() + 10000, '/');
 
             if (password_verify($password, $passwordHash)) {
                 \libs\Logger::log("INFO -> Utente $email autenticato con successo");

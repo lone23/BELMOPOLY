@@ -9,51 +9,57 @@
 </head>
 <body>
 <script>
+    const socket = new WebSocket('ws://localhost:3000');
 
-    const socket = new WebSocket("ws://localhost:3000");
-
+    // Una volta che la connessione è stabilita, unisciti alla stanza
     socket.onopen = () => {
-
-        const uuid = "<?php echo $_SESSION['uuid']; ?>";
-        console.log(uuid);
-        socket.send(JSON.stringify({ joinRoom: uuid }));
-
+        const room = "<?php echo $_SESSION["uuid"]?>";  // Inserisci l'UUID della stanza
+        socket.send(JSON.stringify({
+            joinRoom: room
+        }));
     };
 
+    // Quando il server invia un messaggio, gestiscilo
     socket.onmessage = (event) => {
         const data = JSON.parse(event.data);
+
         if (data.startGame) {
-            // Vai alla nuova pagina quando il gioco parte
-            window.location.href = "<?php echo URL; ?>board/index";
+            // Logica per iniziare il gioco
+            console.log("Il gioco sta per iniziare...");
+            window.location.href = '<?php echo URL ?>board/index';
         }
     };
 
-</script>
+    // Gestione errori e disconnessione
+    socket.onerror = (error) => {
+        console.error("Errore WebSocket:", error);
+    };
 
+    socket.onclose = () => {
+        console.log("Connessione WebSocket chiusa");
+    };
+
+</script>
 
 <div class="container">
     <img src="<?php echo URL?>application/views/images/arrow.png" onclick="window.location.href='<?php echo URL; ?>home/esciRoom'" alt="back" class="left-icon clickable">
     <div class="content">
         <div class="players">
             <div class="line">
-
                 <div class="player">
                     <img src="<?php echo URL?>application/views/images/account.png" alt="user" class="icon">
                     <p>YOU</p>
                 </div>
-
                 <div class="player">
                     <img src="<?php echo URL?>application/views/images/account.png" alt="user" class="icon">
                     <p>[EMPTY]</p>
                 </div>
             </div>
             <div class="line">
-
                 <div class="player">
                     <img src="<?php echo URL?>application/views/images/account.png" alt="user" class="icon">
                     <p>[EMPTY]</p>
                 </div>
-
                 <div class="player">
                     <img src="<?php echo URL?>application/views/images/account.png" alt="user" class="icon">
                     <p>[EMPTY]</p>
