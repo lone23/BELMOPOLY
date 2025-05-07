@@ -1,7 +1,7 @@
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({ port: 4000 });
 
-const rooms = {}; // { roomId: { players: { playerId: { ws, closeTimeout } }, currentTurnPlayerId } }
+const rooms = {}; // { roomId: { players: { playerId: { ws, closeTimeout } }, playerOrder: [], currentTurnPlayerId } }
 
 wss.on('connection', (ws) => {
     console.log('🟢 Nuova connessione');
@@ -17,6 +17,7 @@ wss.on('connection', (ws) => {
             if (!rooms[roomId]) {
                 rooms[roomId] = {
                     players: {},
+                    playerOrder: [],
                     currentTurnPlayerId: playerId // Il primo che entra prende il turno
                 };
                 console.log(`🏠 Stanza ${roomId} creata, turno a ${playerId}`);
@@ -33,6 +34,11 @@ wss.on('connection', (ws) => {
             ws.roomId = roomId;
             ws.playerId = playerId;
 
+            // Se non è già nell’ordine, aggiungilo
+            if (!rooms[roomId].playerOrder.includes(playerId)) {
+                rooms[roomId].playerOrder.push(playerId);
+            }
+
             console.log(`👤 Giocatore ${playerId} aggiunto/aggiornato nella stanza ${roomId}`);
 
             // Invia solo lo stato corrente al nuovo arrivato
@@ -45,15 +51,15 @@ wss.on('connection', (ws) => {
 
             const room = rooms[roomId];
             if (room && room.currentTurnPlayerId === playerId) {
-                const playerIds = Object.keys(room.players);
-                const otherPlayerId = playerIds.find(id => id !== playerId);
+                const order = room.playerOrder;
+                const currentIndex = order.indexOf(playerId);
+                const nextIndex = (currentIndex + 1) % order.length;
+                const nextPlayerId = order[nextIndex];
 
-                if (otherPlayerId) {
-                    room.currentTurnPlayerId = otherPlayerId;
-                    console.log(`🔄 Turno passato a ${otherPlayerId} nella stanza ${roomId}`);
+                room.currentTurnPlayerId = nextPlayerId;
+                console.log(`🔄 Turno passato a ${nextPlayerId} nella stanza ${roomId}`);
 
-                    broadcastRoomState(roomId);
-                }
+                broadcastRoomState(roomId);
             }
         }
     });
@@ -70,14 +76,15 @@ wss.on('connection', (ws) => {
                 console.log(`🕳️ Timeout scaduto: rimuovo ${playerId} dalla stanza ${roomId}`);
 
                 delete rooms[roomId].players[playerId];
+                rooms[roomId].playerOrder = rooms[roomId].playerOrder.filter(id => id !== playerId);
 
-                const remainingPlayers = Object.keys(rooms[roomId].players);
+                const remainingPlayers = rooms[roomId].playerOrder;
 
                 if (remainingPlayers.length === 0) {
                     delete rooms[roomId];
                     console.log(`🗑️ Stanza ${roomId} eliminata (vuota)`);
                 } else {
-                    // Se il giocatore che aveva il turno esce, passa all’altro
+                    // Se il giocatore che aveva il turno esce, passa al prossimo
                     if (rooms[roomId].currentTurnPlayerId === playerId) {
                         rooms[roomId].currentTurnPlayerId = remainingPlayers[0];
                         console.log(`⚠️ Turno riassegnato a ${remainingPlayers[0]}`);

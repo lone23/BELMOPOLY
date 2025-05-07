@@ -35,6 +35,7 @@ socket.onmessage = (event) => {
 
 function fineTurno() {
     if (isMyTurn) {
+
         isMyTurn = false;
         socket.send(JSON.stringify({
             turnEnd: true,
