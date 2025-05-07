@@ -23,9 +23,6 @@ class home
 
     public function creaRoom()
     {
-
-
-
         require_once "./application/controller/autenticazione.php";
         $autenticazione = new autenticazione();
 
@@ -35,14 +32,11 @@ class home
 
             $amici = $GesioneUtenti->MostraAmicizia('%',$_SESSION['username']);
 
-            require_once "./application/views/creazioneRoom/index.php";
-
             $creaRoom = new \models\GestioneRoom();
 
             $creaRoom->creaRoom($_SESSION['username']);
 
-            header("Location:" . URL . "home/creaRoomView");
-
+            header("Location:" . URL . "Home/creaRoomView");
         }
     }
 

@@ -6,7 +6,12 @@ class Board
 {
     public function index()
     {
-        require_once './application/views/tabellone/index.php';
+        require_once "./application/controller/autenticazione.php";
+        $autenticazione = new autenticazione();
+        if($autenticazione->controlloLogin()) {
+
+            require_once './application/views/tabellone/index.php';
+        }
     }
 
     public function generaNumeroDati()
@@ -22,6 +27,10 @@ class Board
 
         header('Content-Type: application/json');
         echo json_encode(['dado1' => $Dado1, 'dado2' => $Dado2]);
+    }
+
+    public function aggiornaSaldo(){
+
     }
 
     public function pescaCarta()

@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS partita (
 CREATE TABLE IF NOT EXISTS fa_parte (
     utente_id INT(11) NOT NULL,
     partita_id INT(11) NOT NULL,
+    saldo INT(11) DEFAULT 1500,
     capo_partita TINYINT(1) DEFAULT NULL,
     richiesta TINYINT(1) DEFAULT NULL,
     utente_prigione TINYINT(1) DEFAULT 0,
