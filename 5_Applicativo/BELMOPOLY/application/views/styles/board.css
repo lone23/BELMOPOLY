@@ -69,6 +69,7 @@ td{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    width: 40vw;
 }
 
 .button {
@@ -153,29 +154,18 @@ td{
     padding: 1vw;
 }
 
-.dado:hover,
-.dado:hover ~ .dado,
-.dado:has(~ .dado:hover) {
+.enabled:hover,
+.enabled:hover ~ .dado,
+.enabled:has(~ .dado:hover) {
     animation: none;
     background-color: rgb(222, 153, 182);
     transform: scale(1.05);
     transition: transform 0.2s ease;
 }
-.dado:active,
-.dado:active ~ .dado,
-.dado:has(~ .dado:active) {
+.enabled:active,
+.enabled:active ~ .dado,
+.enabled:has(~ .dado:active) {
     transform: scale(0.95);
-}
-
-.dado:enabled{
-    animation: glow 1s infinite ease-in-out;
-    cursor: pointer;
-}
-
-.dado:disabled{
-    animation: none;
-    background-color: blue;
-    cursor: default;
 }
 
 .puntino {
@@ -197,13 +187,13 @@ td{
     border: solid var(--border-color) 0.3vw;
     background-color: var(--cell-color);
     padding: 1vw;
-    width: 28vw;
-    aspect-ratio: 1 / 1;
+    width: 30vw;
+    height: 40vw;
     border-radius: 2vw;
     box-shadow: inset 0 1vw 2vw rgba(0,0,0,0.06), 0 0vw 2vw rgba(0,0,0,0.25);
-    font-size: 1.5vw;
+    font-size: 2vw;
     text-align: left;
-    transform: translate(8.5vw, 10vw);
+    transform: translate(8vw, 5vw);
     z-index: 10;
     display: none;
     flex-direction: column;

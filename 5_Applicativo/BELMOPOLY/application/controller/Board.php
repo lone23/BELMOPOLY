@@ -12,6 +12,7 @@ class Board
 
             require_once './application/views/tabellone/index.php';
         }
+        echo $_SESSION['username'];
     }
 
     public function generaNumeroDati()
@@ -31,7 +32,26 @@ class Board
 
     public function aggiornaSaldo(){
         $GestionePartita = new \models\GestionePartita();
-        $_SESSION['saldo'] = $GestionePartita->getSaldo();
+        $giocatori = $GestionePartita->getSaldo();
+        header('Content-Type: application/json');
+        echo json_encode($giocatori);
+    }
+
+    public function salvaSaldo(){
+        $input = json_decode(file_get_contents('php://input'), true);
+
+        if (isset($input['price'])) {
+            $price = $input['price'];
+
+            $GestionePartita = new \models\GestionePartita();
+            $response = $GestionePartita->setSaldo($price);
+
+            header('Content-Type: application/json');
+            echo json_encode(['successo' => $response]);
+        } else {
+            header('Content-Type: application/json');
+            echo json_encode(['successo' => false, 'errore' => 'Valore mancante']);
+        }
     }
 
     public function pescaCarta()

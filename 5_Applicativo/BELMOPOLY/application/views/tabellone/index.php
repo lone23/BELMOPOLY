@@ -15,14 +15,14 @@
     </script>
     <script src="<?php echo URL ?>application/views/tabellone/index.js"></script>
 </head>
-<body>
+<body onload="aggiornaSaldo()">
 <div class="container">
     <div class="content">
         <div id="messaggioCarta" class="messaggio-carta">
             <div id="descrizioneCarta" class="description"></div>
             <div class="buttons">
-                <div id="okButton" class="button" onclick="chiudiMessaggio()">BUY</div>
-                <div id="okButton" class="button" onclick="chiudiMessaggio()">LEAVE</div>
+                <div id="okButton" class="button clickable" onclick="chiudiMessaggio(true), aggiornaSaldo()">BUY</div>
+                <div id="okButton" class="button clickable" onclick="chiudiMessaggio(false), aggiornaSaldo()">LEAVE</div>
             </div>
         </div>
 
@@ -211,7 +211,7 @@
         <div class="game">
             <div class="player selected" id="p1" onclick="showPossession('p1')">
                 <div class="info">
-                    <p>Giocatore 1</p>
+                    <p id="username">Giocatore 1</p>
                     <p id="money">99999$</p>
                 </div>
                 <div class="possession">
@@ -220,7 +220,7 @@
             </div>
             <div class="player clickable" id="p2" onclick="showPossession('p2')">
                 <div class="info">
-                    <p>Giocatore 2</p>
+                    <p id="username">Giocatore 2</p>
                     <p id="money">99999$</p>
                 </div>
                 <div class="possession">
@@ -229,7 +229,7 @@
             </div>
             <div class="player clickable" id="p3" onclick="showPossession('p3')">
                 <div class="info">
-                    <p>Giocatore 3</p>
+                    <p id="username">Giocatore 3</p>
                     <p id="money">99999$</p>
                 </div>
                 <div class="possession">
@@ -238,7 +238,7 @@
             </div>
             <div class="player clickable" id="p4" onclick="showPossession('p4')">
                 <div class="info">
-                    <p>Giocatore 4</p>
+                    <p id="username">Giocatore 4</p>
                     <p id="money">99999$</p>
                 </div>
                 <div class="possession">
@@ -249,8 +249,8 @@
 
 
         <div class="action-bar">
-            <div id="rettangoloDado1" class="dado" onclick="tiraDadi()"></div>
-            <div id="rettangoloDado2" class="dado" onclick="tiraDadi()"></div>
+            <div id="rettangoloDado1" class="dado enabled" onclick="tiraDadi()"></div>
+            <div id="rettangoloDado2" class="dado enabled" onclick="tiraDadi()"></div>
             <div class="button clickable">TRADE</div>
             <div class="button clickable">QUIT</div>
         </div>
