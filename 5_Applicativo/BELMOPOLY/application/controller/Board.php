@@ -1,6 +1,7 @@
 <?php
 
 use libs\Database;
+use models\GestioneRoom;
 
 class Board
 {
@@ -147,5 +148,39 @@ class Board
             echo json_encode(["errore" => "Errore di connessione al database."]);
         }
     }
+
+    public function numeroGiocatori() {
+        $json = file_get_contents('php://input');
+        $data = json_decode($json, true);
+        $uuid = $data["uuid"];
+        $GestioneRoom = new GestioneRoom();
+        $numeroGiocatori = $GestioneRoom->numeroGiocatori($uuid);
+        $response = $numeroGiocatori;
+        header('Content-Type: application/json');
+        echo json_encode($response);
+    }
+
+    public function salvaPosizionePedina()
+    {
+        $json = file_get_contents('php://input');
+        $data = json_decode($json, true);
+        $posizione = $data["posizione"];
+        $GestioneRoom = new GestioneRoom();
+        $GestioneRoom->salvaPosizionePedina($posizione);
+        header('Content-Type: application/json');
+        echo json_encode(['success' => true]);
+
+    }
+
+
+    public function prendiPosizionePedina()
+    {
+        $GestioneRoom = new GestioneRoom();
+        $Posizione = $GestioneRoom->prendiPosizionePedina($_COOKIE['id']);
+        header('Content-Type: application/json');
+        echo json_encode(['$Posizione' => $Posizione]);
+
+    }
+
 
 }

@@ -10,7 +10,8 @@
         const url = "<?php echo URL; ?>";
         const UUID = "<?php echo $_COOKIE['uuid']; ?>";
         const id = "<?php echo $_COOKIE['id']; ?>";
-        console.log("id= " + id);
+        const usernameAttuale = "<?php echo $_SESSION['username']; ?>";
+
 
     </script>
     <script src="<?php echo URL ?>application/views/tabellone/index.js"></script>
