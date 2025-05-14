@@ -5,11 +5,33 @@ const celle = [
     "cell-30", "cell-31", "cell-32", "cell-33", "cell-34", "cell-35", "cell-36", "cell-37", "cell-38", "cell-39"
 ];
 
-let posizionePedina = 0;
 let passi;
+
+let Giocatori;
+let posizioniGiocatori = {};
+const coloriAssegnati = {};
+const coloriPedine = ["blue", "green", "purple", "orange", "cyan", "yellow"];
+
 let intervalAnimazione;
 let destinazioneVeloce = null;
 let mostraCartaNormaleDopoSpostamento = false;
+
+let posizionePedina = 0;
+
+fetch(url + 'Board/prendiPosizionePedina')
+    .then(function(response) {
+        return response.json();
+    }).then(function(data) {
+    // Estrai la posizione corretta dall'oggetto ricevuto
+    const posizione = data.$Posizione;
+    posizionePedina = posizione; // se vuoi aggiornare anche la tua variabile globale
+    posizioniGiocatori[usernameAttuale] = posizione;
+    disegnaTutteLePedine();
+}).catch(function(error) {
+    console.error('Error:', error);
+});
+
+
 let isMyTurn = false;  // Variabile che tiene traccia se è il turno del client
 let socket = new WebSocket('ws://localhost:4000');
 
@@ -46,6 +68,7 @@ function fineTurno() {
     }
 }
 
+
 // Quando la connessione WebSocket si chiude
 socket.onclose = () => {
     console.log("Connessione WebSocket chiusa");
@@ -55,6 +78,61 @@ socket.onclose = () => {
 socket.onerror = (error) => {
     console.error("Errore WebSocket:", error);
 };
+
+
+const data = { uuid: UUID };
+fetch(url + 'Board/numeroGiocatori', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+}).then(function(response) {
+    return response.json();
+}).then(function(data) {
+    console.log(data);
+    Giocatori = data;
+
+    Giocatori.forEach((username, index) => {
+        if (username !== usernameAttuale) {
+            posizioniGiocatori[username] = 0;
+            coloriAssegnati[username] = coloriPedine[index % coloriPedine.length];
+        }
+    });
+
+}).catch(function(error) {
+    console.error('Error:', error);
+});
+
+function disegnaTutteLePedine() {
+    // Rimuove tutte le pedine attuali
+    celle.forEach(id => {
+        const cella = document.getElementById(id);
+        if (cella) cella.querySelectorAll(".pedina").forEach(p => p.remove());
+    });
+
+    // Mostra la tua pedina (in rosso)
+    const cellaMia = document.getElementById(celle[posizionePedina]);
+    if (cellaMia) {
+        const miaDiv = document.createElement("div");
+        miaDiv.className = "pedina";
+        miaDiv.style.backgroundColor = "red";
+        cellaMia.appendChild(miaDiv);
+    }
+
+    // Mostra le pedine degli altri giocatori (solo cerchi colorati)
+    for (const [username, posizione] of Object.entries(posizioniGiocatori)) {
+        const cella = document.getElementById(celle[posizione]);
+        if (cella) {
+            const pedina = document.createElement("div");
+            pedina.className = "pedina";
+            pedina.style.backgroundColor = coloriAssegnati[username];
+            cella.appendChild(pedina);
+        }
+    }
+}
+
+
+
+
 function aggiornaDado(dieElement, value) {
     const dotPositions = {
         1: [4],
@@ -130,6 +208,7 @@ function tiraDadi() {
                 });
         }
     }, 70);
+    fineTurno();
 }
 
 // Per mostrare il numero 5 sui dadi a inizio game
@@ -202,9 +281,25 @@ function muoviPedina() {
         muove = false;
     }
 
+
+
+    console.log(posizionePedina)
+    const data = { posizione: posizionePedina };
+    fetch(url + 'Board/salvaPosizionePedina', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    }).then(function(response) {
+        return response.json();
+    }).then(function(data) {
+        console.log(data);
+    }).catch(function(error) {
+        console.error('Error:', error);
+    });
+
     // Mostra la pedina nella nuova posizione
-    const nuovaCella = document.getElementById(celle[posizionePedina]);
-    nuovaCella.innerHTML += '<div id="pedina"></div>';
+    disegnaTutteLePedine();
+
 }
 
 function pescaCarta(tipo) {
@@ -322,7 +417,6 @@ function chiudiMessaggio() {
         document.getElementById("rettangoloDado2").disabled = false;
     }
 
-    fineTurno();
 }
 
 let selectedPlayer;
