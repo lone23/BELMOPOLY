@@ -356,6 +356,101 @@ class GestioneRoom
 
     }
 
+    public function numeroGiocatori($uuid)
+    {
+        // Ottieni l'id della partita tramite UUID
+        $sth = $this->conn->prepare("SELECT id FROM partita WHERE unique_key = :uuid");
+        $sth->execute(['uuid' => $uuid]);
+        $idPartita = $sth->fetch(\PDO::FETCH_ASSOC);
+
+        if (!$idPartita || !isset($idPartita['id'])) {
+            return []; // Nessuna partita trovata
+        }
+
+        $idPartita = $idPartita['id'];
+
+        // Ottieni tutti gli username dei giocatori che fanno parte della partita, ordinati per utente_id
+        $sth = $this->conn->prepare("
+        SELECT u.username
+        FROM fa_parte fp
+        JOIN utente u ON fp.utente_id = u.id
+        WHERE fp.partita_id = :id
+        ORDER BY u.id ASC
+    ");
+        $sth->execute(['id' => $idPartita]);
+        $usernames = $sth->fetchAll(\PDO::FETCH_COLUMN); // Prende solo la colonna 'username'
+
+        return $usernames;
+    }
+
+    public function salvaPosizionePedina($posizione)
+    {
+
+        \libs\Logger::log("INFO -> Posizione: " . $posizione);
+        // Ottieni l'id della partita tramite UUID
+        $sth = $this->conn->prepare("SELECT id FROM partita WHERE unique_key = :uuid");
+        $sth->execute(['uuid' => $_SESSION['uuid']]);
+        $idPartita = $sth->fetch(\PDO::FETCH_ASSOC);
+
+        if (!$idPartita || !isset($idPartita['id'])) {
+            return []; // Nessuna partita trovata
+        }
+
+        $idPartita = $idPartita['id'];
+        \libs\Logger::log("INFO -> idPartita: " . $idPartita);
+
+        // Ottieni tutti gli username dei giocatori che fanno parte della partita, ordinati per utente_id
+        $sth = $this->conn->prepare("
+            UPDATE fa_parte
+            SET posizione_pedina = :posizione
+            WHERE partita_id = :idPartita AND utente_id = :utenteid;
+
+    ");
+        $sth->execute([
+            'idPartita' => $idPartita,
+            'utenteid' => $_COOKIE['id'],
+            'posizione' => $posizione
+        ]);
+        \libs\Logger::log("INFO -> id: " . $_COOKIE['id']);
+
+        $usernames = $sth->fetchAll(\PDO::FETCH_COLUMN); // Prende solo la colonna 'username'
+
+    }
+
+    public function prendiPosizionePedina($id)
+    {
+
+        // Ottieni l'id della partita tramite UUID
+        $sth = $this->conn->prepare("SELECT id FROM partita WHERE unique_key = :uuid");
+        $sth->execute(['uuid' => $_SESSION['uuid']]);
+        $idPartita = $sth->fetch(\PDO::FETCH_ASSOC);
+
+        if (!$idPartita || !isset($idPartita['id'])) {
+            return []; // Nessuna partita trovata
+        }
+
+        $idPartita = $idPartita['id'];
+
+        $sth = $this->conn->prepare("
+            SELECT posizione_pedina FROM fa_parte
+            WHERE partita_id = :idPartita AND utente_id = :utenteid;
+
+    ");
+        $sth->execute([
+            'idPartita' => $idPartita,
+            'utenteid' => $id,
+        ]);
+
+
+        $posizione_pedina = $sth->fetch(\PDO::FETCH_ASSOC);
+        \libs\Logger::log("INFO -> $posizione_pedina: " . $posizione_pedina['posizione_pedina']);
+
+        return $posizione_pedina['posizione_pedina'];
+
+    }
+
+
+
 
 
 
