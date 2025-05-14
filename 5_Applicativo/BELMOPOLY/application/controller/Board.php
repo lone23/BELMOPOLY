@@ -30,7 +30,8 @@ class Board
     }
 
     public function aggiornaSaldo(){
-
+        $GestionePartita = new \models\GestionePartita();
+        $_SESSION['saldo'] = $GestionePartita->getSaldo();
     }
 
     public function pescaCarta()
