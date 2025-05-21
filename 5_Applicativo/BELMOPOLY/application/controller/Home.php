@@ -165,8 +165,6 @@ class home
 
         }
 
-
-
     }
 // startGame.php
 
@@ -180,10 +178,8 @@ class home
             $creaRoom = new \models\GestioneRoom();
             $creaRoom->startGame(); // aggiorna il DB
 
-            // 🔥 Comunica via WebSocket al server Node.js
             $uuid = $_SESSION['uuid'];
 
-            // Creazione della connessione al WebSocket
             $client = new Client("ws://localhost:3000");
 
             // Invia messaggio per iniziare il gioco nella stanza
