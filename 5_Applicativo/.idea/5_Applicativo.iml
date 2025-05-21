@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/BELMOPOLY/application/libs" isTestSource="false" packagePrefix="libs\" />
+      <sourceFolder url="file://$MODULE_DIR$/BELMOPOLY/application/models" isTestSource="false" packagePrefix="models\" />
+      <excludeFolder url="file://$MODULE_DIR$/BELMOPOLY/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/BELMOPOLY/vendor/phrity/net-uri" />
+      <excludeFolder url="file://$MODULE_DIR$/BELMOPOLY/vendor/phrity/util-errorhandler" />
+      <excludeFolder url="file://$MODULE_DIR$/BELMOPOLY/vendor/psr/http-factory" />
+      <excludeFolder url="file://$MODULE_DIR$/BELMOPOLY/vendor/psr/http-message" />
+      <excludeFolder url="file://$MODULE_DIR$/BELMOPOLY/vendor/psr/log" />
+      <excludeFolder url="file://$MODULE_DIR$/BELMOPOLY/vendor/textalk/websocket" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
