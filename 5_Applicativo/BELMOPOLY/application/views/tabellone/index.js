@@ -17,24 +17,12 @@ let intervalAnimazione;
 let destinazioneVeloce = null;
 let mostraCartaNormaleDopoSpostamento = false;
 
-let posizionePedina = 0;
-
-fetch(url + 'Board/prendiPosizionePedina')
-    .then(function(response) {
-        return response.json();
-    }).then(function(data) {
-    // Estrai la posizione corretta dall'oggetto ricevuto
-    const posizione = data.$Posizione;
-    posizionePedina = posizione; // se vuoi aggiornare anche la tua variabile globale
-    posizioniGiocatori[usernameAttuale] = posizione;
-    disegnaTutteLePedine();
-}).catch(function(error) {
-    console.error('Error:', error);
-});
 
 
 let isMyTurn = false;  // Variabile che tiene traccia se è il turno del client
 let socket = new WebSocket('ws://localhost:4000');
+
+prendiPosizioneGiocatori();
 
 socket.onopen = () => {
     console.log("Connesso al server WebSocket");
@@ -48,6 +36,7 @@ socket.onopen = () => {
 socket.onmessage = (event) => {
     const data = JSON.parse(event.data);
     console.log("Messaggio ricevuto:", data);
+    prendiPosizioneGiocatori();
     aggiornaSaldo();
     if (data.turn !== undefined) {
         isMyTurn = data.turn;
@@ -68,6 +57,9 @@ function fineTurno() {
         console.log("Turno passato");
     }
 }
+
+
+
 
 
 // Quando la connessione WebSocket si chiude
@@ -103,15 +95,49 @@ fetch(url + 'Board/numeroGiocatori', {
     console.error('Error:', error);
 });
 
+
+
+function prendiPosizioneGiocatori() {
+    fetch(url + 'Board/prendiPosizionePedina')
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            console.log(data);
+
+            const posizioni = data.$Posizione;
+
+            // Salva tutte le posizioni dei giocatori
+            for (const [username, posizione] of Object.entries(posizioni)) {
+                posizioniGiocatori[username] = posizione;
+            }
+
+            console.log("Posizioni giocatori aggiornate:", posizioniGiocatori);
+
+            // Prendi la posizione del giocatore attuale
+            posizioniGiocatori[usernameAttuale] = posizioni[usernameAttuale];
+
+            disegnaTutteLePedine();
+        })
+        .catch(function(error) {
+            console.log('Error:', error);
+        });
+}
+
+
 function disegnaTutteLePedine() {
-    // Rimuove tutte le pedine attuali
+    // Rimuove l'elemento con id "pedina" se esiste
+    const pedinaSingola = document.getElementById("pedina");
+    if (pedinaSingola) pedinaSingola.remove();
+
+    // Rimuove tutte le pedine attuali con classe "pedina"
     celle.forEach(id => {
         const cella = document.getElementById(id);
         if (cella) cella.querySelectorAll(".pedina").forEach(p => p.remove());
     });
 
     // Mostra la tua pedina (in rosso)
-    const cellaMia = document.getElementById(celle[posizionePedina]);
+    const cellaMia = document.getElementById(celle[posizioniGiocatori[usernameAttuale]]);
     if (cellaMia) {
         const miaDiv = document.createElement("div");
         miaDiv.className = "pedina";
@@ -119,7 +145,7 @@ function disegnaTutteLePedine() {
         cellaMia.appendChild(miaDiv);
     }
 
-    // Mostra le pedine degli altri giocatori (solo cerchi colorati)
+    // Mostra le pedine degli altri giocatori
     for (const [username, posizione] of Object.entries(posizioniGiocatori)) {
         const cella = document.getElementById(celle[posizione]);
         if (cella) {
@@ -130,6 +156,10 @@ function disegnaTutteLePedine() {
         }
     }
 }
+
+
+
+
 
 
 
@@ -250,20 +280,21 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 function muoviPedina() {
-    const cellaCorrente = document.getElementById(celle[posizionePedina]);
-    if (cellaCorrente.querySelector("#pedina")) {
-        cellaCorrente.querySelector("#pedina").remove();
-    }
+    // Rimuovi tutte le pedine visibili prima di aggiornare
+    celle.forEach(id => {
+        const cella = document.getElementById(id);
+        if (cella) {
+            cella.querySelectorAll(".pedina").forEach(p => p.remove());
+            const pedinaRossa = cella.querySelector("#pedina");
+            if (pedinaRossa) pedinaRossa.remove();
+        }
+    });
 
-    // Muovimento verso Data Cube Matrix
+    // Movimento speciale (verso destinazioneVeloce)
     if (destinazioneVeloce !== null) {
-        if (posizionePedina !== destinazioneVeloce) {
-            posizionePedina = (posizionePedina + 1) % celle.length;
+        if (posizioniGiocatori[usernameAttuale] !== destinazioneVeloce) {
+            posizioniGiocatori[usernameAttuale] = (posizioniGiocatori[usernameAttuale] + 1) % celle.length;
         } else {
-            const cella = document.getElementById(celle[posizionePedina]);
-
-            cella.innerHTML += '<div id="pedina"></div>';
-
             clearInterval(intervalAnimazione);
             muove = false;
             destinazioneVeloce = null;
@@ -275,14 +306,16 @@ function muoviPedina() {
                 mostraCartaNormaleDopoSpostamento = false;
                 pescaCartaNormale(29);
             }
+
+            disegnaTutteLePedine();
             return;
         }
-
     } else if (passi > 0) {
-        posizionePedina = (posizionePedina + 1) % celle.length;
+        posizioniGiocatori[usernameAttuale] = (posizioniGiocatori[usernameAttuale] + 1) % celle.length;
         passi--;
     } else {
-        const cellaId = celle[posizionePedina];
+        // Movimento completato, pesca carta o mostra evento
+        const cellaId = celle[posizioniGiocatori[usernameAttuale]];
 
         const imprevisti = ["cell-7", "cell-22", "cell-36"];
         const probabilita = ["cell-2", "cell-17", "cell-33"];
@@ -299,8 +332,8 @@ function muoviPedina() {
         } else if (normali.includes(cellaId)) {
             const idNumerico = parseInt(cellaId.split("-")[1]);
             pescaCartaNormale(idNumerico);
-        } else {
-            const cella = document.getElementById(cellaId);
+        }else if (cellaId === "cell-10" || cellaId === "cell-20") {
+            salvaSaldo();
         }
 
         clearInterval(intervalAnimazione);
@@ -309,25 +342,22 @@ function muoviPedina() {
         muove = false;
     }
 
-
-
-    console.log(posizionePedina)
-    const data = { posizione: posizionePedina };
+    // Salva la nuova posizione sul server
     fetch(url + 'Board/salvaPosizionePedina', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-    }).then(function(response) {
-        return response.json();
-    }).then(function(data) {
-        console.log(data);
-    }).catch(function(error) {
-        console.error('Error:', error);
-    });
+        body: JSON.stringify({ posizione: posizioniGiocatori[usernameAttuale] })
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Posizione salvata:", data);
+        })
+        .catch(error => {
+            console.error('Errore:', error);
+        });
 
-    // Mostra la pedina nella nuova posizione
+    // Disegna tutte le pedine aggiornate
     disegnaTutteLePedine();
-
 }
 
 function pescaCarta(tipo) {

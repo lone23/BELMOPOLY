@@ -417,9 +417,8 @@ class GestioneRoom
 
     }
 
-    public function prendiPosizionePedina($id)
+    public function prendiPosizionePedina()
     {
-
         // Ottieni l'id della partita tramite UUID
         $sth = $this->conn->prepare("SELECT id FROM partita WHERE unique_key = :uuid");
         $sth->execute(['uuid' => $_SESSION['uuid']]);
@@ -431,23 +430,28 @@ class GestioneRoom
 
         $idPartita = $idPartita['id'];
 
+        // Ottieni tutte le posizioni dei giocatori nella partita, unendo con utente per avere username
         $sth = $this->conn->prepare("
-            SELECT posizione_pedina FROM fa_parte
-            WHERE partita_id = :idPartita AND utente_id = :utenteid;
-
+        SELECT u.username, fp.posizione_pedina
+        FROM fa_parte fp
+        JOIN utente u ON u.id = fp.utente_id
+        WHERE fp.partita_id = :idPartita
     ");
-        $sth->execute([
-            'idPartita' => $idPartita,
-            'utenteid' => $id,
-        ]);
+        $sth->execute(['idPartita' => $idPartita]);
 
+        $risultati = $sth->fetchAll(\PDO::FETCH_ASSOC);
 
-        $posizione_pedina = $sth->fetch(\PDO::FETCH_ASSOC);
-        \libs\Logger::log("INFO -> $posizione_pedina: " . $posizione_pedina['posizione_pedina']);
+        // Costruisci array associativo username => posizione_pedina
+        $posizioni = [];
+        foreach ($risultati as $riga) {
+            $posizioni[$riga['username']] = $riga['posizione_pedina'];
+            \libs\Logger::log("INFO -> prova: " . $riga['username'] . "   " . $riga['posizione_pedina']);
+        }
 
-        return $posizione_pedina['posizione_pedina'];
-
+        return $posizioni;
     }
+
+
 
 
 
