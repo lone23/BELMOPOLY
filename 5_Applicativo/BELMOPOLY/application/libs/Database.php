@@ -1,10 +1,7 @@
 <?php
-
 namespace libs;
 class Database{
-    
     private static $conn;
-
     public static function getConnection() {
 
         if (isset(self::$conn)) {
@@ -28,10 +25,5 @@ class Database{
             return self::$conn;
         }
     }
-    
-
-
-
-
-
 }
+?>
