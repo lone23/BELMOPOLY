@@ -25,9 +25,10 @@ CREATE TABLE IF NOT EXISTS partita (
     UNIQUE KEY (unique_key)
     );
 
+
 -- Tabella fa_parte
 CREATE TABLE IF NOT EXISTS fa_parte (
-    utente_id INT(11) NOT NULL,
+                                        utente_id INT(11) NOT NULL,
     partita_id INT(11) NOT NULL,
     saldo INT(11) DEFAULT 1500,
     capo_partita TINYINT(1) DEFAULT NULL,
@@ -124,6 +125,14 @@ CREATE TABLE proprietaNormali (
                                   affittoAlbergo INT NOT NULL,
                                   costoCasa INT NOT NULL,
                                   costoAlbergo INT NOT NULL
+);
+
+CREATE TABLE proprietaAppartengono (
+                                       id INT PRIMARY KEY,
+                                       id_proprieta INT NOT NULL,
+                                       id_partita INT NOT NULL,
+                                       id_utente INT,
+                                       speciali boolean
 );
 
 INSERT INTO proprietaSpeciali VALUES
