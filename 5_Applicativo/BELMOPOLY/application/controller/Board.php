@@ -31,56 +31,6 @@ class Board
         echo json_encode(['dado1' => $Dado1, 'dado2' => $Dado2]);
     }
 
-    public function aggiornaSaldo(){
-        $GestionePartita = new \models\GestionePartita();
-        $giocatori = $GestionePartita->getSaldo();
-        header('Content-Type: application/json');
-        echo json_encode($giocatori);
-    }
-
-    public function salvaSaldo(){
-        $input = json_decode(file_get_contents('php://input'), true);
-
-        if (isset($input['price'])) {
-            $price = $input['price'];
-
-            $GestionePartita = new \models\GestionePartita();
-            $response = $GestionePartita->setSaldo($price);
-
-            header('Content-Type: application/json');
-            echo json_encode(['successo' => $response]);
-        } else {
-            header('Content-Type: application/json');
-            echo json_encode(['successo' => false, 'errore' => 'Valore mancante']);
-        }
-    }
-
-    public function compraProprieta() {
-
-        $input = json_decode(file_get_contents('php://input'), true);
-
-        if (!isset($input['idProprieta'])) {
-            http_response_code(400);
-            echo json_encode(['success' => false, 'error' => 'ID proprietà mancante']);
-            return;
-        }
-        \libs\Logger::log("INFO -> DATI MANDATI: " . $input['idProprieta']);
-        $idProprieta = intval($input['idProprieta']);
-
-        $GestionePartita = new \models\GestionePartita();
-
-        // Controlla se l'utente può comprare la proprietà (es. ha soldi, proprietà libera, ecc)
-        // Qui puoi aggiungere ulteriori controlli a piacere
-
-        $acquisto = $GestionePartita->acquistaProprieta($idProprieta);
-
-        if ($acquisto) {
-            echo json_encode(['success' => true]);
-        } else {
-            echo json_encode(['success' => false, 'error' => 'Acquisto fallito']);
-        }
-    }
-
     public function pescaCarta()
     {
         $tipo = $_GET['tipo'] ?? null;
@@ -176,6 +126,95 @@ class Board
         }
     }
 
+    public function aggiornaSaldo(){
+        $GestionePartita = new \models\GestionePartita();
+        $giocatori = $GestionePartita->getSaldo();
+        header('Content-Type: application/json');
+        echo json_encode($giocatori);
+    }
+
+    public function salvaSaldo(){
+        $input = json_decode(file_get_contents('php://input'), true);
+
+        if (isset($input['price'])) {
+            $price = $input['price'];
+
+            $GestionePartita = new \models\GestionePartita();
+            $response = $GestionePartita->setSaldo($price);
+
+            header('Content-Type: application/json');
+            echo json_encode(['successo' => $response]);
+        } else {
+            header('Content-Type: application/json');
+            echo json_encode(['successo' => false, 'errore' => 'Valore mancante']);
+        }
+    }
+
+    public function compraProprieta() {
+        $input = json_decode(file_get_contents('php://input'), true);
+
+        \libs\Logger::log("INFO -> mandato input " . $input['price'] . " " . $input['idProprieta']);
+
+        if (!isset($input['price']) || !isset($input['idProprieta'])) {
+            http_response_code(400);
+            echo json_encode([
+                'success' => false,
+                'error' => 'Valori mancanti: price e/o idProprieta'
+            ]);
+            return;
+        }
+
+        $price = intval($input['price']);
+        $idProprieta = intval($input['idProprieta']);
+
+        $GestionePartita = new \models\GestionePartita();
+
+        // 1. Prova ad acquistare la proprietà
+        $acquisto = $GestionePartita->acquistaProprieta($idProprieta);
+
+        if ($acquisto === false) {
+            echo json_encode([
+                'success' => false,
+                'error' => 'Acquisto proprietà fallito'
+            ]);
+            exit;
+        }
+        // Se la proprietà è già posseduta
+        if (isset($acquisto['gia_posseduta']) && $acquisto['gia_posseduta'] === true) {
+            echo json_encode([
+                'success' => false,
+                'error' => 'Proprietà già acquistata da un altro giocatore',
+                'id_utente' => $acquisto['id_utente'],
+                'posseduta' => true,
+                'pagamento' => isset($acquisto['pagamento']) ? $acquisto['pagamento'] : null
+            ]);
+            \libs\Logger::log("INFO -> PROPRIETA GIA POSSEDUTA CONTROLLER");
+            exit;
+        }
+
+        // Se l'acquisto non ha avuto successo per altri motivi
+        if (!$acquisto['success']) {
+            echo json_encode([
+                'success' => false,
+                'error' => 'Acquisto proprietà fallito per motivi sconosciuti'
+            ]);
+            exit;
+        }
+
+        // 2. Se acquisto OK, scala il saldo
+        $saldoAggiornato = $GestionePartita->setSaldo($price);
+
+        if (!$saldoAggiornato) {
+            echo json_encode([
+                'success' => false,
+                'error' => 'Saldo non aggiornato'
+            ]);
+            return;
+        }
+
+        // Tutto OK
+        echo json_encode(['success' => true]);
+    }
     public function numeroGiocatori() {
         $json = file_get_contents('php://input');
         $data = json_decode($json, true);

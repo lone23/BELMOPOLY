@@ -397,7 +397,6 @@ class GestioneRoom
         }
 
         $idPartita = $idPartita['id'];
-        \libs\Logger::log("INFO -> idPartita: " . $idPartita);
 
         // Ottieni tutti gli username dei giocatori che fanno parte della partita, ordinati per utente_id
         $sth = $this->conn->prepare("
@@ -411,7 +410,6 @@ class GestioneRoom
             'utenteid' => $_COOKIE['id'],
             'posizione' => $posizione
         ]);
-        \libs\Logger::log("INFO -> id: " . $_COOKIE['id']);
 
         $usernames = $sth->fetchAll(\PDO::FETCH_COLUMN); // Prende solo la colonna 'username'
 

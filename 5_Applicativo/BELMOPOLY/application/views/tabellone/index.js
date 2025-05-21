@@ -11,7 +11,7 @@ let price = 0;
 let Giocatori;
 let posizioniGiocatori = {};
 const coloriAssegnati = {};
-const coloriPedine = ["blue", "green", "purple", "orange", "cyan", "yellow"];
+const coloriPedine = ["red", "green", "blue", "yellow"];
 
 let intervalAnimazione;
 let destinazioneVeloce = null;
@@ -332,7 +332,7 @@ function muoviPedina() {
             const idNumerico = parseInt(cellaId.split("-")[1]);
             pescaCartaNormale(idNumerico);
         }else if (cellaId === "cell-10" || cellaId === "cell-20") {
-            salvaSaldo();
+            fineTurno();
         }
 
         clearInterval(intervalAnimazione);
@@ -349,7 +349,7 @@ function muoviPedina() {
     })
         .then(response => response.json())
         .then(data => {
-            console.log("Posizione salvata:", data);
+
         })
         .catch(error => {
             console.error('Errore:', error);
@@ -454,30 +454,6 @@ function pescaCartaNormale(idNumerico) {
         });
 }
 
-function salvaSaldo(){
-    fetch(url + '/Board/salvaSaldo', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({price: price})
-    })
-        .then(response => {
-            if (!response.ok) throw new Error("Errore HTTP: " + response.status);
-            return response.json();
-        }).then(data => {
-        if (data.successo) {
-            console.log("Saldo aggiornato con successo.");
-            fineTurno();
-        } else {
-            console.warn("Errore lato server:", data.errore || "Aggiornamento saldo fallito");
-        }
-    })
-        .catch(error => {
-            console.error("Errore nella richiesta:", error);
-        });
-}
-
 function compraProprieta() {
     console.log(posizioniGiocatori[usernameAttuale]);
     fetch(url + '/board/compraProprieta', {
@@ -485,19 +461,28 @@ function compraProprieta() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ idProprieta: posizioniGiocatori[usernameAttuale] })
+        body: JSON.stringify({
+            price: price,
+            idProprieta: posizioniGiocatori[usernameAttuale]
+        })
     })
         .then(response => {
             if (!response.ok) throw new Error("Errore HTTP: " + response.status);
             return response.json();
-        }).then(data => {
-        if(data.success) {
-            alert("Proprietà acquistata con successo!");
-            // aggiorna UI, saldo, ecc.
-        } else {
-            alert("Errore: " + data.error);
-        }
-    })
+        })
+        .then(data => {
+            if(data.success) {
+                console.log("Saldo aggiornato e proprietà acquistata con successo.");
+                fineTurno();
+                alert("Proprietà acquistata con successo!");
+            } else {
+                if (data.posseduta && data.id_utente) {
+                    alert("Questa proprietà è già stata acquistata dal giocatore con ID: " + data.id_utente + " paga: " + data.pagamento);
+                } else {
+                    alert("Errore: " + (data.error || "Operazione fallita"));
+                }
+            }
+        })
         .catch(err => console.error('Errore nella richiesta', err));
 }
 
@@ -508,17 +493,17 @@ function chiudiMessaggio(buy) {
     // Se c'è un movimento automatico verso Data Cube Matrix
     if (destinazioneVeloce !== null) {
         muove = true;
-        intervalAnimazione = setInterval(muoviPedina, 1);
+        intervalAnimazione = setInterval(muoviPedina, 150);
     } else {
         muove = false;
         document.getElementById("rettangoloDado1").disabled = false;
         document.getElementById("rettangoloDado2").disabled = false;
     }
+    disegnaTutteLePedine();
     if (buy == false){
         price = 0;
         console.log(price);
     }
-    salvaSaldo();
 }
 
 let selectedPlayer;
