@@ -6,6 +6,7 @@ const celle = [
 ];
 
 let passi;
+let price = 0;
 
 let Giocatori;
 let posizioniGiocatori = {};
@@ -47,7 +48,7 @@ socket.onopen = () => {
 socket.onmessage = (event) => {
     const data = JSON.parse(event.data);
     console.log("Messaggio ricevuto:", data);
-
+    aggiornaSaldo();
     if (data.turn !== undefined) {
         isMyTurn = data.turn;
         console.log(isMyTurn);
@@ -208,7 +209,34 @@ function tiraDadi() {
                 });
         }
     }, 70);
-    fineTurno();
+}
+
+function aggiornaSaldo(){
+    fetch(url + 'Board/aggiornaSaldo')
+        .then(response => response.json())
+        .then(data => {
+            for (let i = 0; i < 4; i++) {
+                const playerId = `p${i + 1}`;
+                const playerDiv = document.getElementById(playerId);
+
+                if (playerDiv) {
+                    const infoDiv = playerDiv.querySelector('.info');
+                    const nomeP = infoDiv.querySelectorAll('p')[0];
+                    const moneyP = infoDiv.querySelectorAll('p')[1];
+
+                    if (data[i]) {
+                        nomeP.textContent = data[i].username;
+                        moneyP.textContent = data[i].saldo + '$';
+                    } else {
+                        nomeP.textContent = '[EMPTY]';
+                        moneyP.textContent = '-';
+                    }
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Errore:', error);
+        });
 }
 
 // Per mostrare il numero 5 sui dadi a inizio game
@@ -343,6 +371,7 @@ function pescaCartaSpeciale(id) {
     })
         .then(response => response.json())
         .then(data => {
+            price = data['prezzo'];
             const stazioni = [5, 15, 25, 35];
             let descrizione = `<h1 class="name">${data.nome}</h1><div class="information"><p>Prezzo: ${data.prezzo}€</p><br>`;
 
@@ -376,6 +405,7 @@ function pescaCartaNormale(idNumerico) {
     })
         .then(response => response.json())
         .then(data => {
+            price = data['prezzo'];
             const descrizione = `
             <p class="name">${data.nome}</p>
             <div class="information">
@@ -403,7 +433,31 @@ function pescaCartaNormale(idNumerico) {
         });
 }
 
-function chiudiMessaggio() {
+function salvaSaldo(){
+    fetch(url + '/Board/salvaSaldo', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({price: price})
+    })
+        .then(response => {
+            if (!response.ok) throw new Error("Errore HTTP: " + response.status);
+            return response.json();
+        }).then(data => {
+            if (data.successo) {
+                console.log("Saldo aggiornato con successo.");
+                fineTurno();
+            } else {
+                console.warn("Errore lato server:", data.errore || "Aggiornamento saldo fallito");
+            }
+        })
+        .catch(error => {
+            console.error("Errore nella richiesta:", error);
+        });
+}
+
+function chiudiMessaggio(buy) {
     const messaggio = document.getElementById("messaggioCarta");
     messaggio.style.display = "none";
 
@@ -416,7 +470,11 @@ function chiudiMessaggio() {
         document.getElementById("rettangoloDado1").disabled = false;
         document.getElementById("rettangoloDado2").disabled = false;
     }
-
+    if (buy == false){
+        price = 0;
+        console.log(price);
+    }
+    salvaSaldo();
 }
 
 let selectedPlayer;
