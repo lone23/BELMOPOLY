@@ -104,8 +104,7 @@ function prendiPosizioneGiocatori() {
         })
         .then(function(data) {
             console.log(data);
-
-            const posizioni = data.$Posizione;
+            const posizioni = data;
 
             // Salva tutte le posizioni dei giocatori
             for (const [username, posizione] of Object.entries(posizioni)) {
@@ -225,12 +224,12 @@ function tiraDadi() {
                     dado1 = data.dado1;
                     dado2 = data.dado2;
 
-                    passi = dado1 + dado2;
+                    passi = 6;
                     aggiornaDado(rettangoloDado1, dado1);  // Mostra il dado 1
                     aggiornaDado(rettangoloDado2, dado2);  // Mostra il dado 2
 
                     // Avvia il movimento della pedina
-                    intervalAnimazione = setInterval(muoviPedina, 500);
+                    intervalAnimazione = setInterval(muoviPedina, 1);
                 })
                 .catch(error => {
                     console.error('Errore nel recupero dei dati:', error);
@@ -370,24 +369,16 @@ function pescaCarta(tipo) {
                 alert(data.errore);
                 return;
             }
+            console.log(data);
+            price = data['prezzo'];
+            console.log(price);
 
-            const messaggioElemento = document.getElementById('messaggioCarta');
-            const descrizioneElemento = document.getElementById('descrizioneCarta');
+            let descrizione = `<h1 class="name">${tipo}</h1><div class="information"><p>Prezzo: ${data.descrizione}</p><br>`;
 
-            descrizioneElemento.innerHTML = '<h1 class="name">' + tipo + '</h1><div class="information"><p>' + data.descrizione + '</p></div>';
-            messaggioElemento.style.display = 'flex';
+            document.getElementById('descrizioneCarta').innerHTML = descrizione;
+            document.getElementById('messaggioCarta').style.display = 'flex';
 
-            if (tipo === "probabilita" && data.id === 4) {
-                destinazioneVeloce = celle.indexOf("cell-29");
-                passi = 1000;
-                mostraCartaNormaleDopoSpostamento = true;
-            } else {
-                muove = true;
-                // Riabilita i dadi solo se NON c'è un movimento automatico in sospeso
-                document.getElementById("rettangoloDado1").disabled = false;
-                document.getElementById("rettangoloDado2").disabled = false;
-            }
-
+            muove = true;
         })
         .catch(error => {
             console.error('Errore nel recupero della carta:', error);
@@ -475,16 +466,39 @@ function salvaSaldo(){
             if (!response.ok) throw new Error("Errore HTTP: " + response.status);
             return response.json();
         }).then(data => {
-            if (data.successo) {
-                console.log("Saldo aggiornato con successo.");
-                fineTurno();
-            } else {
-                console.warn("Errore lato server:", data.errore || "Aggiornamento saldo fallito");
-            }
-        })
+        if (data.successo) {
+            console.log("Saldo aggiornato con successo.");
+            fineTurno();
+        } else {
+            console.warn("Errore lato server:", data.errore || "Aggiornamento saldo fallito");
+        }
+    })
         .catch(error => {
             console.error("Errore nella richiesta:", error);
         });
+}
+
+function compraProprieta() {
+    console.log(posizioniGiocatori[usernameAttuale]);
+    fetch(url + '/board/compraProprieta', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ idProprieta: posizioniGiocatori[usernameAttuale] })
+    })
+        .then(response => {
+            if (!response.ok) throw new Error("Errore HTTP: " + response.status);
+            return response.json();
+        }).then(data => {
+        if(data.success) {
+            alert("Proprietà acquistata con successo!");
+            // aggiorna UI, saldo, ecc.
+        } else {
+            alert("Errore: " + data.error);
+        }
+    })
+        .catch(err => console.error('Errore nella richiesta', err));
 }
 
 function chiudiMessaggio(buy) {
@@ -494,7 +508,7 @@ function chiudiMessaggio(buy) {
     // Se c'è un movimento automatico verso Data Cube Matrix
     if (destinazioneVeloce !== null) {
         muove = true;
-        intervalAnimazione = setInterval(muoviPedina, 150);
+        intervalAnimazione = setInterval(muoviPedina, 1);
     } else {
         muove = false;
         document.getElementById("rettangoloDado1").disabled = false;

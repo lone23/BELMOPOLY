@@ -196,7 +196,6 @@ class Board
         $GestioneRoom->salvaPosizionePedina($posizione);
         header('Content-Type: application/json');
         echo json_encode(['success' => true]);
-
     }
 
 
@@ -207,8 +206,5 @@ class Board
 
         header('Content-Type: application/json');
         echo json_encode($posizioni);
-
     }
-
-
 }
