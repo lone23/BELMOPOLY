@@ -49,12 +49,52 @@ class GestionePartita
             WHERE utente_id = :utente_id AND partita_id = :partita_id
         ");
 
+        \libs\Logger::log("INFO -> Nella partita: " . $partita['id'] . " Il giocatore: " . $_SESSION['id'] . " Ha speso: " . $value);
+
         return $stmt->execute([
             'deltaSaldo' => $value,
             'utente_id' => $_SESSION['id'],
             'partita_id' => $partita['id']
         ]);
 
-        \libs\Logger::log("INFO -> Nella partita: " . $partita['id'] . " Il giocatore: " . $_SESSION['id'] . " Ha speso: " . $value);
+
+    }
+
+    public function acquistaProprieta($idProprieta) {
+        try {
+            $uniqueKey = $_SESSION['uuid'];
+            \libs\Logger::log("INFO -> UUID: " . $uniqueKey);
+
+            $stmt = $this->conn->prepare("SELECT id FROM partita WHERE unique_key = :unique_key");
+            $stmt->execute(['unique_key' => $uniqueKey]);
+            $idPartita = $stmt->fetch()['id'];
+
+            \libs\Logger::log("INFO -> ID PARTITA: " . $idPartita);
+
+            $idUtente = $_SESSION['id'];
+
+            \libs\Logger::log("INFO -> ID UTENTE: " . $idUtente);
+
+            \libs\Logger::log("INFO -> ID PROPRIETA: " . $idProprieta);
+
+
+            // Prima controlla se la proprietà è già acquistata
+            $stmt = $this->conn->prepare("SELECT COUNT(*) FROM proprietaAppartengono WHERE id_proprieta = :idProprieta");
+            $stmt->execute(['idProprieta' => $idProprieta]);
+            if ($stmt->fetchColumn() > 0) {
+                \libs\Logger::log("INFO -> PROPRIETA GIA VENDUTA");
+                return false;  // proprietà già venduta
+            }
+
+            // Inserisci la relazione proprietà - utente
+            \libs\Logger::log("INFO -> INSERITO => PROPRIETAID: " . $idProprieta . " | PARTITAID: "  . $idPartita . " | UTENTEID: " . $idUtente);
+            $stmt = $this->conn->prepare("INSERT INTO proprietaAppartengono (id_proprieta, id_partita, id_utente) VALUES (:idProprieta, :idPartita, :idUtente)");
+            return $stmt->execute(['idProprieta' => $idProprieta, 'idPartita' => $idPartita, 'idUtente' => $idUtente]);
+
+
+        } catch (PDOException $e) {
+            // gestisci errore o logga
+            return false;
+        }
     }
 }

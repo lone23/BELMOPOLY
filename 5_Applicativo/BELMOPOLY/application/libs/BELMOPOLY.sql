@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS utente (
 
 -- Tabella partita
 CREATE TABLE IF NOT EXISTS partita (
-                                       id INT(11) NOT NULL AUTO_INCREMENT,
+    id INT(11) NOT NULL AUTO_INCREMENT,
     turno_player INT(11) NOT NULL,
     unique_key VARCHAR(255) NOT NULL,
     PRIMARY KEY (id),
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS partita (
 
 -- Tabella fa_parte
 CREATE TABLE IF NOT EXISTS fa_parte (
-                                        utente_id INT(11) NOT NULL,
+    utente_id INT(11) NOT NULL,
     partita_id INT(11) NOT NULL,
     saldo INT(11) DEFAULT 1500,
     capo_partita TINYINT(1) DEFAULT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS fa_parte (
     PRIMARY KEY (utente_id, partita_id),
     FOREIGN KEY (utente_id) REFERENCES utente(id),
     FOREIGN KEY (partita_id) REFERENCES partita(id)
-    );
+);
 
 -- Tabella amici
 CREATE TABLE IF NOT EXISTS amico (
@@ -68,39 +68,36 @@ USE belmopoly;
 CREATE TABLE probabilita (
                              id INT AUTO_INCREMENT PRIMARY KEY,
                              descrizione TEXT NOT NULL,
-                             incasso INT
+                             prezzo INT
 );
 
 CREATE TABLE imprevisti (
                             id INT AUTO_INCREMENT PRIMARY KEY,
                             descrizione TEXT NOT NULL,
-                            perdita INT
+                            prezzo INT
 );
 
-INSERT INTO probabilita (descrizione, incasso) VALUES
-                                                   ('Hackeri un conto aziendale e trovi un credito non registrato. Guadagni 250€.', 250),
-                                                   ('I tuoi investimenti nel mercato finanziario vanno bene. Guadagni 300€.', 300),
-                                                   ('Vinci un round in un’arena da combattimento clandestina. Guadagni 180€.', 180),
-                                                   ('Andate fino a Datacube Matrix. Ritirando 250€', 250),
-                                                   ('Un’IA segreta ti invia una transazione anonima. Guadagni 280€.', 280),
-                                                   ('Riesci a vendere dati rubati sul dark web. Guadagni 220€.', 220),
-                                                   ('Un’azienda sperimenta un nuovo impianto neurale su di te. Ricevi un biglietto di uscita gratis dal Virtual Lock', NULL),
-                                                   ('Un dirigente corrotto ti paga per far sparire alcune prove digitali. Incassa 250€.', 250),
-                                                   ('Cloni una firma digitale di un dirigente di alto livello. Accedi a fondi aziendali e ricevi 270€.', 270),
-                                                   ('Un virus sovrascrive i tuoi debiti digitali. Guadagni 200€.', 200);
+INSERT INTO probabilita (descrizione, prezzo) VALUES
+                                                  ('Hackeri un conto aziendale e trovi un credito non registrato. Guadagni 250€.', -250),
+                                                  ('I tuoi investimenti nel mercato finanziario vanno bene. Guadagni 300€.', -300),
+                                                  ('Vinci un round in un’arena da combattimento clandestina. Guadagni 180€.', -180),
+                                                  ('Un’IA segreta ti invia una transazione anonima. Guadagni 280€.', -280),
+                                                  ('Riesci a vendere dati rubati sul dark web. Guadagni 220€.', -220),
+                                                  ('Un dirigente corrotto ti paga per far sparire alcune prove digitali. Incassa 250€.', -250),
+                                                  ('Cloni una firma digitale di un dirigente di alto livello. Accedi a fondi aziendali e ricevi 270€.', -270),
+                                                  ('Un virus sovrascrive i tuoi debiti digitali. Guadagni 200€.', -200);
 
-INSERT INTO imprevisti (descrizione, perdita) VALUES
-                                                  ('Il tuo hardware si rompe improvvisamente. Riparazione obbligatoria, paga 150€', 150),
-                                                  ('Il mercato finanziario crolla, i tuoi investimenti vanno in fumo. Perdi 320€.', 320),
-                                                  ('Sei vittima di un attacco ransomware. Paga 200€ per sbloccare i tuoi dati.', 200),
-                                                  ('Il tuo impianto neurale subisce un sovraccarico. Paga 250€ per le riparazioni.', 250),
-                                                  ('Sei stato tracciato da un’AI di sorveglianza. Torna indietro di 6 caselle per nasconderti.', NULL),
-                                                  ('Un virus si diffonde nei tuoi sistemi e devi resettare tutto. Perdi un turno.', NULL),
-                                                  ('Un hacker ruba i tuoi dati bancari e svuota il tuo conto. Perdi 370€.', 370),
-                                                  ('La polizia ti trova un chip illegale nel tuo sistema. Paga 300€ di multa.', 300),
-                                                  ('I tuoi dati personali vengono venduti sul mercato nero. Perdi 175€.', 175),
-                                                  ('Il tuo portafoglio digitale subisce un attacco di phishing sofisticato. Perdi 210€ a causa del furto.', 210);
-
+INSERT INTO imprevisti (descrizione, prezzo) VALUES
+                                                 ('Il tuo hardware si rompe improvvisamente. Riparazione obbligatoria, paga 150€', 150),
+                                                 ('Il mercato finanziario crolla, i tuoi investimenti vanno in fumo. Perdi 320€.', 320),
+                                                 ('Sei vittima di un attacco ransomware. Paga 200€ per sbloccare i tuoi dati.', 200),
+                                                 ('Il tuo impianto neurale subisce un sovraccarico. Paga 250€ per le riparazioni.', 250),
+                                                 ('Un hacker ruba i tuoi dati bancari e svuota il tuo conto. Perdi 370€.', 370),
+                                                 ('La polizia ti trova un chip illegale nel tuo sistema. Paga 300€ di multa.', 300),
+                                                 ('I tuoi dati personali vengono venduti sul mercato nero. Perdi 175€.', 175),
+                                                 ('Il tuo portafoglio digitale subisce un attacco di phishing sofisticato. Perdi 210€ a causa del furto.', 210);
+select * from probabilita;
+select * from imprevisti;
 
 CREATE TABLE proprietaSpeciali (
                                    id INT PRIMARY KEY,
@@ -111,6 +108,15 @@ CREATE TABLE proprietaSpeciali (
                                    affitto3 INT ,
                                    affitto4 INT
 );
+
+INSERT INTO proprietaSpeciali VALUES
+                                  (5, 'Cyber Station South', 200, 25, 50, 100, 200),
+                                  (15, 'Cyber Station West', 200, 25, 50, 100, 200),
+                                  (25, 'Cyber Station North', 200, 25, 50, 100, 200),
+                                  (35, 'Cyber Station Est', 200, 25, 50, 100, 200),
+                                  (12, 'Holo Company', 150, 50, 150, NULL, NULL),
+                                  (28, 'Nano Company', 150, 50, 150, NULL, NULL);
+
 
 CREATE TABLE proprietaNormali (
                                   id INT PRIMARY KEY,
@@ -126,23 +132,6 @@ CREATE TABLE proprietaNormali (
                                   costoCasa INT NOT NULL,
                                   costoAlbergo INT NOT NULL
 );
-
-CREATE TABLE proprietaAppartengono (
-                                       id INT PRIMARY KEY,
-                                       id_proprieta INT NOT NULL,
-                                       id_partita INT NOT NULL,
-                                       id_utente INT,
-                                       speciali boolean
-);
-
-INSERT INTO proprietaSpeciali VALUES
-                                  (5, 'Cyber Station South', 200, 25, 50, 100, 200),
-                                  (15, 'Cyber Station West', 200, 25, 50, 100, 200),
-                                  (25, 'Cyber Station North', 200, 25, 50, 100, 200),
-                                  (35, 'Cyber Station Est', 200, 25, 50, 100, 200),
-                                  (12, 'Holo Company', 150, 50, 150, NULL, NULL),
-                                  (28, 'Nano Company', 150, 50, 150, NULL, NULL);
-
 
 INSERT INTO proprietaNormali VALUES
                                  (1, 'Pixel Street', 60, 2, 4, 10, 30, 90, 160, 250, 50, 50),
@@ -174,5 +163,15 @@ INSERT INTO proprietaNormali VALUES
 
                                  (37, 'Megacity Plaza', 350, 35, 70, 175, 500, 1100, 1300, 1500, 200, 200),
                                  (39, 'Cybercore Plaza', 400, 50, 100, 200, 600, 1400, 1700, 2000, 200, 200);
+
+CREATE TABLE proprietaAppartengono (
+                                       id INT AUTO_INCREMENT PRIMARY KEY,
+                                       id_proprieta INT NOT NULL,
+                                       id_partita INT NOT NULL,
+                                       id_utente INT,
+                                       speciali boolean
+);
+
+select * from proprietaAppartengono;
 
 

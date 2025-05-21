@@ -22,7 +22,7 @@
         <div id="messaggioCarta" class="messaggio-carta">
             <div id="descrizioneCarta" class="description"></div>
             <div class="buttons">
-                <div id="okButton" class="button clickable" onclick="chiudiMessaggio(true), aggiornaSaldo()">BUY</div>
+                <div id="okButton" class="button clickable" onclick="chiudiMessaggio(true), aggiornaSaldo(), compraProprieta()">BUY</div>
                 <div id="okButton" class="button clickable" onclick="chiudiMessaggio(false), aggiornaSaldo()">LEAVE</div>
             </div>
         </div>

@@ -55,34 +55,61 @@ class Board
         }
     }
 
+    public function compraProprieta() {
+
+        $input = json_decode(file_get_contents('php://input'), true);
+
+        if (!isset($input['idProprieta'])) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'ID proprietà mancante']);
+            return;
+        }
+        \libs\Logger::log("INFO -> DATI MANDATI: " . $input['idProprieta']);
+        $idProprieta = intval($input['idProprieta']);
+
+        $GestionePartita = new \models\GestionePartita();
+
+        // Controlla se l'utente può comprare la proprietà (es. ha soldi, proprietà libera, ecc)
+        // Qui puoi aggiungere ulteriori controlli a piacere
+
+        $acquisto = $GestionePartita->acquistaProprieta($idProprieta);
+
+        if ($acquisto) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'error' => 'Acquisto fallito']);
+        }
+    }
+
     public function pescaCarta()
     {
         $tipo = $_GET['tipo'] ?? null;
 
         if ($tipo !== 'probabilita' && $tipo !== 'imprevisti') {
+            http_response_code(400);
             echo json_encode(["errore" => "Tipo non valido."]);
             return;
         }
 
         try {
             $db = Database::getConnection();
-            $id = rand(1,10);
+            $id = rand(1,8);
 
-            $stmt = $db->prepare("SELECT descrizione FROM $tipo WHERE id = :id");
+            $stmt = $db->prepare("SELECT * FROM $tipo WHERE id = :id");
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
 
             $carta = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($carta) {
-                echo json_encode([
-                    "id" => $id,
-                    "descrizione" => $carta['descrizione']
-                ]);
+                header('Content-Type: application/json');
+                echo json_encode($carta);
             } else {
+                http_response_code(404);
                 echo json_encode(["errore" => "Carta non trovata."]);
             }
         } catch (PDOException $e) {
+            http_response_code(500);
             echo json_encode(["errore" => "Errore di connessione al database."]);
         }
     }
@@ -176,9 +203,10 @@ class Board
     public function prendiPosizionePedina()
     {
         $GestioneRoom = new GestioneRoom();
-        $Posizione = $GestioneRoom->prendiPosizionePedina($_COOKIE['id']);
+        $posizioni = $GestioneRoom->prendiPosizionePedina();
+
         header('Content-Type: application/json');
-        echo json_encode(['$Posizione' => $Posizione]);
+        echo json_encode($posizioni);
 
     }
 
