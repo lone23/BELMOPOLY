@@ -19,28 +19,25 @@ let mostraCartaNormaleDopoSpostamento = false;
 
 
 
-let isMyTurn = false;  // Variabile che tiene traccia se è il turno del client
+let isMyTurn = false;
 let socket = new WebSocket('ws://localhost:4000');
 
 prendiPosizioneGiocatori();
 
 socket.onopen = () => {
-    console.log("Connesso al server WebSocket");
     const joinMessage = {
-        joinRoom: UUID,       // L'UUID della stanza
-        playerId: id  // L'ID unico del giocatore
+        joinRoom: UUID,
+        playerId: id
     };
     socket.send(JSON.stringify(joinMessage));
 };
 
 socket.onmessage = (event) => {
     const data = JSON.parse(event.data);
-    console.log("Messaggio ricevuto:", data);
     prendiPosizioneGiocatori();
     aggiornaSaldo();
     if (data.turn !== undefined) {
         isMyTurn = data.turn;
-        console.log(isMyTurn);
 
     }
 };
@@ -54,20 +51,13 @@ function fineTurno() {
             room: UUID,
             playerId: id
         }));
-        console.log("Turno passato");
     }
 }
 
 
-
-
-
-// Quando la connessione WebSocket si chiude
 socket.onclose = () => {
-    console.log("Connessione WebSocket chiusa");
 };
 
-// Quando si verifica un errore nel WebSocket
 socket.onerror = (error) => {
     console.error("Errore WebSocket:", error);
 };
@@ -81,7 +71,6 @@ fetch(url + 'Board/numeroGiocatori', {
 }).then(function(response) {
     return response.json();
 }).then(function(data) {
-    console.log(data);
     Giocatori = data;
 
     Giocatori.forEach((username, index) => {
@@ -103,17 +92,13 @@ function prendiPosizioneGiocatori() {
             return response.json();
         })
         .then(function(data) {
-            console.log(data);
             const posizioni = data;
 
-            // Salva tutte le posizioni dei giocatori
             for (const [username, posizione] of Object.entries(posizioni)) {
                 posizioniGiocatori[username] = posizione;
             }
 
-            console.log("Posizioni giocatori aggiornate:", posizioniGiocatori);
 
-            // Prendi la posizione del giocatore attuale
             posizioniGiocatori[usernameAttuale] = posizioni[usernameAttuale];
 
             disegnaTutteLePedine();
@@ -125,17 +110,14 @@ function prendiPosizioneGiocatori() {
 
 
 function disegnaTutteLePedine() {
-    // Rimuove l'elemento con id "pedina" se esiste
     const pedinaSingola = document.getElementById("pedina");
     if (pedinaSingola) pedinaSingola.remove();
 
-    // Rimuove tutte le pedine attuali con classe "pedina"
     celle.forEach(id => {
         const cella = document.getElementById(id);
         if (cella) cella.querySelectorAll(".pedina").forEach(p => p.remove());
     });
 
-    // Mostra la tua pedina (in rosso)
     const cellaMia = document.getElementById(celle[posizioniGiocatori[usernameAttuale]]);
     if (cellaMia) {
         const miaDiv = document.createElement("div");
@@ -144,7 +126,6 @@ function disegnaTutteLePedine() {
         cellaMia.appendChild(miaDiv);
     }
 
-    // Mostra le pedine degli altri giocatori
     for (const [username, posizione] of Object.entries(posizioniGiocatori)) {
         const cella = document.getElementById(celle[posizione]);
         if (cella) {
@@ -192,10 +173,10 @@ let muove = false;
 function tiraDadi() {
     if (!isMyTurn) {
         alert("Non è il tuo turno!");
-        return;  // Blocca il tiro se non è il turno del giocatore
+        return;
     }
     if (muove) {
-        return;  // Non può tirare i dadi finché non chiude il messaggio
+        return;
     }
 
     document.getElementById("rettangoloDado1").disabled = true;
@@ -209,7 +190,6 @@ function tiraDadi() {
     const rettangoloDado2 = document.getElementById('rettangoloDado2');
 
     const interval = setInterval(() => {
-        // Animazione dei dadi (mostra valori temporanei)
         aggiornaDado(rettangoloDado1, Math.floor(Math.random() * 6) + 1);
         aggiornaDado(rettangoloDado2, Math.floor(Math.random() * 6) + 1);
         count++;
@@ -224,11 +204,10 @@ function tiraDadi() {
                     dado1 = data.dado1;
                     dado2 = data.dado2;
 
-                    passi = 6;
-                    aggiornaDado(rettangoloDado1, dado1);  // Mostra il dado 1
-                    aggiornaDado(rettangoloDado2, dado2);  // Mostra il dado 2
+                    passi = dado1 + dado2;
+                    aggiornaDado(rettangoloDado1, dado1);
+                    aggiornaDado(rettangoloDado2, dado2);
 
-                    // Avvia il movimento della pedina
                     intervalAnimazione = setInterval(muoviPedina, 1);
                 })
                 .catch(error => {
@@ -268,7 +247,7 @@ function aggiornaSaldo(){
         });
 }
 
-// Per mostrare il numero 5 sui dadi a inizio game
+
 window.addEventListener("DOMContentLoaded", () => {
     const rettangoloDado1 = document.getElementById("rettangoloDado1");
     const rettangoloDado2 = document.getElementById("rettangoloDado2");
@@ -279,7 +258,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 function muoviPedina() {
-    // Rimuovi tutte le pedine visibili prima di aggiornare
+
     celle.forEach(id => {
         const cella = document.getElementById(id);
         if (cella) {
@@ -289,7 +268,6 @@ function muoviPedina() {
         }
     });
 
-    // Movimento speciale (verso destinazioneVeloce)
     if (destinazioneVeloce !== null) {
         if (posizioniGiocatori[usernameAttuale] !== destinazioneVeloce) {
             posizioniGiocatori[usernameAttuale] = (posizioniGiocatori[usernameAttuale] + 1) % celle.length;
@@ -313,7 +291,6 @@ function muoviPedina() {
         posizioniGiocatori[usernameAttuale] = (posizioniGiocatori[usernameAttuale] + 1) % celle.length;
         passi--;
     } else {
-        // Movimento completato, pesca carta o mostra evento
         const cellaId = celle[posizioniGiocatori[usernameAttuale]];
 
         const imprevisti = ["cell-7", "cell-22", "cell-36"];
@@ -341,7 +318,7 @@ function muoviPedina() {
         muove = false;
     }
 
-    // Salva la nuova posizione sul server
+
     fetch(url + 'Board/salvaPosizionePedina', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -349,13 +326,13 @@ function muoviPedina() {
     })
         .then(response => response.json())
         .then(data => {
-            console.log("Posizione salvata:", data);
+
         })
         .catch(error => {
             console.error('Errore:', error);
         });
 
-    // Disegna tutte le pedine aggiornate
+
     disegnaTutteLePedine();
 }
 
@@ -369,9 +346,7 @@ function pescaCarta(tipo) {
                 alert(data.errore);
                 return;
             }
-            console.log(data);
             price = data['prezzo'];
-            console.log(price);
 
             let descrizione = `<h1 class="name">${tipo}</h1><div class="information"><p>Prezzo: ${data.descrizione}</p><br>`;
 
@@ -421,38 +396,91 @@ function pescaCartaSpeciale(id) {
 }
 
 function pescaCartaNormale(idNumerico) {
-    fetch(url + 'Board/pescaCartaNormale?id=' + idNumerico, {
-        method: 'GET'
+    const data = { idNumerico: idNumerico};
+    fetch(url + 'Board/controlloProprieta', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
     })
         .then(response => response.json())
         .then(data => {
-            price = data['prezzo'];
-            const descrizione = `
-            <p class="name">${data.nome}</p>
-            <div class="information">
-            <p>Prezzo: ${data.prezzo}€</p>
-            <br>
-            <p>Affitto: ${data.affitto}€</p>
-            <p>Affitto Completo: ${data.affittoCompleto}€</p>
-            <p>Affitto Casa 1: ${data.affittoCasa1}€</p>
-            <p>Affitto Casa 2: ${data.affittoCasa2}€</p>
-            <p>Affitto Casa 3: ${data.affittoCasa3}€</p>
-            <p>Affitto Casa 4: ${data.affittoCasa4}€</p>
-            <p>Affitto Albergo: ${data.affittoAlbergo}€</p>
-            <p>Costo Casa: ${data.costoCasa}€</p>
-            <p>Costo Albergo: ${data.costoAlbergo}€</p>
-            </div>`;
+            const occupata = !!data['possessore'];
+            const idPossessore = data["id_utente"];
 
-            document.getElementById('descrizioneCarta').innerHTML = descrizione;
-            document.getElementById('messaggioCarta').style.display = 'flex';
+            fetch(url + 'Board/pescaCartaNormale?id=' + idNumerico, {
+                method: 'GET'
+            })
+                .then(response => response.json())
+                .then(dataCarta => {
 
-            muove = true;
+                    if (!occupata) {
+                        price = dataCarta['prezzo'];
+                        const descrizione = `
+                    <p class="name">${dataCarta.nome}</p>
+                    <div class="information">
+                        <p>Prezzo: ${dataCarta.prezzo}€</p>
+                        <br>
+                        <p>Affitto: ${dataCarta.affitto}€</p>
+                        <p>Affitto Completo: ${dataCarta.affittoCompleto}€</p>
+                        <p>Affitto Casa 1: ${dataCarta.affittoCasa1}€</p>
+                        <p>Affitto Casa 2: ${dataCarta.affittoCasa2}€</p>
+                        <p>Affitto Casa 3: ${dataCarta.affittoCasa3}€</p>
+                        <p>Affitto Casa 4: ${dataCarta.affittoCasa4}€</p>
+                        <p>Affitto Albergo: ${dataCarta.affittoAlbergo}€</p>
+                        <p>Costo Casa: ${dataCarta.costoCasa}€</p>
+                        <p>Costo Albergo: ${dataCarta.costoAlbergo}€</p>
+                    </div>`;
+
+                        document.getElementById('descrizioneCarta').innerHTML = descrizione;
+                        document.getElementById('messaggioCarta').style.display = 'flex';
+                        muove = true;
+
+                    } else {
+                        const descrizione = `
+                    <p class="name">${dataCarta.nome}</p>
+                    <div class="information">
+                        <p>Proprietà di: ${data['possessore']}</p>
+                        <p>Affitto da pagare: ${dataCarta.affitto}€</p>
+                    </div>`;
+
+                        document.getElementById('descrizioneCarta').innerHTML = descrizione;
+                        document.getElementById('messaggioCarta').style.display = 'flex';
+
+                        fetch(url + 'Board/pagaAffitto', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                uuid: UUID,
+                                playerId: id,
+                                idProprieta: idNumerico
+                            })
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                controllo = data["controllo"]
+                                if(controllo === "success"){
+                                    aggiornaSaldo();
+                                    fineTurno();
+                                }else{
+                                    console.log("ERRORE.");
+                                }
+
+                            })
+                            .catch(error => {
+                                console.error("Errore nel pagamento affitto:", error);
+                            });
+                    }
+                })
+                .catch(error => {
+                    console.error('Errore nella richiesta della carta normale:', error);
+                    alert('Errore nella connessione al server.');
+                });
         })
         .catch(error => {
-            console.error('Errore nella richiesta della carta normale:', error);
-            alert('Errore nella connessione al server.');
+            console.error('Error:', error);
         });
 }
+
 
 function salvaSaldo(){
     fetch(url + '/Board/salvaSaldo', {
@@ -467,7 +495,6 @@ function salvaSaldo(){
             return response.json();
         }).then(data => {
         if (data.successo) {
-            console.log("Saldo aggiornato con successo.");
             fineTurno();
         } else {
             console.warn("Errore lato server:", data.errore || "Aggiornamento saldo fallito");
@@ -479,7 +506,6 @@ function salvaSaldo(){
 }
 
 function compraProprieta() {
-    console.log(posizioniGiocatori[usernameAttuale]);
     fetch(url + '/board/compraProprieta', {
         method: 'POST',
         headers: {
@@ -493,7 +519,6 @@ function compraProprieta() {
         }).then(data => {
         if(data.success) {
             alert("Proprietà acquistata con successo!");
-            // aggiorna UI, saldo, ecc.
         } else {
             alert("Errore: " + data.error);
         }
@@ -504,8 +529,7 @@ function compraProprieta() {
 function chiudiMessaggio(buy) {
     const messaggio = document.getElementById("messaggioCarta");
     messaggio.style.display = "none";
-
-    // Se c'è un movimento automatico verso Data Cube Matrix
+    
     if (destinazioneVeloce !== null) {
         muove = true;
         intervalAnimazione = setInterval(muoviPedina, 1);
@@ -516,7 +540,6 @@ function chiudiMessaggio(buy) {
     }
     if (buy == false){
         price = 0;
-        console.log(price);
     }
     salvaSaldo();
 }

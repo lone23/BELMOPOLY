@@ -207,4 +207,38 @@ class Board
         header('Content-Type: application/json');
         echo json_encode($posizioni);
     }
+
+    public function controlloProprieta()
+    {
+        $json = file_get_contents('php://input');
+        $data = json_decode($json, true);
+        $GestioneParita = new \models\GestionePartita();
+        $infoCarta = $GestioneParita->proprietaPosseduta($data["idNumerico"]);
+        $response = $infoCarta;
+        header('Content-Type: application/json');
+        echo json_encode($response);
+    }
+
+    public function pagaAffitto()
+    {
+        $json = file_get_contents('php://input');
+        $data = json_decode($json, true);
+
+        $uuid = $data['uuid'];
+        $playerId = $data['playerId'];
+        $idProprieta = $data['idProprieta'];
+
+        $GestionePartita = new \models\GestionePartita();
+
+        $affitto = $GestionePartita->getAffittoBase($idProprieta);
+
+        $proprietarioId = $GestionePartita->getGiocatore($uuid, $idProprieta);
+
+
+        $GestionePartita->aggiornaSaldoAffitto($uuid, $playerId ,$proprietarioId, $affitto);
+
+        echo json_encode(["controllo" => "success"]);
+    }
+
+
 }
