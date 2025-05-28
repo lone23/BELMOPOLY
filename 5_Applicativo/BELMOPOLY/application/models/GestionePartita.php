@@ -79,50 +79,19 @@ class GestionePartita
 
 
             // Prima controlla se la proprietà è già acquistata
-            $stmt = $this->conn->prepare("
-                SELECT id_utente 
-                FROM proprietaAppartengono 
-                WHERE id_proprieta = :idProprieta 
-                AND id_partita = :idPartita
-            ");
-            $stmt->execute([
-                'idProprieta' => $idProprieta,
-                'idPartita' => $idPartita
-            ]);
-            $proprietario = $stmt->fetch();
-            \libs\Logger::log("INFO -> PROPRIETARIO: " . $proprietario['id_utente']);
-            if ($proprietario) {
-                $stmt = $this->conn->prepare("
-                    SELECT affitto 
-                    FROM proprietaNormali 
-                    WHERE id = :idProprieta 
-                ");
-                $stmt->execute([
-                    'idProprieta' => $idProprieta
-                ]);
-                $proprieta = $stmt->fetch();
-                \libs\Logger::log("INFO -> Affitto proprietà: " . json_encode($proprieta['affitto']));
-                return [
-                    'success' => false,
-                    'gia_posseduta' => true,
-                    'id_utente' => $proprietario['id_utente'],
-                    'pagamento' => $proprieta['affitto']
-                ];
-            } else  {
-                // Inserisci la relazione proprietà - utente
-                \libs\Logger::log("INFO -> INSERITO => PROPRIETAID: " . $idProprieta . " | PARTITAID: "  . $idPartita . " | UTENTEID: " . $idUtente);
-                $stmt = $this->conn->prepare("
-                    INSERT INTO proprietaAppartengono (id_proprieta, id_partita, id_utente) 
-                    VALUES (:idProprieta, :idPartita, :idUtente)
-                ");
-                $success = $stmt->execute([
-                    'idProprieta' => $idProprieta,
-                    'idPartita' => $idPartita,
-                    'idUtente' => $idUtente
-                ]);
-
-                return ['success' => $success];
+            $stmt = $this->conn->prepare("SELECT COUNT(*) FROM proprietaAppartengono WHERE id_proprieta = :idProprieta");
+            $stmt->execute(['idProprieta' => $idProprieta]);
+            if ($stmt->fetchColumn() > 0) {
+                \libs\Logger::log("INFO -> PROPRIETA GIA VENDUTA");
+                return false;  // proprietà già venduta
             }
+
+            // Inserisci la relazione proprietà - utente
+            \libs\Logger::log("INFO -> INSERITO => PROPRIETAID: " . $idProprieta . " | PARTITAID: "  . $idPartita . " | UTENTEID: " . $idUtente);
+            $stmt = $this->conn->prepare("INSERT INTO proprietaAppartengono (id_proprieta, id_partita, id_utente) VALUES (:idProprieta, :idPartita, :idUtente)");
+            return $stmt->execute(['idProprieta' => $idProprieta, 'idPartita' => $idPartita, 'idUtente' => $idUtente]);
+
+
         } catch (PDOException $e) {
             // gestisci errore o logga
             return false;
